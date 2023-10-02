@@ -8,7 +8,6 @@ char *names[] = {
     "snake",
     "minotaur",
     "demon",
-    "boss",
     "skeleton",
     "ghost"};
 
@@ -19,7 +18,7 @@ char *hero[] = {
     "  /,|`--._,-^|            " RED "," RESET "",
     "  \\_| |`-._/||          " RED ",'|" RESET "",
     "    |  `-, / |         " RED "/  /" RESET "",
-    "    |     || |        " RED "/  /" RESET "",
+    "    |     || |        " RED "/  / " RESET "",
     "     `r-._||/   __   /  /",
     " __,-<_     )`-/  `./  /",
     "'  \\   `---'   \\   /  /",
@@ -91,7 +90,7 @@ char *demon[] = {
     "  /.--.\\  .-.  /.||.\\",
     " /.,   \\\\(" RED "0" RESET "." RED "0" RESET ")// || \\\\",
     "/;`\";/\\ \\\\|" RED "m" RESET "|//  ||  ;\\",
-    " |:   \\ \\__`:`____||__:|",
+    "|:   \\ \\__`:`____||__:|",
     "|:    \\__ \\T/ (@~)(~@)|",
     "|:    _/|     |\\_\\/  :|",
     "|:   /  |     |  \\   :|",
@@ -282,4 +281,69 @@ void display_hero()
         printf("%-*s", maxLineLength, hero[i]);
         printf("\n");
     }
+}
+
+void display_menu_design()
+{
+    // Calculate the number of lines for both hero and demon
+    int numLines1 = sizeof(hero) / sizeof(hero[0]);
+    int numLines2 = sizeof(demon) / sizeof(demon[0]);
+
+    // Find the maximum line length for both hero and demon
+    int maxLineLength1 = 0;
+    int maxLineLength2 = 0;
+
+    for (int i = 0; i < numLines1; i++)
+    {
+        int lineLength = actualStringLength(hero[i]);
+        if (lineLength > maxLineLength1)
+        {
+            maxLineLength1 = lineLength;
+        }
+    }
+
+    for (int i = 0; i < numLines2; i++)
+    {
+        int lineLength = actualStringLength(demon[i]);
+        if (lineLength > maxLineLength2)
+        {
+            maxLineLength2 = lineLength;
+        }
+    }
+
+    // Determine the maximum number of lines between hero and demon
+    int maxNumLines = (numLines1 > numLines2) ? numLines1 : numLines2;
+
+    // Display both hero and demon on the same line
+    for (int i = 0; i < maxNumLines; i++)
+    {
+        // Display hero line (or spaces if not available)
+        if (i < numLines1)
+        {
+            printf("%-*s", maxLineLength1, hero[i]);
+        }
+        else
+        {
+            printf("%-*s", maxLineLength1, "");
+        }
+
+        // Display a space between hero and demon
+        printf(" ");
+
+        // Display demon line (or spaces if not available)
+        if (i < numLines2)
+        {
+            printf("%-*s", maxLineLength2, demon[i]);
+        }
+
+        printf("\n");
+    }
+
+    // Print "DOOMDEPTHS" in ASCII art with colors
+    printf(RED " _____    ____    ____   __  __  _____   ______  _____  _______  _    _   _____ \n");
+    printf(RED_2 "|  __ \\  / __ \\  / __ \\ |  \\/  ||  __ \\ |  ____||  __ \\|__   __|| |  | | / ____|\n");
+    printf(RED_3 "| |  | || |  | || |  | || \\  / || |  | || |__   | |__) |  | |   | |__| || (___  \n");
+    printf(RED_4 "| |  | || |  | || |  | || |\\/| || |  | ||  __|  |  ___/   | |   |  __  | \\___ \\ \n");
+    printf(RED_5 "| |__| || |__| || |__| || |  | || |__| || |____ | |       | |   | |  | | ____) |\n");
+    printf(RED_6 "|_____/  \\____/  \\____/ |_|  |_||_____/ |______||_|       |_|   |_|  |_||_____/ \n" RESET);
 }
