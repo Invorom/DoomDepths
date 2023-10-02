@@ -28,6 +28,12 @@ typedef struct Monster
     int defense;
 } Monster;
 
+typedef struct Monsters
+{
+    short numMonsters;
+    Monster **monsters;
+} Monsters;
+
 /**
  * @brief Creates a monster with random attributes.
  *
@@ -36,12 +42,28 @@ typedef struct Monster
 Monster *create_monster();
 
 /**
- * @brief Creates an array of monsters with random attributes.
+ * @brief Initializes a list of monsters.
  *
  * @param numMonsters
  * @return Monster**
  */
-Monster **create_monsters(int *numMonsters);
+Monsters *initialize_monsters();
+
+/**
+ * @brief Adds a monster to the list of monsters.
+ *
+ * @param monsters
+ * @param monster
+ * @return Monsters*
+ */
+Monsters *add_monster_to_monsters(Monsters *monsters, Monster *monster);
+
+/**
+ * @brief Prints all monsters
+ *
+ * @param monsters
+ */
+void print_monsters(Monsters *monsters);
 
 /**
  * @brief Displays the monster's attributes and ASCII art.
@@ -49,14 +71,6 @@ Monster **create_monsters(int *numMonsters);
  * @param monster
  */
 void display_monster(Monster *monster);
-
-/**
- * @brief Displays all monsters' attributes and ASCII art.
- *
- * @param monsters
- * @param numMonsters
- */
-void display_monsters(Monster **monsters, int numMonsters);
 
 /**
  * @brief Displays the hero's ASCII art.
