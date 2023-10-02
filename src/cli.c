@@ -10,12 +10,6 @@
 #define RED_5 "\x1b[38;5;88m"
 #define RED_6 "\x1b[38;5;52m"
 
-#define GREEN "\x1b[32m"
-#define YELLOW "\x1b[33m"
-#define BLUE "\x1b[34m"
-#define MAGENTA "\x1b[35m"
-#define CYAN "\x1b[36m"
-#define BLACK "\x1b[30m"
 #define RESET "\x1b[0m"
 
 void clear_screen()
@@ -27,6 +21,30 @@ void clear_lines(int lines)
 {
     for (int i = 0; i < lines; ++i)
         printf("\x1b[1F\x1b[2K");
+}
+
+int actualStringLength(const char *str)
+{
+    int length = 0;
+    int inColorCode = 0;
+
+    for (int i = 0; str[i] != '\0'; i++)
+    {
+        if (str[i] == '\x1B')
+        { // Check for ANSI escape code
+            inColorCode = 1;
+        }
+        else if (inColorCode && str[i] == 'm')
+        {
+            inColorCode = 0;
+        }
+        else if (!inColorCode)
+        {
+            length++;
+        }
+    }
+
+    return length;
 }
 
 void main_menu()
@@ -49,7 +67,7 @@ void main_menu()
         int maxLineLength = 0;
         for (int i = 0; i < numLines1; i++)
         {
-            int lineLength = strlen(hero[i]);
+            int lineLength = actualStringLength(hero[i]);
             if (lineLength > maxLineLength)
             {
                 maxLineLength = lineLength;
@@ -57,7 +75,7 @@ void main_menu()
         }
         for (int i = 0; i < numLines2; i++)
         {
-            int lineLength = strlen(demon[i]);
+            int lineLength = actualStringLength(demon[i]);
             if (lineLength > maxLineLength)
             {
                 maxLineLength = lineLength;
