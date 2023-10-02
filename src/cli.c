@@ -53,48 +53,7 @@ void main_menu()
     do
     {
         clear_screen();
-        // ANSI escape codes for clearing the screen and resetting text color
-        char *clear_screen = "\x1b[2J";
-        char *reset_color = "\x1b[0m";
-
-        // Clear the screen and reset text color
-        printf("%s", clear_screen);
-
-        int numLines1 = sizeof(hero) / sizeof(hero[0]);
-        int numLines2 = sizeof(demon) / sizeof(demon[0]);
-
-        // Determine the maximum line length from both art pieces
-        int maxLineLength = 0;
-        for (int i = 0; i < numLines1; i++)
-        {
-            int lineLength = actualStringLength(hero[i]);
-            if (lineLength > maxLineLength)
-            {
-                maxLineLength = lineLength;
-            }
-        }
-        for (int i = 0; i < numLines2; i++)
-        {
-            int lineLength = actualStringLength(demon[i]);
-            if (lineLength > maxLineLength)
-            {
-                maxLineLength = lineLength;
-            }
-        }
-
-        // Print the ASCII art pieces on top of each other
-        for (int i = 0; i < numLines1 || i < numLines2; i++)
-        {
-            if (i < numLines1)
-            {
-                printf("%-*s", maxLineLength, hero[i]);
-            }
-            if (i < numLines2)
-            {
-                printf("     %s", demon[i]);
-            }
-            printf("\n");
-        }
+        display_hero();
 
         // Print "DOOMDEPTHS" in ASCII art with colors
         printf(RED " _____    ____    ____   __  __  _____   ______  _____  _______  _    _   _____ \n");
@@ -112,7 +71,9 @@ void main_menu()
         switch (choice)
         {
         case 1:
-            printf("Start Game\n");
+            clear_screen();
+            Monster *monster = create_monster();
+            display_monster(monster);
             break;
         case 2:
             break;
