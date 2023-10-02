@@ -23,6 +23,12 @@ void clear_lines(int lines)
         printf("\x1b[1F\x1b[2K");
 }
 
+void wait_for_enter()
+{
+    printf("\nPress [ENTER] to continue...");
+    clear_stdin();
+}
+
 int actualStringLength(const char *str)
 {
     int length = 0;
@@ -82,10 +88,4 @@ void main_menu()
             break;
         }
     } while (choice < 1 || choice > 2);
-}
-
-void wait_for_enter()
-{
-    printf("\nPress [ENTER] to continue...");
-    clear_stdin();
 }
