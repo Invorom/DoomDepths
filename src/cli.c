@@ -59,20 +59,26 @@ void main_menu()
         {
         case 1:
             clear_screen();
-            int numMonsters;
-            Monster **monsters = create_monsters(&numMonsters);
+            Monsters *monsters = initialize_monsters();
 
-            printf("\nGenerated Monsters:\n");
-            display_monsters(monsters, numMonsters);
+            // Seed the random number generator once at the beginning of the program
+            srand(time(NULL));
 
-            // Free allocated memory for monsters
-            for (int i = 0; i < numMonsters; i++)
+            // Randomize between 1 and 5 monsters
+            int numMonsters = rand() % 5 + 1;
+            for (int i = 0; i < numMonsters; ++i)
             {
-                free(monsters[i]->name);
-                free(monsters[i]);
+                // Generate a unique seed for each monster
+                unsigned int seed = (unsigned int)time(NULL) + i;
+
+                Monster *monster = create_monster(seed);               // Create a new monster
+                monsters = add_monster_to_monsters(monsters, monster); // Add the new monster to the list
             }
-            free(monsters);
+
+            print_monsters(monsters);
+
             break;
+
         case 2:
             break;
         default:
