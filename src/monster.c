@@ -2,6 +2,8 @@
 #include "utils.h"
 #include "cli.h"
 
+#define MAX_MONSTERS 5
+
 char *names[] = {
     "ant",
     "snail",
@@ -197,6 +199,27 @@ Monster *create_monster()
     return monster;
 }
 
+// Function to create a random number of monsters (between 1 and 5)
+Monster **create_monsters(int *numMonsters)
+{
+    srand(time(NULL));
+    *numMonsters = rand() % MAX_MONSTERS + 1; // Random number of monsters between 1 and 5
+
+    Monster **monsters = malloc(*numMonsters * sizeof(Monster *));
+    if (!monsters)
+    {
+        fprintf(stderr, "Error: memory allocation for monsters failed\n");
+        exit(EXIT_FAILURE);
+    }
+
+    for (int i = 0; i < *numMonsters; i++)
+    {
+        monsters[i] = create_monster();
+    }
+
+    return monsters;
+}
+
 void display_monster(Monster *monster)
 {
     printf("Name: %s\n", monster->name);
@@ -260,6 +283,17 @@ void display_monster(Monster *monster)
         {
             printf("%s\n", ghost[i]);
         }
+    }
+}
+
+// Function to display multiple monsters
+void display_monsters(Monster **monsters, int numMonsters)
+{
+    for (int i = 0; i < numMonsters; i++)
+    {
+        printf("Monster %d:\n", i + 1);
+        display_monster(monsters[i]);
+        printf("\n");
     }
 }
 
