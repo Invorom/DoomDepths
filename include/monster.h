@@ -28,10 +28,30 @@ typedef struct Monster
     int defense;
 } Monster;
 
+/**
+ * @brief Creates a monster with random attributes.
+ * 
+ * @return Monster* 
+ */
 Monster *create_monster();
 
+/**
+ * @brief Displays the monster's attributes.
+ * 
+ * @param monster 
+ */
 void display_monster(Monster *monster);
 
+/**
+ * @brief Displays the hero's ASCII art.
+ * 
+ */
 void display_hero();
+
+/**
+ * @brief Displays the menu design with the hero, a demon and the title.
+ * 
+ */
+void display_menu_design();
 
 #endif
