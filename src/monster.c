@@ -3,7 +3,6 @@
 #include "cli.h"
 
 char *names[] = {
-    "hero",
     "ant",
     "snail",
     "snake",
@@ -205,6 +204,64 @@ void display_monster(Monster *monster)
     printf("Life: %d\n", monster->life);
     printf("Attack: %d - %d\n", monster->attackMin, monster->attackMax);
     printf("Defense: %d\n", monster->defense);
+
+    // Display the monster's ASCII art based on its name
+    if (strcmp(monster->name, "ant") == 0)
+    {
+        for (int i = 0; i < sizeof(ant) / sizeof(ant[0]); i++)
+        {
+            printf("%s\n", ant[i]);
+        }
+    }
+    else if (strcmp(monster->name, "snail") == 0)
+    {
+        for (int i = 0; i < sizeof(snail) / sizeof(snail[0]); i++)
+        {
+            printf("%s\n", snail[i]);
+        }
+    }
+    else if (strcmp(monster->name, "snake") == 0)
+    {
+        for (int i = 0; i < sizeof(snake) / sizeof(snake[0]); i++)
+        {
+            printf("%s\n", snake[i]);
+        }
+    }
+    else if (strcmp(monster->name, "minotaur") == 0)
+    {
+        for (int i = 0; i < sizeof(minotaur) / sizeof(minotaur[0]); i++)
+        {
+            printf("%s\n", minotaur[i]);
+        }
+    }
+    else if (strcmp(monster->name, "demon") == 0)
+    {
+        for (int i = 0; i < sizeof(demon) / sizeof(demon[0]); i++)
+        {
+            printf("%s\n", demon[i]);
+        }
+    }
+    else if (strcmp(monster->name, "boss") == 0)
+    {
+        for (int i = 0; i < sizeof(boss) / sizeof(boss[0]); i++)
+        {
+            printf("%s\n", boss[i]);
+        }
+    }
+    else if (strcmp(monster->name, "skeleton") == 0)
+    {
+        for (int i = 0; i < sizeof(skeleton) / sizeof(skeleton[0]); i++)
+        {
+            printf("%s\n", skeleton[i]);
+        }
+    }
+    else if (strcmp(monster->name, "ghost") == 0)
+    {
+        for (int i = 0; i < sizeof(ghost) / sizeof(ghost[0]); i++)
+        {
+            printf("%s\n", ghost[i]);
+        }
+    }
 }
 
 void display_hero()
