@@ -1,4 +1,5 @@
 #include "cli.h"
+#include "monster.h"
 
 // ANSI escape codes for text colors
 // Different shades of red
@@ -41,47 +42,8 @@ void main_menu()
         // Clear the screen and reset text color
         printf("%s", clear_screen);
 
-        char *hero[] = {
-            "      _,.",
-            "    ,` -.)",
-            "   ( _/-\\-._",
-            "  /,|`--._,-^|            ,",
-            "  \\_| |`-._/||          ,'|",
-            "    |  `-, / |         /  /",
-            "    |     || |        /  /",
-            "     `r-._||/   __   /  /",
-            " __,-<_     )`-/  `./  /",
-            "'  \\   `---'   \\   /  /",
-            "    |           |./  /",
-            "    /           //  /",
-            "\\_/' \\         |/  /",
-            " |    |   _,^-'/  /",
-            " |    , ``  (\\/  /_",
-            "  \\,.->._    \\X-=/^",
-            "  (  /   `-._//^`",
-            "   `Y-.____(__}",
-            "    |     {__}",
-            "          ()"};
-
-        char *evil[] = {
-            "                 /\\",
-            "                 ||",
-            "   ____ (((+))) _||_",
-            "  /.--.\\  .-.  /.||.\\",
-            " /.,   \\\\(0.0)// || \\\\",
-            "/;`\";/\\ \\\\|m|//  ||  ;\\",
-            "|:   \\ \\__`:`____||__:|",
-            "|:    \\__ \\T/ (@~)(~@)|",
-            "|:    _/|     |\\_\\/  :|",
-            "|:   /  |     |  \\   :|",
-            "|'  /   |     |   \\  '|",
-            " \\_/    |     |    \\_/",
-            "        |     |",
-            "        |_____|",
-            "        |_____|"};
-
         int numLines1 = sizeof(hero) / sizeof(hero[0]);
-        int numLines2 = sizeof(evil) / sizeof(evil[0]);
+        int numLines2 = sizeof(demon) / sizeof(demon[0]);
 
         // Determine the maximum line length from both art pieces
         int maxLineLength = 0;
@@ -95,7 +57,7 @@ void main_menu()
         }
         for (int i = 0; i < numLines2; i++)
         {
-            int lineLength = strlen(evil[i]);
+            int lineLength = strlen(demon[i]);
             if (lineLength > maxLineLength)
             {
                 maxLineLength = lineLength;
@@ -111,7 +73,7 @@ void main_menu()
             }
             if (i < numLines2)
             {
-                printf("     %s", evil[i]);
+                printf("     %s", demon[i]);
             }
             printf("\n");
         }
