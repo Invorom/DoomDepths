@@ -38,7 +38,7 @@ char *hero[] = {
 char *ant[] = {
     "\\(\")/   \n"
     "-( )-    \n"
-    "/(_)\n"};
+    "/(_)\\\n"};
 
 char *snail[] = {
     "@             _________  \n"
@@ -165,10 +165,8 @@ char *ghost[] = {
     " \\   \\ \n"
     "  `~~~'\n"};
 
-Monster *create_monster()
+Monster *create_monster(unsigned int seed)
 {
-    srand(time(NULL));
-
     // Allocate memory for the monster
     Monster *monster = malloc(sizeof(Monster));
 
@@ -177,6 +175,9 @@ Monster *create_monster()
         fprintf(stderr, "Error: memory allocation for monster failed\n");
         exit(EXIT_FAILURE);
     }
+
+    // Use the provided seed for random number generation
+    srand(seed);
 
     // Create random monster
     int randomIndex = rand() % (sizeof(names) / sizeof(names[0]));
@@ -195,38 +196,39 @@ Monster *create_monster()
     monster->attackMax = attackMax;
     monster->defense = defense;
 
-    // Return monster
     return monster;
 }
 
 // Function to create a random number of monsters (between 1 and 5)
-Monster **create_monsters(int *numMonsters)
+Monsters *initialize_monsters()
 {
-    srand(time(NULL));
-    *numMonsters = rand() % MAX_MONSTERS + 1; // Random number of monsters between 1 and 5
+    Monsters *monsters = malloc(sizeof(Monsters));
 
-    Monster **monsters = malloc(*numMonsters * sizeof(Monster *));
-    if (!monsters)
-    {
-        fprintf(stderr, "Error: memory allocation for monsters failed\n");
-        exit(EXIT_FAILURE);
-    }
-
-    for (int i = 0; i < *numMonsters; i++)
-    {
-        monsters[i] = create_monster();
-    }
+    monsters->numMonsters = 0;
+    monsters->monsters = malloc(sizeof(Monster *));
 
     return monsters;
 }
 
+Monsters *add_monster_to_monsters(Monsters *monsters, Monster *monster)
+{
+    monsters->numMonsters++;
+    monsters->monsters = realloc(monsters->monsters, monsters->numMonsters * sizeof(Monster *));
+    monsters->monsters[monsters->numMonsters - 1] = monster;
+
+    return monsters;
+}
+
+void print_monsters(Monsters *monsters)
+{
+    for (int i = 0; i < monsters->numMonsters; i++)
+    {
+        display_monster(monsters->monsters[i]);
+    }
+}
+
 void display_monster(Monster *monster)
 {
-    printf("Name: %s\n", monster->name);
-    printf("Life: %d\n", monster->life);
-    printf("Attack: %d - %d\n", monster->attackMin, monster->attackMax);
-    printf("Defense: %d\n", monster->defense);
-
     // Display the monster's ASCII art based on its name
     if (strcmp(monster->name, "ant") == 0)
     {
@@ -283,17 +285,6 @@ void display_monster(Monster *monster)
         {
             printf("%s\n", ghost[i]);
         }
-    }
-}
-
-// Function to display multiple monsters
-void display_monsters(Monster **monsters, int numMonsters)
-{
-    for (int i = 0; i < numMonsters; i++)
-    {
-        printf("Monster %d:\n", i + 1);
-        display_monster(monsters[i]);
-        printf("\n");
     }
 }
 
