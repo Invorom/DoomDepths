@@ -41,26 +41,88 @@ void main_menu()
         // Clear the screen and reset text color
         printf("%s", clear_screen);
 
-        // Print the monster in ASCII art with colors
-        printf(RED "         ()_()");
-        printf(RED "          ()_()\n");
-        printf(YELLOW "        ,/   \\,");
-        printf(YELLOW "        ,/   \\,\n");
-        printf(GREEN "        {.-.-.}");
-        printf(GREEN "        {~o~o~}\n");
-        printf(BLUE "        : / \\ :");
-        printf(BLUE "        : / \\ :\n");
-        printf(MAGENTA "         \\_/_/");
-        printf(MAGENTA "          \\_/_/\n");
-        printf(RESET); // Reset text color
+        char *hero[] = {
+            "      _,.",
+            "    ,` -.)",
+            "   ( _/-\\-._",
+            "  /,|`--._,-^|            ,",
+            "  \\_| |`-._/||          ,'|",
+            "    |  `-, / |         /  /",
+            "    |     || |        /  /",
+            "     `r-._||/   __   /  /",
+            " __,-<_     )`-/  `./  /",
+            "'  \\   `---'   \\   /  /",
+            "    |           |./  /",
+            "    /           //  /",
+            "\\_/' \\         |/  /",
+            " |    |   _,^-'/  /",
+            " |    , ``  (\\/  /_",
+            "  \\,.->._    \\X-=/^",
+            "  (  /   `-._//^`",
+            "   `Y-.____(__}",
+            "    |     {__}",
+            "          ()"};
+
+        char *evil[] = {
+            "                 /\\",
+            "                 ||",
+            "   ____ (((+))) _||_",
+            "  /.--.\\  .-.  /.||.\\",
+            " /.,   \\\\(0.0)// || \\\\",
+            "/;`\";/\\ \\\\|m|//  ||  ;\\",
+            "|:   \\ \\__`:`____||__:|",
+            "|:    \\__ \\T/ (@~)(~@)|",
+            "|:    _/|     |\\_\\/  :|",
+            "|:   /  |     |  \\   :|",
+            "|'  /   |     |   \\  '|",
+            " \\_/    |     |    \\_/",
+            "        |     |",
+            "        |_____|",
+            "        |_____|"};
+
+        int numLines1 = sizeof(hero) / sizeof(hero[0]);
+        int numLines2 = sizeof(evil) / sizeof(evil[0]);
+
+        // Determine the maximum line length from both art pieces
+        int maxLineLength = 0;
+        for (int i = 0; i < numLines1; i++)
+        {
+            int lineLength = strlen(hero[i]);
+            if (lineLength > maxLineLength)
+            {
+                maxLineLength = lineLength;
+            }
+        }
+        for (int i = 0; i < numLines2; i++)
+        {
+            int lineLength = strlen(evil[i]);
+            if (lineLength > maxLineLength)
+            {
+                maxLineLength = lineLength;
+            }
+        }
+
+        // Print the ASCII art pieces on top of each other
+        for (int i = 0; i < numLines1 || i < numLines2; i++)
+        {
+            if (i < numLines1)
+            {
+                printf("%-*s", maxLineLength, hero[i]);
+            }
+            if (i < numLines2)
+            {
+                printf("     %s", evil[i]);
+            }
+            printf("\n");
+        }
 
         // Print "DOOMDEPTHS" in ASCII art with colors
         printf(RED " _____    ____    ____   __  __  _____   ______  _____  _______  _    _   _____ \n");
-        printf(RED_2"|  __ \\  / __ \\  / __ \\ |  \\/  ||  __ \\ |  ____||  __ \\|__   __|| |  | | / ____|\n");
-        printf(RED_3"| |  | || |  | || |  | || \\  / || |  | || |__   | |__) |  | |   | |__| || (___  \n");
-        printf(RED_4"| |  | || |  | || |  | || |\\/| || |  | ||  __|  |  ___/   | |   |  __  | \\___ \\ \n");
-        printf(RED_5"| |__| || |__| || |__| || |  | || |__| || |____ | |       | |   | |  | | ____) |\n");
-        printf(RED_6"|_____/  \\____/  \\____/ |_|  |_||_____/ |______||_|       |_|   |_|  |_||_____/ \n" RESET);
+        printf(RED_2 "|  __ \\  / __ \\  / __ \\ |  \\/  ||  __ \\ |  ____||  __ \\|__   __|| |  | | / ____|\n");
+        printf(RED_3 "| |  | || |  | || |  | || \\  / || |  | || |__   | |__) |  | |   | |__| || (___  \n");
+        printf(RED_4 "| |  | || |  | || |  | || |\\/| || |  | ||  __|  |  ___/   | |   |  __  | \\___ \\ \n");
+        printf(RED_5 "| |__| || |__| || |__| || |  | || |__| || |____ | |       | |   | |  | | ____) |\n");
+        printf(RED_6 "|_____/  \\____/  \\____/ |_|  |_||_____/ |______||_|       |_|   |_|  |_||_____/ \n" RESET);
 
         printf("\n 1. Start Game\n 2. Quit\n\n");
         printf("Enter your choice: ");
