@@ -39,4 +39,6 @@ void main_menu();
  */
 void wait_for_enter();
 
+int actualStringLength(const char *str);
+
 #endif
