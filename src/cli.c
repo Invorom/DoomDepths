@@ -59,8 +59,19 @@ void main_menu()
         {
         case 1:
             clear_screen();
-            Monster *monster = create_monster();
-            display_monster(monster);
+            int numMonsters;
+            Monster **monsters = create_monsters(&numMonsters);
+
+            printf("\nGenerated Monsters:\n");
+            display_monsters(monsters, numMonsters);
+
+            // Free allocated memory for monsters
+            for (int i = 0; i < numMonsters; i++)
+            {
+                free(monsters[i]->name);
+                free(monsters[i]);
+            }
+            free(monsters);
             break;
         case 2:
             break;
