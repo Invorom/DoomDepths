@@ -182,10 +182,10 @@ Monster *create_monster(unsigned int seed)
     // Create random monster
     int randomIndex = rand() % (sizeof(names) / sizeof(names[0]));
     char *name = names[randomIndex];
-    int life = rand() % 100 + 1;
+    int life = rand() % 81 + 20;
     int attackMin = rand() % 10 + 1;
-    int attackMax = rand() % 20 + 1;
-    int defense = rand() % 5 + 1;
+    int attackMax = rand() % (100 - attackMin + 1) + attackMin;
+    int defense = rand() % 100 + 1;
 
     monster->name = malloc(strlen(name) + 1);
     strcpy(monster->name, name);
