@@ -84,4 +84,11 @@ void display_hero();
  */
 void display_menu_design();
 
+/**
+ * @brief Displays all monsters.
+ *
+ * @param monsters
+ */
+void dispaly_all_monsters(Monsters *monsters);
+
 #endif
