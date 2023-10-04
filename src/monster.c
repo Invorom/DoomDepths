@@ -511,3 +511,14 @@ void dispaly_all_monsters(Monsters *monsters)
 
     display_hero();
 }
+
+void free_monsters(Monsters *monsters)
+{
+    for (int i = 0; i < monsters->numMonsters; i++)
+    {
+        free(monsters->monsters[i]->name);
+        free(monsters->monsters[i]);
+    }
+    free(monsters->monsters);
+    free(monsters);
+}

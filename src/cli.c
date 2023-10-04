@@ -76,6 +76,7 @@ void main_menu()
             }
 
             dispaly_all_monsters(monsters);
+            free_monsters(monsters);
 
             break;
 

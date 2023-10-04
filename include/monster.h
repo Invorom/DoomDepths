@@ -91,4 +91,11 @@ void display_menu_design();
  */
 void dispaly_all_monsters(Monsters *monsters);
 
+/**
+ * @brief Frees the memory allocated for the list of monsters.
+ *
+ * @param monsters
+ */
+void free_monsters(Monsters *monsters);
+
 #endif
