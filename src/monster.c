@@ -36,12 +36,12 @@ char *hero[] = {
     "          ()"};
 
 char *ant[] = {
-    "              \\(\")/              ",
+    "              \\(" RED "\"" RESET ")/                ",
     "              -( )-                ",
     "              /(_)\\               "};
 
 char *snail[] = {
-    "@             _________            ",
+    "" RED "@" RESET "             _________            ",
     " \\____       /         \\         ",
     " /    \\     /   ____    \\        ",
     " \\_    \\   /   /    \\    \\     ",
@@ -51,7 +51,7 @@ char *snail[] = {
     "      \\______\\_________/____\\   "};
 
 char *snake[] = {
-    "                           (o)(o)  ",
+    "                           (" RED "o" RESET ")(" RED "o" RESET ")  ",
     "                          /     \\ ",
     "                         /       | ",
     "                        /   \\  * |",
@@ -66,7 +66,7 @@ char *minotaur[] = {
     "       .      .                    ",
     "       |\\____/|                   ",
     "      (\\|----|/)                  ",
-    "       \\ 0  0 /                   ",
+    "       \\ " RED "0" RESET "  " RED "0" RESET " /                    ",
     "        |    |                     ",
     "     ___/\\../\\____               ",
     "    /     --       \\              ",
@@ -90,7 +90,7 @@ char *demon[] = {
     "                    ||             ",
     "      ____ (((+))) _||_            ",
     "     /.--.\\  .-.  /.||.\\         ",
-    "    /.,   \\\\(0.0)// || \\\\      ",
+    "    /.,   \\\\(" RED "0" RESET "." RED "0" RESET ")// || \\\\          ",
     "   /;`\";/\\ \\\\|m|//  ||  ;\\    ",
     "   |:   \\ \\__`:`____||__:|       ",
     "   |:    \\__ \\T/ (@~)(~@)|       ",
@@ -104,7 +104,7 @@ char *demon[] = {
 
 char *skeleton[] = {
     "              .-.                  ",
-    "             (o.o)                 ",
+    "             (" RED "o" RESET "." RED "o" RESET ")                 ",
     "              |=|                  ",
     "             __|__                 ",
     "           //.=|=.\\\\             ",
@@ -120,7 +120,7 @@ char *skeleton[] = {
 
 char *ghost[] = {
     "           .-.                     ",
-    "          (o o) boo!               ",
+    "          (" RED "o" RESET " " RED "o" RESET ") boo!               ",
     "          | O \\                   ",
     "           \\   \\                 ",
     "            `~~~'                  "};
@@ -371,4 +371,139 @@ void display_menu_design()
     printf(RED_4 "| |  | || |  | || |  | || |\\/| || |  | ||  __|  |  ___/   | |   |  __  | \\___ \\ \n");
     printf(RED_5 "| |__| || |__| || |__| || |  | || |__| || |____ | |       | |   | |  | | ____) |\n");
     printf(RED_6 "|_____/  \\____/  \\____/ |_|  |_||_____/ |______||_|       |_|   |_|  |_||_____/ \n" RESET);
+}
+
+void dispaly_all_monsters(Monsters *monsters)
+{
+    // Determine the maximum line length
+    int maxLineLength = actualStringLength(snake[0]);
+
+    // Find the monster with the maximum number of lines
+    int maxNumLines = 0;
+
+    for (int i = 0; i < monsters->numMonsters; i++)
+    {
+        Monster *monster = monsters->monsters[i];
+        int numLines = 0;
+
+        // Determine the number of lines in this monster's ASCII art
+        if (strcmp(monster->name, "ant") == 0)
+        {
+            numLines = sizeof(ant) / sizeof(ant[0]);
+        }
+        else if (strcmp(monster->name, "snail") == 0)
+        {
+            numLines = sizeof(snail) / sizeof(snail[0]);
+        }
+        else if (strcmp(monster->name, "snake") == 0)
+        {
+            numLines = sizeof(snake) / sizeof(snake[0]);
+        }
+        else if (strcmp(monster->name, "minotaur") == 0)
+        {
+            numLines = sizeof(minotaur) / sizeof(minotaur[0]);
+        }
+        else if (strcmp(monster->name, "demon") == 0)
+        {
+            numLines = sizeof(demon) / sizeof(demon[0]);
+        }
+        else if (strcmp(monster->name, "skeleton") == 0)
+        {
+            numLines = sizeof(skeleton) / sizeof(skeleton[0]);
+        }
+        else if (strcmp(monster->name, "ghost") == 0)
+        {
+            numLines = sizeof(ghost) / sizeof(ghost[0]);
+        }
+
+        // Update the maximum number of lines
+        if (numLines > maxNumLines)
+        {
+            maxNumLines = numLines;
+        }
+    }
+
+    // Display all monsters on the same line
+    for (int i = 0; i < maxNumLines; i++)
+    {
+        for (int j = 0; j < monsters->numMonsters; j++)
+        {
+            Monster *monster = monsters->monsters[j];
+            int numLines = 0;
+
+            // Determine the number of lines in this monster's ASCII art
+            if (strcmp(monster->name, "ant") == 0)
+            {
+                numLines = sizeof(ant) / sizeof(ant[0]);
+            }
+            else if (strcmp(monster->name, "snail") == 0)
+            {
+                numLines = sizeof(snail) / sizeof(snail[0]);
+            }
+            else if (strcmp(monster->name, "snake") == 0)
+            {
+                numLines = sizeof(snake) / sizeof(snake[0]);
+            }
+            else if (strcmp(monster->name, "minotaur") == 0)
+            {
+                numLines = sizeof(minotaur) / sizeof(minotaur[0]);
+            }
+            else if (strcmp(monster->name, "demon") == 0)
+            {
+                numLines = sizeof(demon) / sizeof(demon[0]);
+            }
+            else if (strcmp(monster->name, "skeleton") == 0)
+            {
+                numLines = sizeof(skeleton) / sizeof(skeleton[0]);
+            }
+            else if (strcmp(monster->name, "ghost") == 0)
+            {
+                numLines = sizeof(ghost) / sizeof(ghost[0]);
+            }
+
+            // Display monster line (or spaces if not available)
+            if (i < numLines)
+            {
+                if (strcmp(monster->name, "ant") == 0)
+                {
+                    printf("%-*s", maxLineLength, ant[i]);
+                }
+                else if (strcmp(monster->name, "snail") == 0)
+                {
+                    printf("%-*s", maxLineLength, snail[i]);
+                }
+                else if (strcmp(monster->name, "snake") == 0)
+                {
+                    printf("%-*s", maxLineLength, snake[i]);
+                }
+                else if (strcmp(monster->name, "minotaur") == 0)
+                {
+                    printf("%-*s", maxLineLength, minotaur[i]);
+                }
+                else if (strcmp(monster->name, "demon") == 0)
+                {
+                    printf("%-*s", maxLineLength, demon[i]);
+                }
+                else if (strcmp(monster->name, "skeleton") == 0)
+                {
+                    printf("%-*s", maxLineLength, skeleton[i]);
+                }
+                else if (strcmp(monster->name, "ghost") == 0)
+                {
+                    printf("%-*s", maxLineLength, ghost[i]);
+                }
+            }
+            else
+            {
+                printf("%-*s", maxLineLength, "");
+            }
+
+            // Display a space between monsters
+            if (j < monsters->numMonsters - 1)
+            {
+                printf("  ");
+            }
+        }
+        printf("\n");
+    }
 }

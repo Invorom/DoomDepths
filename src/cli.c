@@ -75,7 +75,7 @@ void main_menu()
                 monsters = add_monster_to_monsters(monsters, monster); // Add the new monster to the list
             }
 
-            print_monsters(monsters);
+            dispaly_all_monsters(monsters);
 
             break;
 
