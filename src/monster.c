@@ -506,4 +506,8 @@ void dispaly_all_monsters(Monsters *monsters)
         }
         printf("\n");
     }
+
+    printf("\n\n\n\n\n");
+
+    display_hero();
 }
