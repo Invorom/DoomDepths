@@ -2,8 +2,6 @@
 #include "utils.h"
 #include "cli.h"
 
-#define MAX_MONSTERS 5
-
 char *names[] = {
     "ant",
     "snail",
