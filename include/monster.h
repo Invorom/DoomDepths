@@ -1,6 +1,10 @@
 #ifndef MONSTER_H
 #define MONSTER_H
 
+#include "hero.h"
+#include "utils.h"
+#include "cli.h"
+
 #define RED "\x1b[31m"
 #define RED_2 "\x1b[38;5;196m"
 #define RED_3 "\x1b[38;5;160m"
@@ -10,14 +14,7 @@
 
 #define RESET "\x1b[0m"
 
-#define RED "\x1b[31m"
-#define GREEN "\x1b[32m"
 #define YELLOW "\x1b[33m"
-#define BLUE "\x1b[34m"
-#define MAGENTA "\x1b[35m"
-#define CYAN "\x1b[36m"
-#define BLACK "\x1b[30m"
-#define RESET "\x1b[0m"
 
 typedef struct Monster
 {
@@ -63,7 +60,7 @@ Monsters *add_monster_to_monsters(Monsters *monsters, Monster *monster);
  *
  * @param monsters
  */
-void print_monsters(Monsters *monsters);
+void display_all_monsters(Monsters *monsters, Hero *hero);
 
 /**
  * @brief Displays the monster's attributes and ASCII art.
@@ -71,12 +68,6 @@ void print_monsters(Monsters *monsters);
  * @param monster
  */
 void display_monster(Monster *monster);
-
-/**
- * @brief Displays the hero's ASCII art.
- *
- */
-void display_hero();
 
 /**
  * @brief Displays the menu design with the hero, a demon and the title.
