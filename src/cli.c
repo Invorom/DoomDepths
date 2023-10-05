@@ -1,5 +1,6 @@
 #include "cli.h"
 #include "monster.h"
+#include "hero.h"
 
 void clear_screen()
 {
@@ -59,6 +60,7 @@ void main_menu()
         {
         case 1:
             clear_screen();
+            Hero *hero = initialize_hero();
             Monsters *monsters = initialize_monsters();
 
             // Seed the random number generator once at the beginning of the program
@@ -75,7 +77,7 @@ void main_menu()
                 monsters = add_monster_to_monsters(monsters, monster); // Add the new monster to the list
             }
 
-            dispaly_all_monsters(monsters);
+            display_all_monsters(monsters, hero);
             free_monsters(monsters);
 
             break;
