@@ -188,6 +188,7 @@ Monster *create_monster(unsigned int seed)
 
     // Set monster attributes
     monster->life = life;
+    monster->actualLife = life;
     monster->attackMin = attackMin;
     monster->attackMax = attackMax;
     monster->defense = defense;

@@ -20,6 +20,7 @@ typedef struct Monster
 {
     char *name;
     int life;
+    int actualLife;
     int attackMin;
     int attackMax;
     int defense;
