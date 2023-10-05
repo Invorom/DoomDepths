@@ -43,6 +43,50 @@ int actualStringLength(const char *str)
     return length;
 }
 
+void listen_user_input()
+{
+    // Listen the user input
+    struct termios orig_termios;
+    struct termios new_termios;
+
+    // Get the current terminal attributes
+    tcgetattr(STDIN_FILENO, &orig_termios);
+    new_termios = orig_termios;
+
+    // Disable canonical mode and echoing
+    new_termios.c_lflag &= ~(ICANON | ECHO);
+
+    // Set the new terminal attributes
+    tcsetattr(STDIN_FILENO, TCSANOW, &new_termios);
+
+    // Set non-blocking input
+    fcntl(STDIN_FILENO, F_SETFL, O_NONBLOCK);
+
+    printf("Press 'q' to quit\n");
+
+    while (1)
+    {
+        char input;
+        ssize_t bytesRead = read(STDIN_FILENO, &input, 1);
+
+        if (bytesRead > 0)
+        {
+            if (input == 'q')
+            {
+                break;
+            }
+            else
+            {
+                printf("Unknown command!\n");
+                clear_lines(1);
+            }
+        }
+    }
+
+    // Restore original terminal attributes
+    tcsetattr(STDIN_FILENO, TCSANOW, &orig_termios);
+}
+
 void main_menu()
 {
     int choice;

@@ -2,6 +2,9 @@
 #define CLI_H
 
 #include <stdio.h>
+#include <termios.h>
+#include <unistd.h>
+#include <fcntl.h>
 #include "utils.h"
 
 /**
@@ -41,10 +44,12 @@ void wait_for_enter();
 
 /**
  * @brief Gets the length of a string without counting ANSI escape codes.
- * 
- * @param str 
- * @return int 
+ *
+ * @param str
+ * @return int
  */
 int actualStringLength(const char *str);
+
+void listen_user_input();
 
 #endif

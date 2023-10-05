@@ -1,10 +1,11 @@
 #include "battle.h"
+#include "cli.h"
 
 void start_battle(Hero *hero)
 {
     Monsters *monsters = initialize_monsters();
 
-    // Seed the random number generator once at the beginning of the program
+    // Initialize the random seed
     srand(time(NULL));
 
     // Randomize between 1 and 5 monsters
@@ -20,4 +21,6 @@ void start_battle(Hero *hero)
 
     display_all_monsters(monsters, hero);
     free_monsters(monsters);
+
+    listen_user_input();
 }
