@@ -1,9 +1,9 @@
 #ifndef MONSTER_H
 #define MONSTER_H
 
-#include "hero.h"
 #include "utils.h"
 #include "cli.h"
+#include "hero.h"
 
 #define RED "\x1b[31m"
 #define RED_2 "\x1b[38;5;196m"
@@ -64,24 +64,10 @@ Monsters *add_monster_to_monsters(Monsters *monsters, Monster *monster);
 void display_all_monsters(Monsters *monsters, Hero *hero);
 
 /**
- * @brief Displays the monster's attributes and ASCII art.
- *
- * @param monster
- */
-void display_monster(Monster *monster);
-
-/**
  * @brief Displays the menu design with the hero, a demon and the title.
  *
  */
 void display_menu_design();
-
-/**
- * @brief Displays all monsters.
- *
- * @param monsters
- */
-void dispaly_all_monsters(Monsters *monsters);
 
 /**
  * @brief Frees the memory allocated for the list of monsters.
