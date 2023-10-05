@@ -39,4 +39,12 @@ void main_menu();
  */
 void wait_for_enter();
 
+/**
+ * @brief Gets the length of a string without counting ANSI escape codes.
+ * 
+ * @param str 
+ * @return int 
+ */
+int actualStringLength(const char *str);
+
 #endif
