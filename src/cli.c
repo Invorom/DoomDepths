@@ -43,9 +43,13 @@ int actualStringLength(const char *str)
     return length;
 }
 
-void listen_user_input()
+void restore_terminal_attributes(struct termios orig_termios)
 {
-    // Listen the user input
+    tcsetattr(STDIN_FILENO, TCSANOW, &orig_termios);
+}
+
+char listen_user_input()
+{
     struct termios orig_termios;
     struct termios new_termios;
 
@@ -62,8 +66,6 @@ void listen_user_input()
     // Set non-blocking input
     fcntl(STDIN_FILENO, F_SETFL, O_NONBLOCK);
 
-    printf("Press 'q' to quit\n");
-
     while (1)
     {
         char input;
@@ -71,20 +73,18 @@ void listen_user_input()
 
         if (bytesRead > 0)
         {
-            if (input == 'q')
+            if (input >= '0' && input <= '9')
             {
-                break;
+                restore_terminal_attributes(orig_termios); // Avoid broken terminal
+                return input;
             }
             else
             {
-                printf("Unknown command!\n");
+                printf("Please enter a valid number\n"); // For funny users
                 clear_lines(1);
             }
         }
     }
-
-    // Restore original terminal attributes
-    tcsetattr(STDIN_FILENO, TCSANOW, &orig_termios);
 }
 
 void main_menu()
