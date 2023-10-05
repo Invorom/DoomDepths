@@ -63,11 +63,12 @@ void main_menu()
 
             Hero *hero = initialize_hero();
             start_battle(hero);
-
+            free_hero(hero);
             break;
 
         case 2:
             break;
+
         default:
             choice = 0;
             break;

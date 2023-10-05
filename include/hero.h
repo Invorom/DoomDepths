@@ -31,4 +31,11 @@ void display_hero(Hero *hero);
  */
 Hero *initialize_hero();
 
+/**
+ * @brief Frees the hero.
+ *
+ * @param hero
+ */
+void free_hero(Hero *hero);
+
 #endif

@@ -77,3 +77,8 @@ void display_hero(Hero *hero)
         printf("\n");
     }
 }
+
+void free_hero(Hero *hero)
+{
+    free(hero);
+}
