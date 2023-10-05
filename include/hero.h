@@ -5,12 +5,14 @@
 #include "cli.h"
 
 #define RED "\x1b[31m"
+#define BLUE "\x1b[34m"
 #define RESET "\x1b[0m"
 
 typedef struct Hero
 {
     int life;
     int mana;
+    int gold;
     int attackMin;
     int attackMax;
     int defense;
