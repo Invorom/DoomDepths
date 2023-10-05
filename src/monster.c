@@ -1,6 +1,4 @@
 #include "monster.h"
-#include "utils.h"
-#include "cli.h"
 
 char *names[] = {
     "ant",
@@ -11,7 +9,7 @@ char *names[] = {
     "skeleton",
     "ghost"};
 
-char *hero[] = {
+char *heroArt[] = {
     "      _,.",
     "    ,` -.)",
     "   ( _/-\\-._",
@@ -217,99 +215,10 @@ Monsters *add_monster_to_monsters(Monsters *monsters, Monster *monster)
     return monsters;
 }
 
-void print_monsters(Monsters *monsters)
-{
-    for (int i = 0; i < monsters->numMonsters; i++)
-    {
-        display_monster(monsters->monsters[i]);
-    }
-}
-
-void display_monster(Monster *monster)
-{
-    // Display the monster's ASCII art based on its name
-    if (strcmp(monster->name, "ant") == 0)
-    {
-        for (int i = 0; i < sizeof(ant) / sizeof(ant[0]); i++)
-        {
-            printf("%s\n", ant[i]);
-        }
-    }
-    else if (strcmp(monster->name, "snail") == 0)
-    {
-        for (int i = 0; i < sizeof(snail) / sizeof(snail[0]); i++)
-        {
-            printf("%s\n", snail[i]);
-        }
-    }
-    else if (strcmp(monster->name, "snake") == 0)
-    {
-        for (int i = 0; i < sizeof(snake) / sizeof(snake[0]); i++)
-        {
-            printf("%s\n", snake[i]);
-        }
-    }
-    else if (strcmp(monster->name, "minotaur") == 0)
-    {
-        for (int i = 0; i < sizeof(minotaur) / sizeof(minotaur[0]); i++)
-        {
-            printf("%s\n", minotaur[i]);
-        }
-    }
-    else if (strcmp(monster->name, "demon") == 0)
-    {
-        for (int i = 0; i < sizeof(demon) / sizeof(demon[0]); i++)
-        {
-            printf("%s\n", demon[i]);
-        }
-    }
-    else if (strcmp(monster->name, "boss") == 0)
-    {
-        for (int i = 0; i < sizeof(boss) / sizeof(boss[0]); i++)
-        {
-            printf("%s\n", boss[i]);
-        }
-    }
-    else if (strcmp(monster->name, "skeleton") == 0)
-    {
-        for (int i = 0; i < sizeof(skeleton) / sizeof(skeleton[0]); i++)
-        {
-            printf("%s\n", skeleton[i]);
-        }
-    }
-    else if (strcmp(monster->name, "ghost") == 0)
-    {
-        for (int i = 0; i < sizeof(ghost) / sizeof(ghost[0]); i++)
-        {
-            printf("%s\n", ghost[i]);
-        }
-    }
-}
-
-void display_hero()
-{
-    // Print the hero
-    int numLines1 = sizeof(hero) / sizeof(hero[0]);
-    int maxLineLength = 0;
-    for (int i = 0; i < numLines1; i++)
-    {
-        int lineLength = actualStringLength(hero[i]);
-        if (lineLength > maxLineLength)
-        {
-            maxLineLength = lineLength;
-        }
-    }
-    for (int i = 0; i < numLines1; i++)
-    {
-        printf("%-*s", maxLineLength, hero[i]);
-        printf("\n");
-    }
-}
-
 void display_menu_design()
 {
     // Calculate the number of lines for both hero and demon
-    int numLines1 = sizeof(hero) / sizeof(hero[0]);
+    int numLines1 = sizeof(heroArt) / sizeof(heroArt[0]);
     int numLines2 = sizeof(demon) / sizeof(demon[0]);
 
     // Find the maximum line length for both hero and demon
@@ -318,7 +227,7 @@ void display_menu_design()
 
     for (int i = 0; i < numLines1; i++)
     {
-        int lineLength = actualStringLength(hero[i]);
+        int lineLength = actualStringLength(heroArt[i]);
         if (lineLength > maxLineLength1)
         {
             maxLineLength1 = lineLength;
@@ -343,7 +252,7 @@ void display_menu_design()
         // Display hero line (or spaces if not available)
         if (i < numLines1)
         {
-            printf("%-*s", maxLineLength1, hero[i]);
+            printf("%-*s", maxLineLength1, heroArt[i]);
         }
         else
         {
@@ -371,7 +280,7 @@ void display_menu_design()
     printf(RED_6 "|_____/  \\____/  \\____/ |_|  |_||_____/ |______||_|       |_|   |_|  |_||_____/ \n" RESET);
 }
 
-void dispaly_all_monsters(Monsters *monsters)
+void display_all_monsters(Monsters *monsters, Hero *hero)
 {
     // Determine the maximum line length
     int maxLineLength = actualStringLength(snake[0]);
@@ -507,7 +416,7 @@ void dispaly_all_monsters(Monsters *monsters)
 
     printf("\n\n\n\n\n");
 
-    display_hero();
+    display_hero(hero);
 }
 
 void free_monsters(Monsters *monsters)
