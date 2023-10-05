@@ -80,7 +80,7 @@ char listen_user_input()
             }
             else
             {
-                printf("Please enter a valid number\n"); // For funny users
+                printf("Do you think you're funny? Please enter a 'NUMBER'\n"); // For funny users
                 clear_lines(1);
             }
         }
@@ -89,33 +89,40 @@ char listen_user_input()
 
 void main_menu()
 {
-    int choice;
-    do
+    char input = '0';
+
+    clear_screen();
+    display_menu_design();
+
+    printf("\n 1. Start Game\n 2. Quit\n\n");
+    printf("Enter your choice: \n\n");
+    fflush(stdout);
+
+    while (input != '1' && input != '2')
     {
+        input = listen_user_input();
+        printf("You think %c is '1' or '2'?\n", input); // For funny users
+        clear_lines(1);
+    }
+
+    switch (input)
+    {
+    case '1':
         clear_screen();
-        display_menu_design();
 
-        printf("\n 1. Start Game\n 2. Quit\n\n");
-        printf("Enter your choice: ");
+        Hero *hero = initialize_hero();
+        start_battle(hero);
+        free_hero(hero);
+        break;
 
-        scanf("%d", &choice);
-        clear_stdin();
-        switch (choice)
-        {
-        case 1:
-            clear_screen();
+    case '2':
+        clear_screen();
+        printf("See you next time!\n");
+        break;
 
-            Hero *hero = initialize_hero();
-            start_battle(hero);
-            free_hero(hero);
-            break;
-
-        case 2:
-            break;
-
-        default:
-            choice = 0;
-            break;
-        }
-    } while (choice < 1 || choice > 2);
+    default:
+        clear_screen();
+        printf("Something went wrong\n");
+        break;
+    }
 }
