@@ -26,6 +26,7 @@ Hero *initialize_hero()
 {
     Hero *hero = malloc(sizeof(Hero));
     hero->life = 100;
+    hero->actualLife = 100;
     hero->mana = 100;
     hero->attackMin = 10;
     hero->attackMax = 20;
@@ -34,6 +35,7 @@ Hero *initialize_hero()
     hero->xp = 0;
     hero->level = 1;
     hero->nbTurns = 3;
+    hero->donjonLevel = 1;
 
     return hero;
 }

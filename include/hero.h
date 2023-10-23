@@ -11,6 +11,7 @@
 typedef struct Hero
 {
     int life;
+    int actualLife;
     int mana;
     int gold;
     int xp;
@@ -19,6 +20,7 @@ typedef struct Hero
     int attackMin;
     int attackMax;
     int defense;
+    int donjonLevel;
 } Hero;
 
 /**
