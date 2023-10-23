@@ -34,17 +34,17 @@ typedef struct Monsters
 } Monsters;
 
 /**
- * @brief Creates a monster with random attributes.
+ * @brief Creates a monster.
  *
+ * @param seed
  * @return Monster*
  */
-Monster *create_monster();
+Monster *create_monster(unsigned int seed, Hero *hero);
 
 /**
- * @brief Initializes a list of monsters.
+ * @brief Initializes the list of monsters.
  *
- * @param numMonsters
- * @return Monster**
+ * @return Monsters*
  */
 Monsters *initialize_monsters();
 

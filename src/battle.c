@@ -15,7 +15,7 @@ void start_battle(Hero *hero)
         // Generate a unique seed for each monster
         unsigned int seed = (unsigned int)time(NULL) + i;
 
-        Monster *monster = create_monster(seed);               // Create a new monster
+        Monster *monster = create_monster(seed, hero);         // Create a new monster
         monsters = add_monster_to_monsters(monsters, monster); // Add the new monster to the list
     }
 
