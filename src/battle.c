@@ -119,7 +119,12 @@ void start_battle(Hero *hero)
                 int damage = monsterAttack * 4 - hero->defense * 2;
                 if (damage < 0)
                     damage = 0;
-                hero->life -= damage;
+                if (damage >= hero->life)
+                {
+                    hero->life = 0;
+                }
+                else
+                    hero->life -= damage;
                 clear_screen();
                 display_all_monsters(monsters, hero);
                 printf("%s attacks you!\n", monsters->monsters[i]->name);
@@ -138,6 +143,17 @@ void start_battle(Hero *hero)
             printf("Something went wrong\n");
             return;
         }
+    }
+
+    if (hero->life <= 0)
+    {
+        clear_screen();
+        display_hero_die();
+    }
+    else if (monsters->numMonsters == 0)
+    {
+        clear_screen();
+        display_win();
     }
 
     free_monsters(monsters);
