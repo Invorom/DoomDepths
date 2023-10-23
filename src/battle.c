@@ -207,15 +207,16 @@ void battle_win(Hero *hero, Monsters *monsters)
     printf("\nYou earned %d gold and %d xp!\n", monsters->maxMonsters * 10, monsters->maxMonsters * 12);
     hero->gold += monsters->maxMonsters * 10;
     hero->xp += monsters->maxMonsters * 12;
-    if (hero->xp >= 100)
+    if (hero->xp >= hero->level * 100)
     {
         hero->level++;
-        hero->xp -= 100;
-        hero->attackMin += 5;
-        hero->attackMax += 5;
-        hero->defense += 5;
-        hero->life += 10;
-        hero->mana += 10;
+        hero->xp = 0;
+        // Add 10% to the hero's stats
+        hero->life += hero->life / 10;
+        hero->mana += hero->mana / 10;
+        hero->attackMin += hero->attackMin / 10;
+        hero->attackMax += hero->attackMax / 10;
+        hero->defense += hero->defense / 10;
         printf("You are now level %d!\n", hero->level);
     }
     sleep(5);
