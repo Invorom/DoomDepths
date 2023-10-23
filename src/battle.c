@@ -24,12 +24,12 @@ void start_battle(Hero *hero)
     char isRunning = 1;
 
     // Battle loop
-    while (monsters->numMonsters > 0 && isRunning)
+    while (monsters->numMonsters > 0 && isRunning && hero->life > 0)
     {
         char input = '9';
 
         printf("\nWhat do you want to do?\n");
-        printf("1. Attack\n");
+        printf("1. Attack (%d/3)\n", hero->nbTurns);
         printf("2. Use a potion\n");
         printf("3. Inventory\n");
         printf("4. End turn\n\n");
@@ -45,6 +45,10 @@ void start_battle(Hero *hero)
         {
         case '1':
             clear_lines(7);
+            if (hero->nbTurns == 0) {
+                clear_lines(1);
+                break;
+            }
             printf("Which monster do you want to attack?\n");
             int i;
             for (i = 0; i < monsters->numMonsters; ++i)
@@ -74,6 +78,7 @@ void start_battle(Hero *hero)
                 // Attack the monster
                 heroAttack = rand() % (hero->attackMax - hero->attackMin + 1) + hero->attackMin;
                 monsters->monsters[0]->actualLife -= heroAttack * 4 - monsters->monsters[0]->defense * 2;
+                hero->nbTurns--;
                 if (monsters->monsters[0]->actualLife <= 0)
                 {
                     monsters = remove_monster_from_monsters(monsters, 0);
@@ -87,6 +92,7 @@ void start_battle(Hero *hero)
                 // Attack the monster
                 heroAttack = rand() % (hero->attackMax - hero->attackMin + 1) + hero->attackMin;
                 monsters->monsters[1]->actualLife -= heroAttack * 4 - monsters->monsters[1]->defense * 2;
+                hero->nbTurns--;
                 if (monsters->monsters[1]->actualLife <= 0)
                 {
                     monsters = remove_monster_from_monsters(monsters, 1);
@@ -100,6 +106,7 @@ void start_battle(Hero *hero)
                 // Attack the monster
                 heroAttack = rand() % (hero->attackMax - hero->attackMin + 1) + hero->attackMin;
                 monsters->monsters[2]->actualLife -= heroAttack * 4 - monsters->monsters[2]->defense * 2;
+                hero->nbTurns--;
                 if (monsters->monsters[2]->actualLife <= 0)
                 {
                     monsters = remove_monster_from_monsters(monsters, 2);
@@ -113,6 +120,7 @@ void start_battle(Hero *hero)
                 // Attack the monster
                 heroAttack = rand() % (hero->attackMax - hero->attackMin + 1) + hero->attackMin;
                 monsters->monsters[3]->actualLife -= heroAttack * 4 - monsters->monsters[3]->defense * 2;
+                hero->nbTurns--;
                 if (monsters->monsters[3]->actualLife <= 0)
                 {
                     monsters = remove_monster_from_monsters(monsters, 3);
@@ -126,6 +134,7 @@ void start_battle(Hero *hero)
                 // Attack the monster
                 heroAttack = rand() % (hero->attackMax - hero->attackMin + 1) + hero->attackMin;
                 monsters->monsters[4]->actualLife -= heroAttack * 4 - monsters->monsters[4]->defense * 2;
+                hero->nbTurns--;
                 if (monsters->monsters[4]->actualLife <= 0)
                 {
                     monsters = remove_monster_from_monsters(monsters, 4);
