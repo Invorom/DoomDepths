@@ -24,7 +24,7 @@ void start_battle(Hero *hero)
     char isRunning = 1;
 
     // Battle loop
-    while (monsters->numMonsters > 0 || isRunning)
+    while (monsters->numMonsters > 0 && isRunning)
     {
         char input = '9';
 
@@ -45,7 +45,52 @@ void start_battle(Hero *hero)
         {
         case '1':
             clear_lines(7);
-            printf("You attack the monster!\n");
+            printf("Which monster do you want to attack?\n");
+            int i;
+            for (i = 0; i < monsters->numMonsters; ++i)
+            {
+                printf("%d. %s (%d/%d)\n", i + 1, monsters->monsters[i]->name, monsters->monsters[i]->actualLife, monsters->monsters[i]->life);
+            }
+            printf("\n0. Go back\n");
+
+            char monsterInput = '9';
+
+            // Ask the user to choose a monster and block the input if it's not an existing monster
+            while (1)
+            {
+                monsterInput = listen_user_input();
+                if (monsterInput == '0' || (monsterInput >= '1' && monsterInput <= ('0' + monsters->numMonsters)))
+                {
+                    break;
+                }
+            }
+
+            switch (monsterInput)
+            {
+            case '1':
+                clear_lines(monsters->numMonsters + 3);
+                break;
+
+            case '2':
+                clear_lines(monsters->numMonsters + 3);
+                break;
+
+            case '3':
+                clear_lines(monsters->numMonsters + 3);
+                break;
+
+            case '4':
+                clear_lines(monsters->numMonsters + 3);
+                break;
+
+            case '5':
+                clear_lines(monsters->numMonsters + 3);
+                break;
+
+            case '0':
+                clear_lines(monsters->numMonsters + 3);
+                break;
+            }
             break;
 
         case '2':
@@ -65,14 +110,15 @@ void start_battle(Hero *hero)
 
         case '0':
             clear_lines(7);
-            free_monsters(monsters);
             isRunning = 0;
             break;
 
         default:
-            clear_lines(7);
+            clear_screen();
             printf("Something went wrong\n");
-            break;
+            return;
         }
     }
+
+    free_monsters(monsters);
 }
