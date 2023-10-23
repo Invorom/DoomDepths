@@ -76,4 +76,13 @@ void display_menu_design();
  */
 void free_monsters(Monsters *monsters);
 
+/**
+ * @brief Removes a monster from the list of monsters.
+ *
+ * @param monsters
+ * @param index
+ * @return Monsters*
+ */
+Monsters *remove_monster_from_monsters(Monsters *monsters, int index);
+
 #endif

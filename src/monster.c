@@ -221,6 +221,27 @@ Monsters *add_monster_to_monsters(Monsters *monsters, Monster *monster)
     return monsters;
 }
 
+Monsters *remove_monster_from_monsters(Monsters *monsters, int index)
+{
+    // Free the memory allocated for the monster
+    free(monsters->monsters[index]->name);
+    free(monsters->monsters[index]);
+
+    // Shift the monsters to the left
+    for (int i = index; i < monsters->numMonsters - 1; i++)
+    {
+        monsters->monsters[i] = monsters->monsters[i + 1];
+    }
+
+    // Update the number of monsters
+    monsters->numMonsters--;
+
+    // Reallocate memory for the monsters
+    monsters->monsters = realloc(monsters->monsters, monsters->numMonsters * sizeof(Monster *));
+
+    return monsters;
+}
+
 void display_menu_design()
 {
     // Calculate the number of lines for both hero and demon
