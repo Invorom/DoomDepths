@@ -75,73 +75,23 @@ void start_battle(Hero *hero)
             switch (monsterInput)
             {
             case '1':
-                clear_lines(monsters->numMonsters + 4);
-                // Attack the monster
-                heroAttack = rand() % (hero->attackMax - hero->attackMin + 1) + hero->attackMin;
-                monsters->monsters[0]->actualLife -= heroAttack * 4 - monsters->monsters[0]->defense * 2;
-                hero->nbTurns--;
-                if (monsters->monsters[0]->actualLife <= 0)
-                {
-                    monsters = remove_monster_from_monsters(monsters, 0);
-                    clear_screen();
-                    display_all_monsters(monsters, hero);
-                }
+                attack_monster(monsters, hero, 0);
                 break;
 
             case '2':
-                clear_lines(monsters->numMonsters + 4);
-                // Attack the monster
-                heroAttack = rand() % (hero->attackMax - hero->attackMin + 1) + hero->attackMin;
-                monsters->monsters[1]->actualLife -= heroAttack * 4 - monsters->monsters[1]->defense * 2;
-                hero->nbTurns--;
-                if (monsters->monsters[1]->actualLife <= 0)
-                {
-                    monsters = remove_monster_from_monsters(monsters, 1);
-                    clear_screen();
-                    display_all_monsters(monsters, hero);
-                }
+                attack_monster(monsters, hero, 1);
                 break;
 
             case '3':
-                clear_lines(monsters->numMonsters + 4);
-                // Attack the monster
-                heroAttack = rand() % (hero->attackMax - hero->attackMin + 1) + hero->attackMin;
-                monsters->monsters[2]->actualLife -= heroAttack * 4 - monsters->monsters[2]->defense * 2;
-                hero->nbTurns--;
-                if (monsters->monsters[2]->actualLife <= 0)
-                {
-                    monsters = remove_monster_from_monsters(monsters, 2);
-                    clear_screen();
-                    display_all_monsters(monsters, hero);
-                }
+                attack_monster(monsters, hero, 2);
                 break;
 
             case '4':
-                clear_lines(monsters->numMonsters + 4);
-                // Attack the monster
-                heroAttack = rand() % (hero->attackMax - hero->attackMin + 1) + hero->attackMin;
-                monsters->monsters[3]->actualLife -= heroAttack * 4 - monsters->monsters[3]->defense * 2;
-                hero->nbTurns--;
-                if (monsters->monsters[3]->actualLife <= 0)
-                {
-                    monsters = remove_monster_from_monsters(monsters, 3);
-                    clear_screen();
-                    display_all_monsters(monsters, hero);
-                }
+                attack_monster(monsters, hero, 3);
                 break;
 
             case '5':
-                clear_lines(monsters->numMonsters + 4);
-                // Attack the monster
-                heroAttack = rand() % (hero->attackMax - hero->attackMin + 1) + hero->attackMin;
-                monsters->monsters[4]->actualLife -= heroAttack * 4 - monsters->monsters[4]->defense * 2;
-                hero->nbTurns--;
-                if (monsters->monsters[4]->actualLife <= 0)
-                {
-                    monsters = remove_monster_from_monsters(monsters, 4);
-                    clear_screen();
-                    display_all_monsters(monsters, hero);
-                }
+                attack_monster(monsters, hero, 4);
                 break;
 
             case '0':
@@ -166,7 +116,10 @@ void start_battle(Hero *hero)
             for (int i = 0; i < monsters->numMonsters; ++i)
             {
                 int monsterAttack = rand() % (monsters->monsters[i]->attackMax - monsters->monsters[i]->attackMin + 1) + monsters->monsters[i]->attackMin;
-                hero->life -= monsterAttack * 4 - hero->defense * 2;
+                int damage = monsterAttack * 4 - hero->defense * 2;
+                if (damage < 0)
+                    damage = 0;
+                hero->life -= damage;
                 clear_screen();
                 display_all_monsters(monsters, hero);
                 printf("%s attacks you!\n", monsters->monsters[i]->name);
@@ -188,4 +141,25 @@ void start_battle(Hero *hero)
     }
 
     free_monsters(monsters);
+}
+
+void attack_monster(Monsters *monsters, Hero *hero, int index)
+{
+    clear_lines(monsters->numMonsters + 4);
+    // Attack the monster
+    int heroAttack = rand() % (hero->attackMax - hero->attackMin + 1) + hero->attackMin;
+    int damage = heroAttack * 4 - monsters->monsters[index]->defense * 2;
+
+    if (damage < 0)
+        damage = 0;
+    monsters->monsters[index]->actualLife -= damage;
+
+    hero->nbTurns--;
+
+    if (monsters->monsters[index]->actualLife <= 0)
+    {
+        monsters = remove_monster_from_monsters(monsters, index);
+        clear_screen();
+        display_all_monsters(monsters, hero);
+    }
 }

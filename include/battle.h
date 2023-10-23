@@ -12,4 +12,13 @@
  */
 void start_battle(Hero *hero);
 
+/**
+ * @brief Attacks a monster.
+ *
+ * @param monsters
+ * @param hero
+ * @param index
+ */
+void attack_monster(Monsters *monsters, Hero *hero, int index);
+
 #endif
