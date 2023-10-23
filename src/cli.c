@@ -78,11 +78,6 @@ char listen_user_input()
                 restore_terminal_attributes(orig_termios); // Avoid broken terminal
                 return input;
             }
-            else
-            {
-                printf("Do you think you're funny? Please enter a 'NUMBER'\n"); // For funny users
-                clear_lines(1);
-            }
         }
     }
 }
@@ -101,8 +96,6 @@ void main_menu()
     while (input != '1' && input != '2')
     {
         input = listen_user_input();
-        printf("You think %c is '1' or '2'?\n", input); // For funny users
-        clear_lines(1);
     }
 
     switch (input)
