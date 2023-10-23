@@ -74,6 +74,12 @@ void start_battle(Hero *hero)
                 // Attack the monster
                 heroAttack = rand() % (hero->attackMax - hero->attackMin + 1) + hero->attackMin;
                 monsters->monsters[0]->actualLife -= heroAttack * 4 - monsters->monsters[0]->defense * 2;
+                if (monsters->monsters[0]->actualLife <= 0)
+                {
+                    monsters = remove_monster_from_monsters(monsters, 0);
+                    clear_screen();
+                    display_all_monsters(monsters, hero);
+                }
                 break;
 
             case '2':
@@ -81,6 +87,12 @@ void start_battle(Hero *hero)
                 // Attack the monster
                 heroAttack = rand() % (hero->attackMax - hero->attackMin + 1) + hero->attackMin;
                 monsters->monsters[1]->actualLife -= heroAttack * 4 - monsters->monsters[1]->defense * 2;
+                if (monsters->monsters[1]->actualLife <= 0)
+                {
+                    monsters = remove_monster_from_monsters(monsters, 1);
+                    clear_screen();
+                    display_all_monsters(monsters, hero);
+                }
                 break;
 
             case '3':
@@ -88,6 +100,12 @@ void start_battle(Hero *hero)
                 // Attack the monster
                 heroAttack = rand() % (hero->attackMax - hero->attackMin + 1) + hero->attackMin;
                 monsters->monsters[2]->actualLife -= heroAttack * 4 - monsters->monsters[2]->defense * 2;
+                if (monsters->monsters[2]->actualLife <= 0)
+                {
+                    monsters = remove_monster_from_monsters(monsters, 2);
+                    clear_screen();
+                    display_all_monsters(monsters, hero);
+                }
                 break;
 
             case '4':
@@ -95,6 +113,12 @@ void start_battle(Hero *hero)
                 // Attack the monster
                 heroAttack = rand() % (hero->attackMax - hero->attackMin + 1) + hero->attackMin;
                 monsters->monsters[3]->actualLife -= heroAttack * 4 - monsters->monsters[3]->defense * 2;
+                if (monsters->monsters[3]->actualLife <= 0)
+                {
+                    monsters = remove_monster_from_monsters(monsters, 3);
+                    clear_screen();
+                    display_all_monsters(monsters, hero);
+                }
                 break;
 
             case '5':
@@ -102,6 +126,12 @@ void start_battle(Hero *hero)
                 // Attack the monster
                 heroAttack = rand() % (hero->attackMax - hero->attackMin + 1) + hero->attackMin;
                 monsters->monsters[4]->actualLife -= heroAttack * 4 - monsters->monsters[4]->defense * 2;
+                if (monsters->monsters[4]->actualLife <= 0)
+                {
+                    monsters = remove_monster_from_monsters(monsters, 4);
+                    clear_screen();
+                    display_all_monsters(monsters, hero);
+                }
                 break;
 
             case '0':
