@@ -147,16 +147,16 @@ void start_battle(Hero *hero)
 
     if (hero->life <= 0)
     {
-        clear_screen();
-        display_hero_die();
+        battle_loose(hero);
     }
     else if (monsters->numMonsters == 0)
     {
-        clear_screen();
-        display_win();
+        battle_win(hero, monsters);
     }
-
-    free_monsters(monsters);
+    else
+    {
+        free_monsters(monsters);
+    }
 }
 
 void attack_monster(Monsters *monsters, Hero *hero, int index)
@@ -198,4 +198,35 @@ void display_win()
     printf(YELLOW "   \\   /| |  | | |  | |   \\ \\/  \\/ /   | | | . ` | | |\n");
     printf(YELLOW "    | | | |__| | |__| |    \\  /\\  /   _| |_| |\\  | |_|\n");
     printf(YELLOW "    |_|  \\____/ \\____/      \\/  \\/   |_____|_| \\_| (_)\n" RESET);
+}
+
+void battle_win(Hero *hero, Monsters *monsters)
+{
+    clear_screen();
+    display_win();
+    printf("\nYou earned %d gold and %d xp!\n", monsters->maxMonsters * 10, monsters->maxMonsters * 12);
+    hero->gold += monsters->maxMonsters * 10;
+    hero->xp += monsters->maxMonsters * 12;
+    if (hero->xp >= 100)
+    {
+        hero->level++;
+        hero->xp -= 100;
+        hero->attackMin += 5;
+        hero->attackMax += 5;
+        hero->defense += 5;
+        hero->life += 10;
+        hero->mana += 10;
+        printf("You are now level %d!\n", hero->level);
+    }
+    sleep(5);
+    free_monsters(monsters);
+    clear_screen();
+}
+
+void battle_loose(Hero *hero)
+{
+    clear_screen();
+    display_hero_die();
+    sleep(2);
+    clear_screen();
 }

@@ -33,4 +33,19 @@ void display_hero_die();
  */
 void display_win();
 
+/**
+ * @brief Displays the win screen.
+ *
+ * @param hero
+ * @param monsters
+ */
+void battle_win(Hero *hero, Monsters *monsters);
+
+/**
+ * @brief Displays the loose screen.
+ *
+ * @param hero
+ */
+void battle_loose(Hero *hero);
+
 #endif
