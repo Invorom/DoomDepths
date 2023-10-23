@@ -21,4 +21,16 @@ void start_battle(Hero *hero);
  */
 void attack_monster(Monsters *monsters, Hero *hero, int index);
 
+/**
+ * @brief Displays the hero's death.
+ *
+ */
+void display_hero_die();
+
+/**
+ * @brief Displays the win screen.
+ *
+ */
+void display_win();
+
 #endif

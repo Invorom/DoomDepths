@@ -163,3 +163,23 @@ void attack_monster(Monsters *monsters, Hero *hero, int index)
         display_all_monsters(monsters, hero);
     }
 }
+
+void display_hero_die()
+{
+    printf(RED " __     ______  _    _   _____ _____ ______   _ \n");
+    printf(RED_2 " \\ \\   / / __ \\| |  | | |  __ \\_   _|  ____| | |\n");
+    printf(RED_3 "  \\ \\_/ / |  | | |  | | | |  | || | | |__    | |\n");
+    printf(RED_4 "   \\   /| |  | | |  | | | |  | || | |  __|   | |\n");
+    printf(RED_5 "    | | | |__| | |__| | | |__| || |_| |____  |_|\n");
+    printf(RED_6 "    |_|  \\____/ \\____/  |_____/_____|______| (_)\n" RESET);
+}
+
+void display_win()
+{
+    printf(YELLOW " __     ______  _    _  __          _______ _   _   _ \n");
+    printf(YELLOW " \\ \\   / / __ \\| |  | | \\ \\        / /_   _| \\ | | | |\n");
+    printf(YELLOW "  \\ \\_/ / |  | | |  | |  \\ \\  /\\  / /  | | |  \\| | | |\n");
+    printf(YELLOW "   \\   /| |  | | |  | |   \\ \\/  \\/ /   | | | . ` | | |\n");
+    printf(YELLOW "    | | | |__| | |__| |    \\  /\\  /   _| |_| |\\  | |_|\n");
+    printf(YELLOW "    |_|  \\____/ \\____/      \\/  \\/   |_____|_| \\_| (_)\n" RESET);
+}
