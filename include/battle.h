@@ -45,7 +45,8 @@ void battle_win(Hero *hero, Monsters *monsters);
  * @brief Displays the loose screen.
  *
  * @param hero
+ * @param monsters
  */
-void battle_loose(Hero *hero);
+void battle_loose(Hero *hero, Monsters *monsters);
 
 #endif

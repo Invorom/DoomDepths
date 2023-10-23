@@ -206,6 +206,7 @@ Monsters *initialize_monsters()
     Monsters *monsters = malloc(sizeof(Monsters));
 
     monsters->numMonsters = 0;
+    monsters->maxMonsters = 0;
     monsters->monsters = malloc(sizeof(Monster *));
 
     return monsters;

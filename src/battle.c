@@ -147,7 +147,7 @@ void start_battle(Hero *hero)
 
     if (hero->life <= 0)
     {
-        battle_loose(hero);
+        battle_loose(hero, monsters);
     }
     else if (monsters->numMonsters == 0)
     {
@@ -223,10 +223,11 @@ void battle_win(Hero *hero, Monsters *monsters)
     clear_screen();
 }
 
-void battle_loose(Hero *hero)
+void battle_loose(Hero *hero, Monsters *monsters)
 {
     clear_screen();
     display_hero_die();
     sleep(2);
     clear_screen();
+    free_monsters(monsters);
 }
