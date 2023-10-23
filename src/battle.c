@@ -28,7 +28,7 @@ void start_battle(Hero *hero)
     {
         char input = '9';
 
-        printf("What do you want to do?\n");
+        printf("\nWhat do you want to do?\n");
         printf("1. Attack\n");
         printf("2. Use a potion\n");
         printf("3. Inventory\n");
@@ -65,30 +65,47 @@ void start_battle(Hero *hero)
                 }
             }
 
+            int heroAttack;
+
             switch (monsterInput)
             {
             case '1':
-                clear_lines(monsters->numMonsters + 3);
+                clear_lines(monsters->numMonsters + 4);
+                // Attack the monster
+                heroAttack = rand() % (hero->attackMax - hero->attackMin + 1) + hero->attackMin;
+                monsters->monsters[0]->actualLife -= heroAttack * 4 - monsters->monsters[0]->defense * 2;
                 break;
 
             case '2':
-                clear_lines(monsters->numMonsters + 3);
+                clear_lines(monsters->numMonsters + 4);
+                // Attack the monster
+                heroAttack = rand() % (hero->attackMax - hero->attackMin + 1) + hero->attackMin;
+                monsters->monsters[1]->actualLife -= heroAttack * 4 - monsters->monsters[1]->defense * 2;
                 break;
 
             case '3':
-                clear_lines(monsters->numMonsters + 3);
+                clear_lines(monsters->numMonsters + 4);
+                // Attack the monster
+                heroAttack = rand() % (hero->attackMax - hero->attackMin + 1) + hero->attackMin;
+                monsters->monsters[2]->actualLife -= heroAttack * 4 - monsters->monsters[2]->defense * 2;
                 break;
 
             case '4':
-                clear_lines(monsters->numMonsters + 3);
+                clear_lines(monsters->numMonsters + 4);
+                // Attack the monster
+                heroAttack = rand() % (hero->attackMax - hero->attackMin + 1) + hero->attackMin;
+                monsters->monsters[3]->actualLife -= heroAttack * 4 - monsters->monsters[3]->defense * 2;
                 break;
 
             case '5':
-                clear_lines(monsters->numMonsters + 3);
+                clear_lines(monsters->numMonsters + 4);
+                // Attack the monster
+                heroAttack = rand() % (hero->attackMax - hero->attackMin + 1) + hero->attackMin;
+                monsters->monsters[4]->actualLife -= heroAttack * 4 - monsters->monsters[4]->defense * 2;
                 break;
 
             case '0':
-                clear_lines(monsters->numMonsters + 3);
+                clear_lines(monsters->numMonsters + 4);
                 break;
             }
             break;
