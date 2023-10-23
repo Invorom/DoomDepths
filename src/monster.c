@@ -214,6 +214,7 @@ Monsters *initialize_monsters()
 Monsters *add_monster_to_monsters(Monsters *monsters, Monster *monster)
 {
     monsters->numMonsters++;
+    monsters->maxMonsters++;
     monsters->monsters = realloc(monsters->monsters, monsters->numMonsters * sizeof(Monster *));
     monsters->monsters[monsters->numMonsters - 1] = monster;
 

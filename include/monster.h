@@ -29,6 +29,7 @@ typedef struct Monster
 typedef struct Monsters
 {
     short numMonsters;
+    short maxMonsters;
     Monster **monsters;
 } Monsters;
 
