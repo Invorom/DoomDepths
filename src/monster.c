@@ -185,8 +185,8 @@ Monster *create_monster(unsigned int seed)
     char *name = names[randomIndex];
     int life = rand() % 81 + 20;
     int attackMin = rand() % 10 + 1;
-    int attackMax = rand() % (100 - attackMin + 1) + attackMin;
-    int defense = rand() % 100 + 1;
+    int attackMax = rand() % (20 - attackMin + 1) + attackMin;
+    int defense = rand() % 20 + 1;
 
     monster->name = malloc(strlen(name) + 1);
     strcpy(monster->name, name);
@@ -420,7 +420,7 @@ void display_all_monsters(Monsters *monsters, Hero *hero)
         printf("\n");
     }
 
-    printf("\n\n\n\n\n");
+    printf("\n");
 
     display_hero(hero);
 }
