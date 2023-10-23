@@ -24,7 +24,7 @@ void start_battle(Hero *hero)
     char isRunning = 1;
 
     // Battle loop
-    while (monsters->numMonsters > 0 && isRunning && hero->life > 0)
+    while (monsters->numMonsters > 0 && isRunning && hero->actualLife > 0)
     {
         char input = '9';
 
@@ -119,12 +119,12 @@ void start_battle(Hero *hero)
                 int damage = monsterAttack * 4 - hero->defense * 2;
                 if (damage < 0)
                     damage = 0;
-                if (damage >= hero->life)
+                if (damage >= hero->actualLife)
                 {
-                    hero->life = 0;
+                    hero->actualLife = 0;
                 }
                 else
-                    hero->life -= damage;
+                    hero->actualLife -= damage;
                 clear_screen();
                 display_all_monsters(monsters, hero);
                 printf("%s attacks you!\n", monsters->monsters[i]->name);
@@ -145,7 +145,7 @@ void start_battle(Hero *hero)
         }
     }
 
-    if (hero->life <= 0)
+    if (hero->actualLife <= 0)
     {
         battle_loose(hero, monsters);
     }

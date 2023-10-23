@@ -28,6 +28,7 @@ Hero *initialize_hero()
     hero->life = 100;
     hero->actualLife = 100;
     hero->mana = 100;
+    hero->actualMana = 100;
     hero->attackMin = 10;
     hero->attackMax = 20;
     hero->defense = 10;
@@ -44,7 +45,7 @@ void display_hero(Hero *hero)
 {
     // Print the life bar
     printf("" RED "Life: " RESET "[");
-    int lifeBarLength = (hero->life * 10) / 100; // 10 is the length of the bar
+    int lifeBarLength = (hero->actualLife * 10) / 100; // 10 is the length of the bar
     for (int i = 0; i < 10; i++)
     {
         if (i < lifeBarLength)
@@ -52,11 +53,11 @@ void display_hero(Hero *hero)
         else
             printf(" ");
     }
-    printf("] %d%%\n", hero->life);
+    printf("] %d%%\n", hero->actualLife);
 
     // Print the mana bar
     printf("" BLUE "Mana: " RESET "[");
-    int manaBarLength = (hero->mana * 10) / 100; // 10 is the length of the bar
+    int manaBarLength = (hero->actualMana * 10) / 100; // 10 is the length of the bar
     for (int i = 0; i < 10; i++)
     {
         if (i < manaBarLength)
@@ -64,7 +65,7 @@ void display_hero(Hero *hero)
         else
             printf(" ");
     }
-    printf("] %d%%\n", hero->mana);
+    printf("] %d%%\n", hero->actualMana);
 
     // Print the hero
     int numLines1 = sizeof(heroAscii) / sizeof(heroAscii[0]);
