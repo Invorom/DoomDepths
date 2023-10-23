@@ -45,7 +45,8 @@ void start_battle(Hero *hero)
         {
         case '1':
             clear_lines(7);
-            if (hero->nbTurns == 0) {
+            if (hero->nbTurns == 0)
+            {
                 clear_lines(1);
                 break;
             }
@@ -161,7 +162,17 @@ void start_battle(Hero *hero)
 
         case '4':
             clear_lines(7);
-            printf("You end your turn!\n");
+            // Monsters attack
+            for (int i = 0; i < monsters->numMonsters; ++i)
+            {
+                int monsterAttack = rand() % (monsters->monsters[i]->attackMax - monsters->monsters[i]->attackMin + 1) + monsters->monsters[i]->attackMin;
+                hero->life -= monsterAttack * 4 - hero->defense * 2;
+                clear_screen();
+                display_all_monsters(monsters, hero);
+                printf("%s attacks you!\n", monsters->monsters[i]->name);
+                sleep(1);
+            }
+            hero->nbTurns = 3;
             break;
 
         case '0':
