@@ -13,6 +13,9 @@ typedef struct Hero
     int life;
     int mana;
     int gold;
+    int xp;
+    int level;
+    int nbTurns;
     int attackMin;
     int attackMax;
     int defense;

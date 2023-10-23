@@ -30,6 +30,10 @@ Hero *initialize_hero()
     hero->attackMin = 10;
     hero->attackMax = 20;
     hero->defense = 10;
+    hero->gold = 0;
+    hero->xp = 0;
+    hero->level = 1;
+    hero->nbTurns = 3;
 
     return hero;
 }
