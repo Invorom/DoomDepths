@@ -64,7 +64,6 @@ char *snake[] = {
     "    \\___/        \\_____/         "};
 
 char *minotaur[] = {
-    "       .      .                    ",
     "       |\\____/|                   ",
     "      (\\|----|/)                  ",
     "       \\ " RED "0" RESET "  " RED "0" RESET " /                    ",
@@ -201,7 +200,7 @@ Monster *create_monster(unsigned int seed)
     return monster;
 }
 
-// Function to create a random number of monsters (between 1 and 5)
+// Function to initialize a list of monsters
 Monsters *initialize_monsters()
 {
     Monsters *monsters = malloc(sizeof(Monsters));
