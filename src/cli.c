@@ -1,5 +1,6 @@
 #include "cli.h"
-#include "monster.h"
+#include "hero.h"
+#include "battle.h"
 
 void clear_screen()
 {
@@ -42,49 +43,79 @@ int actualStringLength(const char *str)
     return length;
 }
 
+void restore_terminal_attributes(struct termios orig_termios)
+{
+    tcsetattr(STDIN_FILENO, TCSANOW, &orig_termios);
+}
+
+char listen_user_input()
+{
+    struct termios orig_termios;
+    struct termios new_termios;
+
+    // Get the current terminal attributes
+    tcgetattr(STDIN_FILENO, &orig_termios);
+    new_termios = orig_termios;
+
+    // Disable canonical mode and echoing
+    new_termios.c_lflag &= ~(ICANON | ECHO);
+
+    // Set the new terminal attributes
+    tcsetattr(STDIN_FILENO, TCSANOW, &new_termios);
+
+    // Set non-blocking input
+    fcntl(STDIN_FILENO, F_SETFL, O_NONBLOCK);
+
+    while (1)
+    {
+        char input;
+        ssize_t bytesRead = read(STDIN_FILENO, &input, 1);
+
+        if (bytesRead > 0)
+        {
+            if (input >= '0' && input <= '9')
+            {
+                restore_terminal_attributes(orig_termios); // Avoid broken terminal
+                return input;
+            }
+        }
+    }
+}
+
 void main_menu()
 {
-    int choice;
-    do
+    char input = '0';
+
+    clear_screen();
+    display_menu_design();
+
+    printf("\n 1. Start Game\n 2. Quit\n\n");
+    printf("Enter your choice: \n\n");
+    fflush(stdout);
+
+    while (input != '1' && input != '2')
     {
+        input = listen_user_input();
+    }
+
+    switch (input)
+    {
+    case '1':
         clear_screen();
-        display_menu_design();
 
-        printf("\n 1. Start Game\n 2. Quit\n\n");
-        printf("Enter your choice: ");
+        Hero *hero = initialize_hero();
+        start_battle(hero);
+        free_hero(hero);
+        break;
 
-        scanf("%d", &choice);
-        clear_stdin();
-        switch (choice)
-        {
-        case 1:
-            clear_screen();
-            Monsters *monsters = initialize_monsters();
+    case '2':
+        clear_screen();
+        printf("See you next time!\n");
+        break;
 
-            // Seed the random number generator once at the beginning of the program
-            srand(time(NULL));
-
-            // Randomize between 1 and 5 monsters
-            int numMonsters = rand() % 5 + 1;
-            for (int i = 0; i < numMonsters; ++i)
-            {
-                // Generate a unique seed for each monster
-                unsigned int seed = (unsigned int)time(NULL) + i;
-
-                Monster *monster = create_monster(seed);               // Create a new monster
-                monsters = add_monster_to_monsters(monsters, monster); // Add the new monster to the list
-            }
-
-            dispaly_all_monsters(monsters);
-            free_monsters(monsters);
-
-            break;
-
-        case 2:
-            break;
-        default:
-            choice = 0;
-            break;
-        }
-    } while (choice < 1 || choice > 2);
+    default:
+        clear_screen();
+        printf("Something went wrong\n");
+        break;
+    }
 }

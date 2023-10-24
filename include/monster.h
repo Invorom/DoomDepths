@@ -1,6 +1,10 @@
 #ifndef MONSTER_H
 #define MONSTER_H
 
+#include "utils.h"
+#include "cli.h"
+#include "hero.h"
+
 #define RED "\x1b[31m"
 #define RED_2 "\x1b[38;5;196m"
 #define RED_3 "\x1b[38;5;160m"
@@ -10,19 +14,13 @@
 
 #define RESET "\x1b[0m"
 
-#define RED "\x1b[31m"
-#define GREEN "\x1b[32m"
 #define YELLOW "\x1b[33m"
-#define BLUE "\x1b[34m"
-#define MAGENTA "\x1b[35m"
-#define CYAN "\x1b[36m"
-#define BLACK "\x1b[30m"
-#define RESET "\x1b[0m"
 
 typedef struct Monster
 {
     char *name;
     int life;
+    int actualLife;
     int attackMin;
     int attackMax;
     int defense;
@@ -31,21 +29,22 @@ typedef struct Monster
 typedef struct Monsters
 {
     short numMonsters;
+    short maxMonsters;
     Monster **monsters;
 } Monsters;
 
 /**
- * @brief Creates a monster with random attributes.
+ * @brief Creates a monster.
  *
+ * @param seed
  * @return Monster*
  */
-Monster *create_monster();
+Monster *create_monster(unsigned int seed, Hero *hero);
 
 /**
- * @brief Initializes a list of monsters.
+ * @brief Initializes the list of monsters.
  *
- * @param numMonsters
- * @return Monster**
+ * @return Monsters*
  */
 Monsters *initialize_monsters();
 
@@ -63,20 +62,7 @@ Monsters *add_monster_to_monsters(Monsters *monsters, Monster *monster);
  *
  * @param monsters
  */
-void print_monsters(Monsters *monsters);
-
-/**
- * @brief Displays the monster's attributes and ASCII art.
- *
- * @param monster
- */
-void display_monster(Monster *monster);
-
-/**
- * @brief Displays the hero's ASCII art.
- *
- */
-void display_hero();
+void display_all_monsters(Monsters *monsters, Hero *hero);
 
 /**
  * @brief Displays the menu design with the hero, a demon and the title.
@@ -85,17 +71,19 @@ void display_hero();
 void display_menu_design();
 
 /**
- * @brief Displays all monsters.
- *
- * @param monsters
- */
-void dispaly_all_monsters(Monsters *monsters);
-
-/**
  * @brief Frees the memory allocated for the list of monsters.
  *
  * @param monsters
  */
 void free_monsters(Monsters *monsters);
+
+/**
+ * @brief Removes a monster from the list of monsters.
+ *
+ * @param monsters
+ * @param index
+ * @return Monsters*
+ */
+Monsters *remove_monster_from_monsters(Monsters *monsters, int index);
 
 #endif
