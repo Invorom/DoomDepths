@@ -333,9 +333,21 @@ void displayMap(Context *context)
                 {
                     printf("\033[1;37m%c", context->map[j][i]);
                 }
-                else if (context->map[j][i] == PATH || context->map[j][i] == MONSTER || context->map[j][i] == CHEST || context->map[j][i] == BOSS)
+                else if (context->map[j][i] == PATH)
                 {
                     printf("\033[1;33m%c", context->map[j][i]);
+                }
+                else if (context->map[j][i] == MONSTER)
+                {
+                    printf("\033[1;32m%c", context->map[j][i]);
+                }
+                else if (context->map[j][i] == CHEST)
+                {
+                    printf("\033[1;34m%c", context->map[j][i]);
+                }
+                else if (context->map[j][i] == BOSS)
+                {
+                    printf("\033[1;35m%c", context->map[j][i]);
                 }
             }
         }
