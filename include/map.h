@@ -124,4 +124,10 @@ void displayMap(Context *context);
  */
 int validMap(int posx, int posy, Context *context, short **available, int *count);
 
+/**
+ * @brief Display a message when the map is loading
+ *
+ */
+void map_loading();
+
 #endif
