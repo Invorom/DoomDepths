@@ -221,10 +221,18 @@ void battle_win(Hero *hero, Monsters *monsters, Context *context)
         hero->defense += hero->defense / 10;
         printf("You are now level %d!\n", hero->level);
     }
-    sleep(5);
+    wait_for_enter();
     free_monsters(monsters);
     // Remove the monster from the map
     context->map[context->pos_x][context->pos_y] = PATH;
+    context->killedMonsters++;
+    if (context->killedMonsters == 10)
+    {
+        clear_screen();
+        printf("Well done! You killed all the monsters!\n");
+        printf("You can now fight the boss!\n");
+        wait_for_enter();
+    }
     clear_screen();
 }
 
@@ -232,7 +240,7 @@ void battle_loose(Hero *hero, Monsters *monsters)
 {
     clear_screen();
     display_hero_die();
-    sleep(2);
+    wait_for_enter();
     clear_screen();
     free_monsters(monsters);
 }

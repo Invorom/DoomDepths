@@ -35,6 +35,7 @@ typedef struct Context
 {
     int pos_x;
     int pos_y;
+    int killedMonsters;
     TILE **map;
 } Context;
 

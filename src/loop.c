@@ -51,6 +51,32 @@ int process_user_input(char userInput, Context *context, Hero *hero, Inventory *
             system("/bin/stty raw");
             break;
         }
+        // else if (context->map[context->pos_x][context->pos_y - 1] == CHEST)
+        // {
+        //     context->pos_y -= 1;
+        //     system("/bin/stty cooked");
+        //     open_chest(inventory);
+        //     system("/bin/stty raw");
+        //     break;
+        // }
+        else if (context->map[context->pos_x][context->pos_y - 1] == BOSS && context->killedMonsters == 10)
+        {
+            context->pos_y -= 1;
+            system("/bin/stty cooked");
+            start_battle(hero, context);
+            system("/bin/stty raw");
+            break;
+        }
+        else if (context->map[context->pos_x][context->pos_y - 1] == BOSS)
+        {
+            context->pos_y -= 1;
+            system("/bin/stty cooked");
+            clear_screen();
+            printf("You have to kill all the monsters before you can fight the boss!\n");
+            wait_for_enter();
+            system("/bin/stty raw");
+            break;
+        }
         else
         {
             context->pos_y -= 1;
@@ -66,6 +92,32 @@ int process_user_input(char userInput, Context *context, Hero *hero, Inventory *
             context->pos_x += 1;
             system("/bin/stty cooked");
             start_battle(hero, context);
+            system("/bin/stty raw");
+            break;
+        }
+        // else if (context->map[context->pos_x + 1][context->pos_y] == CHEST)
+        // {
+        //     context->pos_x += 1;
+        //     system("/bin/stty cooked");
+        //     open_chest(inventory);
+        //     system("/bin/stty raw");
+        //     break;
+        // }
+        else if (context->map[context->pos_x + 1][context->pos_y] == BOSS && context->killedMonsters == 10)
+        {
+            context->pos_x += 1;
+            system("/bin/stty cooked");
+            start_battle(hero, context);
+            system("/bin/stty raw");
+            break;
+        }
+        else if (context->map[context->pos_x + 1][context->pos_y] == BOSS)
+        {
+            context->pos_x += 1;
+            system("/bin/stty cooked");
+            clear_screen();
+            printf("You have to kill all the monsters before you can fight the boss!\n");
+            wait_for_enter();
             system("/bin/stty raw");
             break;
         }
@@ -87,6 +139,32 @@ int process_user_input(char userInput, Context *context, Hero *hero, Inventory *
             system("/bin/stty raw");
             break;
         }
+        // else if (context->map[context->pos_x][context->pos_y + 1] == CHEST)
+        // {
+        //     context->pos_y += 1;
+        //     system("/bin/stty cooked");
+        //     open_chest(inventory);
+        //     system("/bin/stty raw");
+        //     break;
+        // }
+        else if (context->map[context->pos_x][context->pos_y + 1] == BOSS && context->killedMonsters == 10)
+        {
+            context->pos_y += 1;
+            system("/bin/stty cooked");
+            start_battle(hero, context);
+            system("/bin/stty raw");
+            break;
+        }
+        else if (context->map[context->pos_x][context->pos_y + 1] == BOSS)
+        {
+            context->pos_y += 1;
+            system("/bin/stty cooked");
+            clear_screen();
+            printf("You have to kill all the monsters before you can fight the boss!\n");
+            wait_for_enter();
+            system("/bin/stty raw");
+            break;
+        }
         else
         {
             context->pos_y += 1;
@@ -102,6 +180,32 @@ int process_user_input(char userInput, Context *context, Hero *hero, Inventory *
             context->pos_x -= 1;
             system("/bin/stty cooked");
             start_battle(hero, context);
+            system("/bin/stty raw");
+            break;
+        }
+        // else if (context->map[context->pos_x - 1][context->pos_y] == CHEST)
+        // {
+        //     context->pos_x -= 1;
+        //     system("/bin/stty cooked");
+        //     open_chest(inventory);
+        //     system("/bin/stty raw");
+        //     break;
+        // }
+        else if (context->map[context->pos_x - 1][context->pos_y] == BOSS && context->killedMonsters == 10)
+        {
+            context->pos_x -= 1;
+            system("/bin/stty cooked");
+            start_battle(hero, context);
+            system("/bin/stty raw");
+            break;
+        }
+        else if (context->map[context->pos_x - 1][context->pos_y] == BOSS)
+        {
+            context->pos_x -= 1;
+            system("/bin/stty cooked");
+            clear_screen();
+            printf("You have to kill all the monsters before you can fight the boss!\n");
+            wait_for_enter();
             system("/bin/stty raw");
             break;
         }
