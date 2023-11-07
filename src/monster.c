@@ -310,6 +310,8 @@ void display_menu_design()
 
 void display_all_monsters(Monsters *monsters, Hero *hero)
 {
+    clear_screen();
+
     // Determine the maximum line length
     int maxLineLength = actualStringLength(snake[0]);
 

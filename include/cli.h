@@ -31,8 +31,10 @@ void clear_lines(int);
  * 2 options:
  * 1. Start Game;
  * 2. Quit.
+ *
+ * @return int
  */
-void main_menu();
+int main_menu();
 
 /**
  * @brief Waits for user to press [ENTER] key.

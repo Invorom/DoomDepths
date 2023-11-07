@@ -1,8 +1,9 @@
 #include "loop.h"
 #include "map.h"
 #include "cli.h"
+#include "battle.h"
 
-int event_loop(Context *context)
+int event_loop(Context *context, Hero *hero)
 {
     system("/bin/stty raw");
     int first_iteration = 1;
@@ -20,7 +21,7 @@ int event_loop(Context *context)
         char input;
         if ((input = fgetc(stdin)) != EOF)
         {
-            if (process_user_input(input, context) == 0)
+            if (process_user_input(input, context, hero) == 0)
             {
                 system("/bin/stty cooked");
                 return 0;
@@ -33,7 +34,7 @@ int event_loop(Context *context)
     return 0;
 }
 
-int process_user_input(char userInput, Context *context)
+int process_user_input(char userInput, Context *context, Hero *hero)
 {
     switch (userInput)
     {
@@ -44,8 +45,9 @@ int process_user_input(char userInput, Context *context)
         }
         else if (context->map[context->pos_x][context->pos_y - 1] == MONSTER)
         {
-            // if
             context->pos_y -= 1;
+            system("/bin/stty cooked");
+            start_battle(hero);
             break;
         }
         else
@@ -60,8 +62,9 @@ int process_user_input(char userInput, Context *context)
         }
         else if (context->map[context->pos_x + 1][context->pos_y] == MONSTER)
         {
-            // if
             context->pos_x += 1;
+            system("/bin/stty cooked");
+            start_battle(hero);
             break;
         }
         else
@@ -76,8 +79,9 @@ int process_user_input(char userInput, Context *context)
         }
         else if (context->map[context->pos_x][context->pos_y + 1] == MONSTER)
         {
-            // if
             context->pos_y += 1;
+            system("/bin/stty cooked");
+            start_battle(hero);
             break;
         }
         else
@@ -92,8 +96,9 @@ int process_user_input(char userInput, Context *context)
         }
         else if (context->map[context->pos_x - 1][context->pos_y] == MONSTER)
         {
-            // if
             context->pos_x -= 1;
+            system("/bin/stty cooked");
+            start_battle(hero);
             break;
         }
         else

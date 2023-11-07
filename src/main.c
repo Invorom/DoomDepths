@@ -5,17 +5,23 @@
 int main(int argc, char **argv)
 {
     clear_screen();
-    // main_menu();
-
     Context *context = malloc(sizeof(Context));
-
-    // Init the map
-    map_loading();
-    mapInit(context);
-
-    if (event_loop(context) == 0)
+    if (main_menu())
     {
-        freeContext(context);
+        Hero *hero = initialize_hero();
+
+        // Init the map
+        map_loading();
+        mapInit(context);
+
+        if (event_loop(context, hero) == 0)
+        {
+            freeContext(context);
+            return EXIT_SUCCESS;
+        }
+    }
+    else
+    {
         return EXIT_SUCCESS;
     }
 
