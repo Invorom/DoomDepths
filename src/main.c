@@ -4,18 +4,17 @@
 
 int main(int argc, char **argv)
 {
-    main_menu();
+    // main_menu();
 
-    // Context *context = malloc(sizeof(Context));
+    Context *context = malloc(sizeof(Context));
 
-    // // Init the map
-    // mapInit();
-    // getMap(context);
+    // Init the map
+    mapInit(context);
 
-    // if (event_loop(context) == 0)
-    // {
-    //     return EXIT_SUCCESS;
-    // }
+    if (event_loop(context) == 0)
+    {
+        return EXIT_SUCCESS;
+    }
 
     return 0;
 }

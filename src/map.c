@@ -53,7 +53,7 @@ float perlin2d(float x, float y, float freq, int depth, int seed)
     return fin / div;
 }
 
-int mapInit()
+int mapInit(Context *context)
 {
     int x, y;
     int posx = -1;
@@ -108,6 +108,33 @@ int mapInit()
     }
     fprintf(f, "%d %d", posx, posy);
     fclose(f);
+
+    short **available = malloc(sizeof(short *) * ROWS);
+    if (available == NULL)
+    {
+        return 1;
+    }
+
+    for (int i = 0; i < ROWS; i++)
+    {
+        available[i] = malloc(sizeof(short) * COLUMNS);
+        for (int j = 0; j < COLUMNS; j++)
+        {
+            available[i][j] = 0;
+        }
+    }
+
+    getMap(context);
+
+    int *count = malloc(sizeof(int));
+    *count = 0;
+    if (!validMap(posx, posy, context, available, count))
+    {
+        mapInit(context);
+    }
+    free(available);
+    free(count);
+
     return 0;
 }
 
@@ -139,6 +166,48 @@ int getMap(Context *context)
     context->pos_y = y;
     fclose(f);
     return 0;
+}
+
+int validMap(int posx, int posy, Context *context, short **available, int *count)
+{
+    if (posx < 0 || posy < 0 || posx >= ROWS || posy >= COLUMNS)
+    {
+        return 0;
+    }
+
+    if (*count >= 1000)
+    {
+        return 1;
+    }
+
+    if (context->map[posx][posy] != PATH)
+    {
+        return 0;
+    }
+
+    if (available[posx][posy] == 1)
+    {
+        return 0;
+    }
+
+    *count = *count + 1;
+    available[posx][posy] = 1;
+
+    int nbAction = 0;
+
+    nbAction += validMap(posx + 1, posy, context, available, count);
+    nbAction += validMap(posx - 1, posy, context, available, count);
+    nbAction += validMap(posx, posy + 1, context, available, count);
+    nbAction += validMap(posx, posy - 1, context, available, count);
+
+    if (nbAction == 0)
+    {
+        return 0;
+    }
+    else
+    {
+        return 1;
+    }
 }
 
 void displayMap(Context *context)
