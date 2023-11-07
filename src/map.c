@@ -353,6 +353,7 @@ void displayMap(Context *context)
         }
         printf("\n");
     }
+    printf("\033[1;37m");
 }
 
 void map_loading()
