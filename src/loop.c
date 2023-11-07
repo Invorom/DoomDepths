@@ -5,18 +5,32 @@
 int event_loop(Context *context)
 {
     system("/bin/stty raw");
+    int first_iteration = 1;
+
     while (1)
     {
-        char input = fgetc(stdin);
-        if (process_user_input(input, context) == 0)
+        if (first_iteration)
         {
             system("/bin/stty cooked");
-            return 0;
+            displayMap(context);
+            system("/bin/stty raw");
+            first_iteration = 0;
         }
-        system("/bin/stty cooked");
-        displayMap(context);
-        system("/bin/stty raw");
+
+        char input;
+        if ((input = fgetc(stdin)) != EOF)
+        {
+            if (process_user_input(input, context) == 0)
+            {
+                system("/bin/stty cooked");
+                return 0;
+            }
+            system("/bin/stty cooked");
+            displayMap(context);
+            system("/bin/stty raw");
+        }
     }
+    return 0;
 }
 
 int process_user_input(char userInput, Context *context)
