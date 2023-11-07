@@ -4,6 +4,7 @@
 void start_battle(Hero *hero)
 {
     Monsters *monsters = initialize_monsters();
+    hero->nbTurns = 3;
 
     // Initialize the random seed
     srand(time(NULL));
