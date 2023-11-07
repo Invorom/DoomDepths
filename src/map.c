@@ -60,6 +60,8 @@ int mapInit(Context *context)
     int posy = -1;
     int monsterCount = 0;
     int chestCount = 0;
+    int bossCount = 0;
+
     FILE *f = fopen("../save/map.map", "w");
     if (f == NULL)
     {
@@ -87,16 +89,6 @@ int mapInit(Context *context)
                         posy = y;
                     }
                     fputc(OBSTACLE, f);
-                }
-                else if (tmp > 0.3 && tmp < 0.35 && monsterCount < 15) // Limiting the frequency of monsters
-                {
-                    fputc(MONSTER, f);
-                    monsterCount++;
-                }
-                else if (tmp > 0.6 && tmp < 0.65 && chestCount < 5) // Limiting the frequency of chests
-                {
-                    fputc(CHEST, f);
-                    chestCount++;
                 }
                 else
                 {
@@ -131,30 +123,49 @@ int mapInit(Context *context)
     if (!validMap(posx, posy, context, available, count))
     {
         mapInit(context);
+        free(available);
+        free(count);
+        return 0;
     }
-    free(available);
-    free(count);
 
-    // short **reachableResult = reachable(context);
-    // if (reachableResult != NULL)
-    // {
-    //     printf("Reachable positions:\n");
-    //     for (int i = 0; i < ROWS; i++)
-    //     {
-    //         for (int j = 0; j < COLUMNS; j++)
-    //         {
-    //             printf("%d ", reachableResult[i][j]);
-    //         }
-    //         printf("\n");
-    //     }
+    short **reachableResult = reachable(context);
 
-    //     // Free the allocated memory for reachableResult
-    //     for (int i = 0; i < ROWS; i++)
-    //     {
-    //         free(reachableResult[i]);
-    //     }
-    //     free(reachableResult);
-    // }
+    // Put the monsters and chests
+    while (monsterCount < 10)
+    {
+        int newObjectx = (rand() % (ROWS - 2)) + 2;
+        int newObjecty = (rand() % (COLUMNS - 2)) + 2;
+
+        if (context->map[newObjectx][newObjecty] == PATH && reachableResult[newObjectx][newObjecty] == 1)
+        {
+            context->map[newObjectx][newObjecty] = MONSTER;
+            monsterCount++;
+        }
+    }
+
+    while (chestCount < 5)
+    {
+        int newObjectx = (rand() % (ROWS - 2)) + 2;
+        int newObjecty = (rand() % (COLUMNS - 2)) + 2;
+
+        if (context->map[newObjectx][newObjecty] == PATH && reachableResult[newObjectx][newObjecty] == 1)
+        {
+            context->map[newObjectx][newObjecty] = CHEST;
+            chestCount++;
+        }
+    }
+
+    while (bossCount < 1)
+    {
+        int newObjectx = (rand() % (ROWS - 2)) + 2;
+        int newObjecty = (rand() % (COLUMNS - 2)) + 2;
+
+        if (context->map[newObjectx][newObjecty] == PATH && reachableResult[newObjectx][newObjecty] == 1)
+        {
+            context->map[newObjectx][newObjecty] = BOSS;
+            bossCount++;
+        }
+    }
 
     return 0;
 }
