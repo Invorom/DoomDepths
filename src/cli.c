@@ -82,7 +82,7 @@ char listen_user_input()
     }
 }
 
-void main_menu()
+int main_menu()
 {
     char input = '0';
 
@@ -102,20 +102,19 @@ void main_menu()
     {
     case '1':
         clear_screen();
-
-        Hero *hero = initialize_hero();
-        start_battle(hero);
-        free_hero(hero);
+        return 1;
         break;
 
     case '2':
         clear_screen();
         printf("See you next time!\n");
+        return 0;
         break;
 
     default:
         clear_screen();
         printf("Something went wrong\n");
+        return -1;
         break;
     }
 }
