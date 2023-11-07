@@ -149,4 +149,25 @@ int reachableCase(int posx, int posy, Context *context, short **available);
  */
 short **reachable(Context *context);
 
+/**
+ * @brief Free the map
+ *
+ * @param context
+ */
+void freeMap(Context *context);
+
+/**
+ * @brief Free the available matrix
+ *
+ * @param available
+ */
+void freeAvailable(short **available);
+
+/**
+ * @brief Free the context
+ *
+ * @param context
+ */
+void freeContext(Context *context);
+
 #endif

@@ -55,13 +55,19 @@ float perlin2d(float x, float y, float freq, int depth, int seed)
 
 int mapInit(Context *context)
 {
+    static int isFirstTime = 1; // Static variable to keep track of the first time
+
     int x, y;
     int posx = -1;
     int posy = -1;
     int monsterCount = 0;
     int chestCount = 0;
     int bossCount = 0;
-
+    if (isFirstTime)
+    {
+        context->map = NULL;
+        isFirstTime = 0;
+    }
     FILE *f = fopen("../save/map.map", "w");
     if (f == NULL)
     {
@@ -116,6 +122,7 @@ int mapInit(Context *context)
         }
     }
 
+    freeMap(context);
     getMap(context);
 
     int *count = malloc(sizeof(int));
@@ -123,10 +130,12 @@ int mapInit(Context *context)
     if (!validMap(posx, posy, context, available, count))
     {
         mapInit(context);
-        free(available);
+        freeAvailable(available);
         free(count);
         return 0;
     }
+    freeAvailable(available);
+    free(count);
 
     short **reachableResult = reachable(context);
 
@@ -166,6 +175,8 @@ int mapInit(Context *context)
             bossCount++;
         }
     }
+
+    freeAvailable(reachableResult);
 
     return 0;
 }
@@ -342,4 +353,39 @@ void map_loading()
     printf(" |______\\___/ \\__,_|\\__,_|_|_| |_|\\__, | |_| |_| |_|\\__,_| .__/  (_|_|_)\n");
     printf("                                   __/ |                 | |            \n");
     printf("                                  |___/                  |_|            \n");
+}
+
+void freeMap(Context *context)
+{
+    if (context->map != NULL)
+    {
+        for (int i = 0; i < ROWS; i++)
+        {
+            if (context->map[i] != NULL)
+            {
+                free(context->map[i]);
+                context->map[i] = NULL;
+            }
+        }
+        free(context->map);
+        context->map = NULL;
+    }
+}
+
+void freeAvailable(short **available)
+{
+    for (int i = 0; i < ROWS; i++)
+    {
+        free(available[i]);
+    }
+    free(available);
+}
+
+void freeContext(Context *context)
+{
+    if (context != NULL)
+    {
+        freeMap(context);
+        free(context);
+    }
 }

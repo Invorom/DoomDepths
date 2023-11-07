@@ -15,8 +15,11 @@ int main(int argc, char **argv)
 
     if (event_loop(context) == 0)
     {
+        freeContext(context);
         return EXIT_SUCCESS;
     }
+
+    freeContext(context);
 
     return 0;
 }
