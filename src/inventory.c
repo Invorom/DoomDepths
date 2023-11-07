@@ -246,21 +246,23 @@ void freeInventory(Inventory *inventory)
 void display_inventory(Inventory *inventory)
 {
     printf("Equiped armor: %s\n", inventory->equipedArmor->name);
-    printf("Equiped weapon: %s\n", inventory->equipedWeapon->name);
+    printf("%s\n", inventory->equipedArmor->description);
+    printf("\nEquiped weapon: %s\n", inventory->equipedWeapon->name);
+    printf("%s\n", inventory->equipedWeapon->description);
 
-    printf("Armors:\n");
+    printf("\nArmors:\n");
     for (int i = 0; i < inventory->nbArmors; i++)
     {
         if (inventory->armors[i] != NULL) // Check for NULL pointers
             printf("%d. %s\n", i + 1, inventory->armors[i]->name);
     }
-    printf("Weapons:\n");
+    printf("\nWeapons:\n");
     for (int i = 0; i < inventory->nbWeapons; i++)
     {
         if (inventory->weapons[i] != NULL) // Check for NULL pointers
             printf("%d. %s\n", i + 1, inventory->weapons[i]->name);
     }
-    printf("Potions:\n");
+    printf("\nPotions:\n");
     for (int i = 0; i < inventory->nbPotions; i++)
     {
         if (inventory->potions[i] != NULL) // Check for NULL pointers
