@@ -3,10 +3,10 @@
 #include "cli.h"
 #include "battle.h"
 
-int event_loop(Context *context, Hero *hero)
+int event_loop(Context *context, Hero *hero, Inventory *inventory)
 {
     system("/bin/stty raw");
-    int first_iteration = 1;
+    static int first_iteration = 1;
 
     while (1)
     {
@@ -21,7 +21,7 @@ int event_loop(Context *context, Hero *hero)
         char input;
         if ((input = fgetc(stdin)) != EOF)
         {
-            if (process_user_input(input, context, hero) == 0)
+            if (process_user_input(input, context, hero, inventory) == 0)
             {
                 system("/bin/stty cooked");
                 return 0;
@@ -34,7 +34,7 @@ int event_loop(Context *context, Hero *hero)
     return 0;
 }
 
-int process_user_input(char userInput, Context *context, Hero *hero)
+int process_user_input(char userInput, Context *context, Hero *hero, Inventory *inventory)
 {
     switch (userInput)
     {
@@ -48,6 +48,7 @@ int process_user_input(char userInput, Context *context, Hero *hero)
             context->pos_y -= 1;
             system("/bin/stty cooked");
             start_battle(hero, context);
+            system("/bin/stty raw");
             break;
         }
         else
@@ -65,6 +66,7 @@ int process_user_input(char userInput, Context *context, Hero *hero)
             context->pos_x += 1;
             system("/bin/stty cooked");
             start_battle(hero, context);
+            system("/bin/stty raw");
             break;
         }
         else
@@ -82,6 +84,7 @@ int process_user_input(char userInput, Context *context, Hero *hero)
             context->pos_y += 1;
             system("/bin/stty cooked");
             start_battle(hero, context);
+            system("/bin/stty raw");
             break;
         }
         else
@@ -99,6 +102,7 @@ int process_user_input(char userInput, Context *context, Hero *hero)
             context->pos_x -= 1;
             system("/bin/stty cooked");
             start_battle(hero, context);
+            system("/bin/stty raw");
             break;
         }
         else
@@ -109,6 +113,7 @@ int process_user_input(char userInput, Context *context, Hero *hero)
     case 'e':
         system("/bin/stty cooked");
         clear_screen();
+        display_inventory(inventory);
         wait_for_enter();
         system("/bin/stty raw");
 
