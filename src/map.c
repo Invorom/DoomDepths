@@ -135,6 +135,27 @@ int mapInit(Context *context)
     free(available);
     free(count);
 
+    // short **reachableResult = reachable(context);
+    // if (reachableResult != NULL)
+    // {
+    //     printf("Reachable positions:\n");
+    //     for (int i = 0; i < ROWS; i++)
+    //     {
+    //         for (int j = 0; j < COLUMNS; j++)
+    //         {
+    //             printf("%d ", reachableResult[i][j]);
+    //         }
+    //         printf("\n");
+    //     }
+
+    //     // Free the allocated memory for reachableResult
+    //     for (int i = 0; i < ROWS; i++)
+    //     {
+    //         free(reachableResult[i]);
+    //     }
+    //     free(reachableResult);
+    // }
+
     return 0;
 }
 
@@ -208,6 +229,64 @@ int validMap(int posx, int posy, Context *context, short **available, int *count
     {
         return 1;
     }
+}
+
+int reachableCase(int posx, int posy, Context *context, short **available)
+{
+    if (posx < 0 || posy < 0 || posx >= ROWS || posy >= COLUMNS)
+    {
+        return 0;
+    }
+
+    if (context->map[posx][posy] == OBSTACLE)
+    {
+        return 0;
+    }
+
+    if (available[posx][posy] == 1)
+    {
+        return 0;
+    }
+
+    available[posx][posy] = 1;
+
+    int nbAction = 0;
+
+    nbAction += reachableCase(posx + 1, posy, context, available);
+    nbAction += reachableCase(posx - 1, posy, context, available);
+    nbAction += reachableCase(posx, posy + 1, context, available);
+    nbAction += reachableCase(posx, posy - 1, context, available);
+
+    if (nbAction == 0)
+    {
+        return 0;
+    }
+    else
+    {
+        return 1;
+    }
+}
+
+short **reachable(Context *context)
+{
+    short **available = malloc(sizeof(short *) * ROWS);
+    if (available == NULL)
+    {
+        return NULL;
+    }
+
+    for (int i = 0; i < ROWS; i++)
+    {
+        available[i] = malloc(sizeof(short) * COLUMNS);
+        for (int j = 0; j < COLUMNS; j++)
+        {
+            available[i][j] = 0;
+        }
+    }
+
+    reachableCase(context->pos_x, context->pos_y, context, available);
+
+    return available;
 }
 
 void displayMap(Context *context)

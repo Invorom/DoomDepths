@@ -130,4 +130,23 @@ int validMap(int posx, int posy, Context *context, short **available, int *count
  */
 void map_loading();
 
+/**
+ * @brief Check if the case is reachable
+ *
+ * @param posx
+ * @param posy
+ * @param context
+ * @param available
+ * @return int
+ */
+int reachableCase(int posx, int posy, Context *context, short **available);
+
+/**
+ * @brief Return a matrix of reachable case
+ *
+ * @param context
+ * @return short**
+ */
+short **reachable(Context *context);
+
 #endif
