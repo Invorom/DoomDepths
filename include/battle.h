@@ -3,14 +3,15 @@
 
 #include "hero.h"
 #include "monster.h"
+#include "map.h"
 
 /**
  * @brief Starts a battle between the hero and the monsters.
  *
  * @param hero
- * @param monsters
+ * @param context
  */
-void start_battle(Hero *hero);
+void start_battle(Hero *hero, Context *context);
 
 /**
  * @brief Attacks a monster.
@@ -38,8 +39,9 @@ void display_win();
  *
  * @param hero
  * @param monsters
+ * @param context
  */
-void battle_win(Hero *hero, Monsters *monsters);
+void battle_win(Hero *hero, Monsters *monsters, Context *context);
 
 /**
  * @brief Displays the loose screen.

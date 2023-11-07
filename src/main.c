@@ -17,11 +17,13 @@ int main(int argc, char **argv)
         if (event_loop(context, hero) == 0)
         {
             freeContext(context);
+            free_hero(hero);
             return EXIT_SUCCESS;
         }
     }
     else
     {
+        freeContext(context);
         return EXIT_SUCCESS;
     }
 

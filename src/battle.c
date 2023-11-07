@@ -1,7 +1,8 @@
 #include "battle.h"
 #include "cli.h"
+#include "map.h"
 
-void start_battle(Hero *hero)
+void start_battle(Hero *hero, Context *context)
 {
     Monsters *monsters = initialize_monsters();
     hero->nbTurns = 3;
@@ -152,7 +153,7 @@ void start_battle(Hero *hero)
     }
     else if (monsters->numMonsters == 0)
     {
-        battle_win(hero, monsters);
+        battle_win(hero, monsters, context);
     }
     else
     {
@@ -201,7 +202,7 @@ void display_win()
     printf(YELLOW "    |_|  \\____/ \\____/      \\/  \\/   |_____|_| \\_| (_)\n" RESET);
 }
 
-void battle_win(Hero *hero, Monsters *monsters)
+void battle_win(Hero *hero, Monsters *monsters, Context *context)
 {
     clear_screen();
     display_win();
@@ -222,6 +223,8 @@ void battle_win(Hero *hero, Monsters *monsters)
     }
     sleep(5);
     free_monsters(monsters);
+    // Remove the monster from the map
+    context->map[context->pos_x][context->pos_y] = PATH;
     clear_screen();
 }
 
