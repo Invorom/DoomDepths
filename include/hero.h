@@ -8,6 +8,7 @@
 #define BLUE "\x1b[34m"
 #define RESET "\x1b[0m"
 
+
 typedef struct Hero
 {
     int life;
@@ -22,6 +23,9 @@ typedef struct Hero
     int attackMax;
     int defense;
     int donjonLevel;
+    Inventory inventory; // Ajout de l'inventaire au héros
+    Item* equippedWeapon; // Pointeur vers l'arme équipée
+    Item* equippedArmor; // Pointeur vers l'armure équipée
 } Hero;
 
 /**
@@ -43,5 +47,7 @@ Hero *initialize_hero();
  * @param hero
  */
 void free_hero(Hero *hero);
+
+void recalculate_hero_stats(Hero* hero);
 
 #endif

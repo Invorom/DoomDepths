@@ -89,3 +89,24 @@ void free_hero(Hero *hero)
 {
     free(hero);
 }
+
+void recalculate_hero_stats(Hero* hero) {
+    // Base stats
+    int baseAttackMin = 10;
+    int baseAttackMax = 20;
+    int baseDefense = 5;
+
+    // Adjust for equipment
+    if (hero->equippedWeapon) {
+        baseAttackMin += hero->equippedWeapon->value;
+        baseAttackMax += hero->equippedWeapon->value;
+    }
+    if (hero->equippedArmor) {
+        baseDefense += hero->equippedArmor->value;
+    }
+
+    // Set the hero's stats
+    hero->attackMin = baseAttackMin;
+    hero->attackMax = baseAttackMax;
+    hero->defense = baseDefense;
+}

@@ -1,5 +1,6 @@
 #include "battle.h"
 #include "cli.h"
+#include "inventory.h"
 
 void start_battle(Hero *hero)
 {
@@ -105,9 +106,31 @@ void start_battle(Hero *hero)
             printf("You use a potion!\n");
             break;
 
-        case '3':
-            clear_lines(7);
-            printf("You open your inventory!\n");
+        case '3': // Si l'utilisateur choisit "Inventaire"
+            clear_lines(7); // Efface les lignes spécifiques à l'écran
+            display_inventory(&(hero->inventory)); // Affiche l'inventaire
+            printf("Choose an item to equip or use (or %d to cancel):\n", hero->inventory.itemCount + 1);
+
+            for (int i = 0; i < hero->inventory.itemCount; ++i) {
+                printf("%d. %s\n", i + 1, hero->inventory.items[i]->name);
+            }
+
+            // Convert the input to an integer
+            int choice = 0;
+            char input = listen_user_input(); // This will get the character representing the first digit of the choice
+            if (input >= '1' && input <= '9') {
+                choice = input - '0'; // Convert char to int by subtracting ASCII value of '0'
+            }
+
+            // The rest of your code for handling the user's choice
+            if (choice > 0 && choice <= hero->inventory.itemCount) {
+                equip_item(hero, &(hero->inventory), choice - 1); // Équipe l'item
+                printf("You have equipped %s.\n", hero->inventory.items[choice - 1]->name);
+            } else if (choice == hero->inventory.itemCount + 1) {
+                printf("Canceled.\n");
+            } else {
+                printf("Invalid choice.\n");
+            }
             break;
 
         case '4':
@@ -174,6 +197,12 @@ void attack_monster(Monsters *monsters, Hero *hero, int index)
 
     if (monsters->monsters[index]->actualLife <= 0)
     {
+        int lootChance = rand() % 100; // Supposons une chance de 25% de loot
+        if (lootChance < 25) {
+            int itemIndex = rand() % NUM_ITEMS;
+            add_item(&hero->inventory, &availableItems[itemIndex]);
+            printf("You have looted %s!\n", availableItems[itemIndex].name);
+        }
         monsters = remove_monster_from_monsters(monsters, index);
         clear_screen();
         display_all_monsters(monsters, hero);
