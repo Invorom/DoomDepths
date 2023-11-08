@@ -1,8 +1,12 @@
 #ifndef BATTLE_H
 #define BATTLE_H
 
-#include "hero.h"
-#include "monster.h"
+// Forward declarations
+struct Hero;
+struct Monsters;
+typedef struct Hero Hero;
+typedef struct Monsters Monsters;
+
 
 /**
  * @brief Starts a battle between the hero and the monsters.

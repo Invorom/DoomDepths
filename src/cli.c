@@ -1,6 +1,7 @@
 #include "cli.h"
 #include "hero.h"
 #include "battle.h"
+#include "inventory.h"
 
 void clear_screen()
 {

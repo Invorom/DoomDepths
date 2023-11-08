@@ -1,6 +1,8 @@
 #include "battle.h"
 #include "cli.h"
 #include "inventory.h"
+#include "monster.h"
+#include "hero.h"
 
 void start_battle(Hero *hero)
 {

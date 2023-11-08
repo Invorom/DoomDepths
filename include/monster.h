@@ -3,7 +3,6 @@
 
 #include "utils.h"
 #include "cli.h"
-#include "hero.h"
 
 #define RED "\x1b[31m"
 #define RED_2 "\x1b[38;5;196m"
@@ -15,6 +14,9 @@
 #define RESET "\x1b[0m"
 
 #define YELLOW "\x1b[33m"
+
+struct Hero;
+typedef struct Hero Hero;
 
 typedef struct Monster
 {

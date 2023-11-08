@@ -1,4 +1,5 @@
 #include "monster.h"
+#include "hero.h"
 
 char *names[] = {
     "ant",

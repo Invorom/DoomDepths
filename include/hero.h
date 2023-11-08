@@ -3,13 +3,14 @@
 
 #include "utils.h"
 #include "cli.h"
+#include "inventory.h"
 
 #define RED "\x1b[31m"
 #define BLUE "\x1b[34m"
 #define RESET "\x1b[0m"
 
-
 typedef struct Hero
+
 {
     int life;
     int actualLife;

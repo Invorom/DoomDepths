@@ -63,5 +63,5 @@ void restore_terminal_attributes(struct termios orig_termios);
  * @return char
  */
 char listen_user_input();
-
+void display_menu_design();
 #endif

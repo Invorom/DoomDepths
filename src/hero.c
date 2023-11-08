@@ -1,4 +1,6 @@
 #include "hero.h"
+#include "inventory.h"
+#include "battle.h"
 
 char *heroAscii[] = {
     "      _,.",
