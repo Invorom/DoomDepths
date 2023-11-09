@@ -4,6 +4,11 @@
 #include "monster.h"
 #include "hero.h"
 
+void refresh_game_state(Monsters *monsters, Hero *hero) {
+    clear_screen();
+    display_all_monsters(monsters, hero);
+}
+
 void start_battle(Hero *hero)
 {
     Monsters *monsters = initialize_monsters();
@@ -50,7 +55,7 @@ void start_battle(Hero *hero)
             clear_lines(7);
             if (hero->nbTurns == 0)
             {
-                clear_lines(1);
+                display_all_monsters(monsters, hero);
                 break;
             }
             printf("Which monster do you want to attack?\n");
@@ -72,34 +77,37 @@ void start_battle(Hero *hero)
                     break;
                 }
             }
-
-            int heroAttack;
-
+            
             switch (monsterInput)
             {
             case '1':
                 attack_monster(monsters, hero, 0);
+                refresh_game_state(monsters, hero);
                 break;
 
             case '2':
                 attack_monster(monsters, hero, 1);
+                refresh_game_state(monsters, hero);
                 break;
 
             case '3':
                 attack_monster(monsters, hero, 2);
+                refresh_game_state(monsters, hero);
                 break;
 
             case '4':
                 attack_monster(monsters, hero, 3);
+                refresh_game_state(monsters, hero);
                 break;
 
             case '5':
                 attack_monster(monsters, hero, 4);
+                refresh_game_state(monsters, hero);
                 break;
 
             case '0':
-                clear_lines(monsters->numMonsters + 4);
-                break;
+                refresh_game_state(monsters, hero);
+                break;   
             }
             break;
 
@@ -113,11 +121,14 @@ void start_battle(Hero *hero)
                 if (hero->actualLife > hero->life) {
                     hero->actualLife = hero->life;
                 }
-                printf("Vous avez utilisé une potion et avez restauré %d points de vie!\n", healAmount);
                 hero->potionUsed = 1; // Marquez la potion comme utilisée
+                clear_screen();
+                display_all_monsters(monsters, hero); // Redessiner les monstres et le héros
+                printf("Vous avez utilisé une potion et avez restauré %d points de vie!\n", healAmount);
             } else {
                 printf("Votre vie est déjà pleine.\n");
             }
+            refresh_game_state(monsters, hero);
             break;
 
         case '3': // Si l'utilisateur choisit "Inventaire"
@@ -145,6 +156,7 @@ void start_battle(Hero *hero)
             } else {
                 printf("Invalid choice.\n");
             }
+            refresh_game_state(monsters, hero);
             break;
 
         case '4':
@@ -169,6 +181,7 @@ void start_battle(Hero *hero)
             }
             hero->nbTurns = 3;
             hero->potionUsed = 0;
+            
             break;
 
         case '0':
