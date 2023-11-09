@@ -105,12 +105,24 @@ void start_battle(Hero *hero)
 
         case '2':
             clear_lines(7);
-            printf("You use a potion!\n");
+            if (hero->potionUsed) {
+                printf("Vous avez déjà utilisé une potion ce tour-ci.\n");
+            } else if (hero->actualLife < hero->life) {
+                int healAmount = 20;
+                hero->actualLife += healAmount;
+                if (hero->actualLife > hero->life) {
+                    hero->actualLife = hero->life;
+                }
+                printf("Vous avez utilisé une potion et avez restauré %d points de vie!\n", healAmount);
+                hero->potionUsed = 1; // Marquez la potion comme utilisée
+            } else {
+                printf("Votre vie est déjà pleine.\n");
+            }
             break;
 
         case '3': // Si l'utilisateur choisit "Inventaire"
             clear_lines(7); // Efface les lignes spécifiques à l'écran
-            display_inventory(&(hero->inventory)); // Affiche l'inventaire
+            display_inventory(&(hero->inventory), hero); // Affiche l'inventaire
             printf("Choose an item to equip or use (or %d to cancel):\n", hero->inventory.itemCount + 1);
 
             for (int i = 0; i < hero->inventory.itemCount; ++i) {
@@ -156,6 +168,7 @@ void start_battle(Hero *hero)
                 sleep(1);
             }
             hero->nbTurns = 3;
+            hero->potionUsed = 0;
             break;
 
         case '0':

@@ -41,10 +41,17 @@ void remove_item(Inventory* inventory, int index) {
     }
 }
 
-void display_inventory(Inventory* inventory) {
+void display_inventory(Inventory* inventory, Hero* hero) {
     printf("Inventory:\n");
     for (int i = 0; i < inventory->itemCount; i++) {
-        printf("%d: %s\n", i + 1, inventory->items[i]->name);
+        printf("%d: %s", i + 1, inventory->items[i]->name);
+        if (inventory->items[i] == hero->equippedWeapon) {
+            printf(" (Weapon equipped)");
+        }
+        if (inventory->items[i] == hero->equippedArmor) {
+            printf(" (Armor equipped)");
+        }
+        printf("\n");
     }
 }
 
@@ -71,10 +78,15 @@ void equip_item(Hero* hero, Inventory* inventory, int index) {
 void use_item(Hero* hero, Inventory* inventory, int index) {
     if (index >= 0 && index < inventory->itemCount) {
         Item* item = inventory->items[index];
-        // Logique pour utiliser l'item, dépendant de son type
-        // Par exemple, si c'est une potion, soignez le héros, etc.
+        if (item->type == POTION) {
+            hero->actualLife += item->value;
+            if (hero->actualLife > hero->life) hero->actualLife = hero->life;
+            printf("Vous avez utilisé %s et regagné %d points de vie.\n", item->name, item->value);
+            remove_item(inventory, index); // Enlevez la potion de l'inventaire après utilisation
+        }
+        // Vous pouvez ajouter d'autres cas pour les autres types d'items ici.
     } else {
-        printf("Invalid index.\n");
+        printf("Choix invalide.\n");
     }
 }
 

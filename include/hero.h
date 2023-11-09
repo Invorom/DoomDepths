@@ -24,6 +24,7 @@ typedef struct Hero
     int attackMax;
     int defense;
     int donjonLevel;
+    int potionUsed;
     Inventory inventory; // Ajout de l'inventaire au héros
     Item* equippedWeapon; // Pointeur vers l'arme équipée
     Item* equippedArmor; // Pointeur vers l'armure équipée

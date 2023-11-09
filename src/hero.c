@@ -45,8 +45,10 @@ Hero *initialize_hero() {
     hero->donjonLevel = 1;
     hero->equippedWeapon = NULL; 
     hero->equippedArmor = NULL; 
-
+    hero->potionUsed = 0;
+    
     initialize_inventory(&(hero->inventory));
+
 
     return hero;
 }

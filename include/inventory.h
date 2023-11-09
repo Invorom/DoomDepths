@@ -33,7 +33,7 @@ extern Item availableItems[NUM_ITEMS];
 void initialize_inventory(Inventory* inventory);
 void add_item(Inventory* inventory, Item* item);
 void remove_item(Inventory* inventory, int index);
-void display_inventory(Inventory* inventory);
+void display_inventory(Inventory* inventory, Hero* hero);
 void equip_item(Hero* hero, Inventory* inventory, int index);
 void use_item(Hero* hero, Inventory* inventory, int index); // Pour des potions par exemple
 void destroy_inventory(Inventory* inventory);
