@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
+#include "cli.h"
 
 void defineActualArmor(Armor *armor, Armors type)
 {
@@ -385,14 +386,32 @@ Inventory *open_chest(Inventory *inventory)
     {
     case 0:
         inventory = add_a_weapon(inventory, returnRandomWeapon());
+        clear_screen();
+        printf("You found a weapon!\n");
+        wait_for_enter();
+        clear_screen();
+        printf("You found a %s!\n", inventory->weapons[inventory->nbWeapons - 1]->name);
+        wait_for_enter();
         break;
 
     case 1:
         inventory = add_an_armor(inventory, returnRandomArmor());
+        clear_screen();
+        printf("You found an armor!\n");
+        wait_for_enter();
+        clear_screen();
+        printf("You found a %s armor!\n", inventory->armors[inventory->nbArmors - 1]->name);
+        wait_for_enter();
         break;
 
     case 2:
         inventory = add_a_potion(inventory, returnRandomPotion());
+        clear_screen();
+        printf("You found a potion!\n");
+        wait_for_enter();
+        clear_screen();
+        printf("You found a %s potion!\n", inventory->potions[inventory->nbPotions - 1]->name);
+        wait_for_enter();
         break;
     }
 
