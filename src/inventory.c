@@ -16,7 +16,7 @@ Item availableItems[NUM_ITEMS] = {
 
 void initialize_inventory(Inventory* inventory) {
     inventory->itemCount = 0;
-    for (int i = 0; i < MAX_INVENTORY_SIZE; i++) {
+    for (int i = 0; i < MAX_INVENTORY_SIZE; ++i) {
         inventory->items[i] = NULL;
     }
 }

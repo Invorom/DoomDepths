@@ -24,9 +24,13 @@ char *heroAscii[] = {
     "    |     {__}",
     "          ()"};
 
-Hero *initialize_hero()
-{
+Hero *initialize_hero() {
     Hero *hero = malloc(sizeof(Hero));
+    if (!hero) {
+        fprintf(stderr, "Failed to allocate memory for hero\n");
+        exit(EXIT_FAILURE);
+    }
+    
     hero->life = 100;
     hero->actualLife = 100;
     hero->mana = 100;
@@ -39,6 +43,10 @@ Hero *initialize_hero()
     hero->level = 1;
     hero->nbTurns = 3;
     hero->donjonLevel = 1;
+    hero->equippedWeapon = NULL; 
+    hero->equippedArmor = NULL; 
+
+    initialize_inventory(&(hero->inventory));
 
     return hero;
 }

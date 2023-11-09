@@ -105,6 +105,7 @@ void main_menu()
         clear_screen();
 
         Hero *hero = initialize_hero();
+        add_item(&(hero->inventory), &availableItems[0]);
         start_battle(hero);
         free_hero(hero);
         break;
