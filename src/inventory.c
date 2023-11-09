@@ -467,6 +467,15 @@ Inventory *initialize_inventory()
     inventory->weapons[0] = inventory->equipedWeapon;
     inventory->nbWeapons++;
 
+    // Add 5 health potions to the inventory
+    for (int i = 0; i < 3; i++)
+    {
+        // Create the potion
+        Potion *potion = malloc(sizeof(Potion));
+        defineActualPotion(potion, HEALTH);
+        inventory = add_a_potion(inventory, potion);
+    }
+
     return inventory;
 }
 
