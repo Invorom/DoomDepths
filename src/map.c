@@ -315,9 +315,15 @@ void displayMap(Context *context, Hero *hero)
 {
     clear_screen();
 
-    for (int i = context->pos_y - 12; i < context->pos_y + 12; i++)
+    printf("     " YELLOW "Donjon level: " RESET "%d     ", hero->donjonLevel);
+    // Rules
+    printf("     Press 'z' to go up, 'q' to go left, 's' to go down and 'd' to go right.\n");
+    printf("                              Press 'e' to open your inventory.\n");
+    printf("                              Press shift + 'x' to save and quit.\n");
+
+    for (int i = context->pos_y - 20; i < context->pos_y + 20; i++)
     {
-        for (int j = context->pos_x - 24; j < context->pos_x + 24; j++)
+        for (int j = context->pos_x - 50; j < context->pos_x + 50; j++)
         {
             if (i < 0 || j < 0 || j >= ROWS || i >= COLUMNS)
             {
@@ -354,8 +360,10 @@ void displayMap(Context *context, Hero *hero)
         printf("\n");
     }
     printf("\033[1;37m");
+
+    // Player stats
     // Print the life bar
-    printf("\n" RED "Life: " RESET "[");
+    printf("\n\n     " RED "Life: " RESET "[");
     int lifeBarLength = (hero->actualLife * 10) / 100; // 10 is the length of the bar
     for (int i = 0; i < 10; i++)
     {
@@ -364,9 +372,10 @@ void displayMap(Context *context, Hero *hero)
         else
             printf(" ");
     }
-    printf("] %d%%\n", hero->actualLife);
+    printf("] %d%%     " CYAN "Level: " RESET "%d\n", hero->actualLife, hero->level);
+
     // Print the mana bar
-    printf("" BLUE "Mana: " RESET "[");
+    printf("     " BLUE "Mana: " RESET "[");
     int manaBarLength = (hero->actualMana * 10) / 100; // 10 is the length of the bar
     for (int i = 0; i < 10; i++)
     {
@@ -375,20 +384,11 @@ void displayMap(Context *context, Hero *hero)
         else
             printf(" ");
     }
-    printf("] %d%%\n", hero->actualMana);
+    printf("] %d%%     " MAGENTA "XP: " RESET "%d/%d\n", hero->actualMana, hero->xp, hero->level * 100);
+    printf("     " ORANGE "Gold: " RESET "%d\n", hero->gold);
 
-    // Print the number of monsters killed
-    printf("" GREEN "Monsters killed: " RESET "%d/10\n", context->killedMonsters);
-
-    printf("" ORANGE "Gold: " RESET "%d\n", hero->gold);
-    printf("" CYAN "Level: " RESET "%d\n", hero->level);
-    printf("" MAGENTA "XP: " RESET "%d/%d\n", hero->xp, hero->level * 100);
-    printf("" YELLOW "Donjon level: " RESET "%d\n", hero->donjonLevel);
-
-    // Rules
-    printf("\nPress 'z' to go up, 'q' to go left, 's' to go down and 'd' to go right.\n");
-    printf("Press 'e' to open your inventory.\n");
-    printf("Press shift + 'x' to save and quit.\n");
+    // Game stats
+    printf("\n     " GREEN "Monsters killed: " RESET "%d/10     " BLUE "Chests found: " RESET "%d/5\n", context->killedMonsters, context->openedChests);
 }
 
 void map_loading()
