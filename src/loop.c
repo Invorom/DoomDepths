@@ -58,6 +58,7 @@ int process_user_input(char userInput, Context *context, Hero *hero, Inventory *
             open_chest(inventory);
             // Remove the chest from the map
             context->map[context->pos_x][context->pos_y] = PATH;
+            context->openedChests++;
             system("/bin/stty raw");
             break;
         }
@@ -105,6 +106,7 @@ int process_user_input(char userInput, Context *context, Hero *hero, Inventory *
             open_chest(inventory);
             // Remove the chest from the map
             context->map[context->pos_x][context->pos_y] = PATH;
+            context->openedChests++;
             system("/bin/stty raw");
             break;
         }
@@ -152,6 +154,7 @@ int process_user_input(char userInput, Context *context, Hero *hero, Inventory *
             open_chest(inventory);
             // Remove the chest from the map
             context->map[context->pos_x][context->pos_y] = PATH;
+            context->openedChests++;
             system("/bin/stty raw");
             break;
         }
@@ -199,6 +202,7 @@ int process_user_input(char userInput, Context *context, Hero *hero, Inventory *
             open_chest(inventory);
             // Remove the chest from the map
             context->map[context->pos_x][context->pos_y] = PATH;
+            context->openedChests++;
             system("/bin/stty raw");
             break;
         }

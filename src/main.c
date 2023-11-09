@@ -8,6 +8,7 @@ int main(int argc, char **argv)
     clear_screen();
     Context *context = malloc(sizeof(Context));
     context->killedMonsters = 0;
+    context->openedChests = 0;
     if (main_menu())
     {
         Hero *hero = initialize_hero();
