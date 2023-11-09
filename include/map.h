@@ -6,7 +6,7 @@
 #include <time.h>
 #include "hero.h"
 
-#define ROWS 50
+#define ROWS 100
 #define COLUMNS 100
 
 #define RED "\x1b[31m"
@@ -46,6 +46,7 @@ typedef struct Context
     int pos_x;
     int pos_y;
     int killedMonsters;
+    int openedChests;
     TILE **map;
 } Context;
 
