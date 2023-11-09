@@ -4,9 +4,19 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
+#include "hero.h"
 
 #define ROWS 50
 #define COLUMNS 100
+
+#define RED "\x1b[31m"
+#define BLUE "\x1b[34m"
+#define GREEN "\x1b[32m"
+#define YELLOW "\x1b[33m"
+#define CYAN "\x1b[36m"
+#define MAGENTA "\x1b[35m"
+#define ORANGE "\x1b[38;5;208m"
+#define WHITE "\x1b[37m"
 
 static int HASH[] = {208, 34, 231, 213, 32, 248, 233, 56, 161, 78, 24, 140, 71, 48, 140, 254, 245, 255, 247, 247, 40,
                      185, 248, 251, 245, 28, 124, 204, 204, 76, 36, 1, 107, 28, 234, 163, 202, 224, 245, 128, 167, 204,
@@ -110,8 +120,9 @@ int getMap(Context *context);
  * @brief Display the map
  *
  * @param context
+ * @param hero
  */
-void displayMap(Context *context);
+void displayMap(Context *context, Hero *hero);
 
 /**
  * @brief Valid the map

@@ -13,7 +13,7 @@ int event_loop(Context *context, Hero *hero, Inventory *inventory)
         if (first_iteration)
         {
             system("/bin/stty cooked");
-            displayMap(context);
+            displayMap(context, hero);
             system("/bin/stty raw");
             first_iteration = 0;
         }
@@ -27,7 +27,7 @@ int event_loop(Context *context, Hero *hero, Inventory *inventory)
                 return 0;
             }
             system("/bin/stty cooked");
-            displayMap(context);
+            displayMap(context, hero);
             system("/bin/stty raw");
         }
     }
@@ -231,7 +231,7 @@ int process_user_input(char userInput, Context *context, Hero *hero, Inventory *
 
         break;
 
-    case 'Q':
+    case 'X':
         // exits program
         return 0;
     }

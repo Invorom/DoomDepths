@@ -311,7 +311,7 @@ short **reachable(Context *context)
     return available;
 }
 
-void displayMap(Context *context)
+void displayMap(Context *context, Hero *hero)
 {
     clear_screen();
 
@@ -354,6 +354,41 @@ void displayMap(Context *context)
         printf("\n");
     }
     printf("\033[1;37m");
+    // Print the life bar
+    printf("\n" RED "Life: " RESET "[");
+    int lifeBarLength = (hero->actualLife * 10) / 100; // 10 is the length of the bar
+    for (int i = 0; i < 10; i++)
+    {
+        if (i < lifeBarLength)
+            printf("" RED "#" RESET "");
+        else
+            printf(" ");
+    }
+    printf("] %d%%\n", hero->actualLife);
+    // Print the mana bar
+    printf("" BLUE "Mana: " RESET "[");
+    int manaBarLength = (hero->actualMana * 10) / 100; // 10 is the length of the bar
+    for (int i = 0; i < 10; i++)
+    {
+        if (i < manaBarLength)
+            printf("" BLUE "#" RESET "");
+        else
+            printf(" ");
+    }
+    printf("] %d%%\n", hero->actualMana);
+
+    // Print the number of monsters killed
+    printf("" GREEN "Monsters killed: " RESET "%d/10\n", context->killedMonsters);
+
+    printf("" ORANGE "Gold: " RESET "%d\n", hero->gold);
+    printf("" CYAN "Level: " RESET "%d\n", hero->level);
+    printf("" MAGENTA "XP: " RESET "%d/%d\n", hero->xp, hero->level * 100);
+    printf("" YELLOW "Donjon level: " RESET "%d\n", hero->donjonLevel);
+
+    // Rules
+    printf("\nPress 'z' to go up, 'q' to go left, 's' to go down and 'd' to go right.\n");
+    printf("Press 'e' to open your inventory.\n");
+    printf("Press shift + 'x' to save and quit.\n");
 }
 
 void map_loading()
