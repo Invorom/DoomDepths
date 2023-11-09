@@ -738,7 +738,7 @@ void display_potions(Inventory *inventory)
     }
 }
 
-Inventory *equip_another_item(Inventory *inventory)
+Inventory *equip_another_item(Inventory *inventory, Hero *hero)
 {
     char input = '9';
 
@@ -783,8 +783,15 @@ Inventory *equip_another_item(Inventory *inventory)
         printf("You equiped your %s armor!\n", inventory->armors[input - '1']->name);
         wait_for_enter();
 
-        // Equip the armor
+        // Change the hero's defense by the armor's value percentage
+        hero->defense -= hero->defense * (inventory->equipedArmor->value / 100);
+
+        // Equip the new armor
         inventory->equipedArmor = inventory->armors[input - '1'];
+
+        // Change the hero's defense by the armor's value percentage
+        hero->defense += hero->defense * (inventory->equipedArmor->value / 100);
+
         break;
 
     case '2':
@@ -814,8 +821,17 @@ Inventory *equip_another_item(Inventory *inventory)
         printf("You equiped your %s!\n", inventory->weapons[input - '1']->name);
         wait_for_enter();
 
-        // Equip the weapon
+        // Change the hero's attack by the weapon's value percentage
+        hero->attackMin -= hero->attackMin * (inventory->equipedWeapon->value / 100);
+        hero->attackMax -= hero->attackMax * (inventory->equipedWeapon->value / 100);
+
+        // Equip the new weapon
         inventory->equipedWeapon = inventory->weapons[input - '1'];
+
+        // Change the hero's attack by the weapon's value percentage
+        hero->attackMin += hero->attackMin * (inventory->equipedWeapon->value / 100);
+        hero->attackMax += hero->attackMax * (inventory->equipedWeapon->value / 100);
+
         break;
 
     case '0':

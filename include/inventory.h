@@ -4,6 +4,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include "hero.h"
 
 typedef enum Armors
 {
@@ -237,10 +238,11 @@ void display_potions(Inventory *inventory);
 
 /**
  * @brief Equips another item in a battle.
- * 
- * @param inventory 
- * @return Inventory* 
+ *
+ * @param inventory
+ * @param hero
+ * @return Inventory*
  */
-Inventory *equip_another_item(Inventory *inventory);
+Inventory *equip_another_item(Inventory *inventory, Hero *hero);
 
 #endif

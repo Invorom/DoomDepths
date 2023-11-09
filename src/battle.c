@@ -114,7 +114,7 @@ void start_battle(Hero *hero, Context *context, Inventory *inventory)
 
         case '4':
             clear_screen();
-            equip_another_item(inventory);
+            equip_another_item(inventory, hero);
             clear_screen();
             display_all_monsters(monsters, hero);
             break;
