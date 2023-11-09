@@ -5,6 +5,7 @@
 #include "monster.h"
 #include "map.h"
 #include "inventory.h"
+#include "utils.h"
 
 /**
  * @brief Starts a battle between the hero and the monsters.

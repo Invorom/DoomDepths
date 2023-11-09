@@ -5,6 +5,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include "hero.h"
+#include "utils.h"
 
 typedef enum Armors
 {

@@ -4,6 +4,7 @@
 #include "map.h"
 #include "hero.h"
 #include "inventory.h"
+#include "utils.h"
 
 /**
  * @brief Loop of the game
