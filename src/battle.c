@@ -32,13 +32,14 @@ void start_battle(Hero *hero, Context *context)
 
         printf("\nWhat do you want to do?\n");
         printf("1. Attack (%d/3)\n", hero->nbTurns);
-        printf("2. Use a potion\n");
-        printf("3. Inventory\n");
-        printf("4. End turn\n\n");
+        printf("2. Use a spell\n");
+        printf("3. Use a potion\n");
+        printf("4. Inventory\n");
+        printf("5. End turn\n\n");
         printf("0. Quit\n");
 
         // Ask the user to choose an action
-        while (input != '1' && input != '2' && input != '3' && input != '4' && input != '0')
+        while (input != '1' && input != '2' && input != '3' && input != '4' && input != '5' && input != '0')
         {
             input = listen_user_input();
         }
@@ -46,7 +47,7 @@ void start_battle(Hero *hero, Context *context)
         switch (input)
         {
         case '1':
-            clear_lines(7);
+            clear_lines(8);
             if (hero->nbTurns == 0)
             {
                 clear_lines(1);
@@ -101,17 +102,22 @@ void start_battle(Hero *hero, Context *context)
             break;
 
         case '2':
-            clear_lines(7);
-            printf("You use a potion!\n");
+            clear_lines(8);
+            printf("You use a spell!\n");
             break;
 
         case '3':
-            clear_lines(7);
-            printf("You open your inventory!\n");
+            clear_lines(8);
+            printf("You use a potion!\n");
             break;
 
         case '4':
-            clear_lines(7);
+            clear_lines(8);
+            printf("You open your inventory!\n");
+            break;
+
+        case '5':
+            clear_lines(8);
             // Monsters attack
             for (int i = 0; i < monsters->numMonsters; ++i)
             {
@@ -140,7 +146,7 @@ void start_battle(Hero *hero, Context *context)
             break;
 
         case '0':
-            clear_lines(7);
+            clear_lines(8);
             isRunning = 0;
             break;
 
