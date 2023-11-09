@@ -47,7 +47,7 @@ int process_user_input(char userInput, Context *context, Hero *hero, Inventory *
         {
             context->pos_y -= 1;
             system("/bin/stty cooked");
-            start_battle(hero, context);
+            start_battle(hero, context, inventory);
             system("/bin/stty raw");
             break;
         }
@@ -65,7 +65,7 @@ int process_user_input(char userInput, Context *context, Hero *hero, Inventory *
         {
             context->pos_y -= 1;
             system("/bin/stty cooked");
-            start_battle(hero, context);
+            start_battle(hero, context, inventory);
             system("/bin/stty raw");
             break;
         }
@@ -93,7 +93,7 @@ int process_user_input(char userInput, Context *context, Hero *hero, Inventory *
         {
             context->pos_x += 1;
             system("/bin/stty cooked");
-            start_battle(hero, context);
+            start_battle(hero, context, inventory);
             system("/bin/stty raw");
             break;
         }
@@ -111,7 +111,7 @@ int process_user_input(char userInput, Context *context, Hero *hero, Inventory *
         {
             context->pos_x += 1;
             system("/bin/stty cooked");
-            start_battle(hero, context);
+            start_battle(hero, context, inventory);
             system("/bin/stty raw");
             break;
         }
@@ -139,7 +139,7 @@ int process_user_input(char userInput, Context *context, Hero *hero, Inventory *
         {
             context->pos_y += 1;
             system("/bin/stty cooked");
-            start_battle(hero, context);
+            start_battle(hero, context, inventory);
             system("/bin/stty raw");
             break;
         }
@@ -157,7 +157,7 @@ int process_user_input(char userInput, Context *context, Hero *hero, Inventory *
         {
             context->pos_y += 1;
             system("/bin/stty cooked");
-            start_battle(hero, context);
+            start_battle(hero, context, inventory);
             system("/bin/stty raw");
             break;
         }
@@ -185,7 +185,7 @@ int process_user_input(char userInput, Context *context, Hero *hero, Inventory *
         {
             context->pos_x -= 1;
             system("/bin/stty cooked");
-            start_battle(hero, context);
+            start_battle(hero, context, inventory);
             system("/bin/stty raw");
             break;
         }
@@ -203,7 +203,7 @@ int process_user_input(char userInput, Context *context, Hero *hero, Inventory *
         {
             context->pos_x -= 1;
             system("/bin/stty cooked");
-            start_battle(hero, context);
+            start_battle(hero, context, inventory);
             system("/bin/stty raw");
             break;
         }

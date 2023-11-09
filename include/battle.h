@@ -4,14 +4,16 @@
 #include "hero.h"
 #include "monster.h"
 #include "map.h"
+#include "inventory.h"
 
 /**
  * @brief Starts a battle between the hero and the monsters.
  *
  * @param hero
  * @param context
+ * @param inventory
  */
-void start_battle(Hero *hero, Context *context);
+void start_battle(Hero *hero, Context *context, Inventory *inventory);
 
 /**
  * @brief Attacks a monster.

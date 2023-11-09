@@ -1,8 +1,9 @@
 #include "battle.h"
 #include "cli.h"
 #include "map.h"
+#include "inventory.h"
 
-void start_battle(Hero *hero, Context *context)
+void start_battle(Hero *hero, Context *context, Inventory *inventory)
 {
     Monsters *monsters = initialize_monsters();
     hero->nbTurns = 3;
@@ -112,8 +113,11 @@ void start_battle(Hero *hero, Context *context)
             break;
 
         case '4':
-            clear_lines(8);
-            printf("You open your inventory!\n");
+            clear_screen();
+            display_inventory(inventory);
+            wait_for_enter();
+            clear_screen();
+            display_all_monsters(monsters, hero);
             break;
 
         case '5':
@@ -133,7 +137,7 @@ void start_battle(Hero *hero, Context *context)
                     hero->actualLife -= damage;
                 clear_screen();
                 display_all_monsters(monsters, hero);
-                printf("%s attacks you!\n", monsters->monsters[i]->name);
+                printf("\n%s attacks you!\n", monsters->monsters[i]->name);
                 sleep(1);
             }
             hero->nbTurns = 3;
@@ -143,10 +147,10 @@ void start_battle(Hero *hero, Context *context)
                 if (hero->actualMana > 100)
                     hero->actualMana = 100;
             }
+            clear_lines(1);
             break;
 
         case '0':
-            clear_lines(8);
             isRunning = 0;
             break;
 
