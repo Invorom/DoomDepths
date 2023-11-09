@@ -31,7 +31,9 @@ Hero *initialize_hero()
     hero->actualMana = 100;
     hero->attackMin = 10;
     hero->attackMax = 20;
+    hero->attackBonus = 0;
     hero->defense = 10;
+    hero->defenseBonus = 0;
     hero->gold = 0;
     hero->xp = 0;
     hero->level = 1;
@@ -88,4 +90,18 @@ void display_hero(Hero *hero)
 void free_hero(Hero *hero)
 {
     free(hero);
+}
+
+void display_all_stats(Hero *hero)
+{
+    display_hero(hero);
+
+    // Print the attack stats
+    printf("" GREEN " Attack min: " RESET "%d\n", hero->attackMin);
+    printf("" DARK_GREEN " Attack max: " RESET "%d\n", hero->attackMax);
+    printf("" LIGHT_GREEN " Attack bonus: " RESET "%d\n", hero->attackBonus);
+
+    // Print the defense stats
+    printf("" BLUE " Defense: " RESET "%d\n", hero->defense);
+    printf("" LIGHT_BLUE " Defense bonus: " RESET "%d\n", hero->defenseBonus);
 }

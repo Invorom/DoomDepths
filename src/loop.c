@@ -2,6 +2,7 @@
 #include "map.h"
 #include "cli.h"
 #include "battle.h"
+#include "hero.h"
 
 int event_loop(Context *context, Hero *hero, Inventory *inventory)
 {
@@ -234,6 +235,15 @@ int process_user_input(char userInput, Context *context, Hero *hero, Inventory *
         system("/bin/stty cooked");
         clear_screen();
         display_inventory(inventory);
+        wait_for_enter();
+        system("/bin/stty raw");
+
+        break;
+
+    case 'r':
+        system("/bin/stty cooked");
+        clear_screen();
+        display_all_stats(hero);
         wait_for_enter();
         system("/bin/stty raw");
 
