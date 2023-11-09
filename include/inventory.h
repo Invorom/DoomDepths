@@ -153,9 +153,10 @@ Inventory *add_an_armor(Inventory *inventory, Armor *armor);
  *
  * @param inventory
  * @param potion
+ * @param isInit
  * @return Inventory*
  */
-Inventory *add_a_potion(Inventory *inventory, Potion *potion);
+Inventory *add_a_potion(Inventory *inventory, Potion *potion, int isInit);
 
 /**
  * @brief Equips an armor.
@@ -215,22 +216,22 @@ Inventory *open_chest(Inventory *inventory);
 
 /**
  * @brief Displays the armors.
- * 
- * @param inventory 
+ *
+ * @param inventory
  */
 void display_armors(Inventory *inventory);
 
 /**
  * @brief Displays the weapons.
- * 
- * @param inventory 
+ *
+ * @param inventory
  */
 void display_weapons(Inventory *inventory);
 
 /**
  * @brief Displays the potions.
- * 
- * @param inventory 
+ *
+ * @param inventory
  */
 void display_potions(Inventory *inventory);
 

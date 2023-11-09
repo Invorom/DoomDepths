@@ -142,19 +142,69 @@ Weapon *initWeapon()
 
 Inventory *add_a_weapon(Inventory *inventory, Weapon *weapon)
 {
+
+    clear_screen();
+    printf("You found a %s!\n", weapon->name);
+    wait_for_enter();
+
     // Check if the inventory is full
     if (inventory->nbWeapons == inventory->maxWeapons)
     {
+        char input = '9';
+
+        clear_screen();
         printf("Your have too many weapons in your inventory\n");
+        wait_for_enter();
+        clear_screen();
+        printf("What do you want to do?\n");
+        printf("1. Replace a weapon\n");
+        printf("2. Throw away the new weapon\n");
+
+        // Ask the user to choose an action
+        while (input != '1' && input != '2')
+        {
+            input = listen_user_input();
+        }
+
+        switch (input)
+        {
+        case '1':
+            // Ask the user to choose a weapon to replace
+            while (1)
+            {
+                clear_screen();
+                display_weapons(inventory);
+                printf("\nWhich weapon do you want to replace?\n");
+                input = listen_user_input();
+                if (input >= '1' && input <= ('0' + inventory->nbWeapons))
+                {
+                    break;
+                }
+            }
+
+            clear_screen();
+            printf("You replaced your %s with a %s!\n", inventory->weapons[input - '1']->name, weapon->name);
+            wait_for_enter();
+
+            // Check if the weapon is already equiped
+            if (inventory->equipedWeapon == inventory->weapons[input - '1'])
+            {
+                inventory->equipedWeapon = weapon;
+            }
+
+            // Replace the weapon
+            inventory->weapons[input - '1'] = weapon;
+            break;
+
+        case '2':
+            // Do nothing
+            break;
+        }
+
         return inventory;
     }
 
     // Add the weapon to the inventory
-    if (inventory->nbWeapons == inventory->maxWeapons)
-    {
-        inventory->weapons = realloc(inventory->weapons, sizeof(Weapon) * (inventory->maxWeapons + 5));
-        inventory->maxWeapons += 5;
-    }
     inventory->weapons[inventory->nbWeapons] = weapon;
     inventory->nbWeapons++;
 
@@ -163,44 +213,146 @@ Inventory *add_a_weapon(Inventory *inventory, Weapon *weapon)
 
 Inventory *add_an_armor(Inventory *inventory, Armor *armor)
 {
+    clear_screen();
+    printf("You found a %s!\n", armor->name);
+    wait_for_enter();
+
     // Check if the inventory is full
     if (inventory->nbArmors == inventory->maxArmors)
     {
+        char input = '9';
+
+        clear_screen();
         printf("Your have too many armors in your inventory\n");
+        wait_for_enter();
+        clear_screen();
+        printf("What do you want to do?\n");
+        printf("1. Replace an armor\n");
+        printf("2. Throw away the new armor\n");
+
+        // Ask the user to choose an action
+        while (input != '1' && input != '2')
+        {
+            input = listen_user_input();
+        }
+
+        switch (input)
+        {
+        case '1':
+            // Ask the user to choose an armor to replace
+            while (1)
+            {
+                clear_screen();
+                display_armors(inventory);
+                printf("\nWhich armor do you want to replace?\n");
+                input = listen_user_input();
+                if (input >= '1' && input <= ('0' + inventory->nbArmors))
+                {
+                    break;
+                }
+            }
+
+            clear_screen();
+            printf("You replaced your %s armor with a %s armor!\n", inventory->armors[input - '1']->name, armor->name);
+            wait_for_enter();
+
+            // Check if the armor is already equiped
+            if (inventory->equipedArmor == inventory->armors[input - '1'])
+            {
+                inventory->equipedArmor = armor;
+            }
+
+            // Replace the armor
+            inventory->armors[input - '1'] = armor;
+            break;
+
+        case '2':
+            // Do nothing
+            break;
+        }
+
         return inventory;
     }
 
     // Add the armor to the inventory
-    if (inventory->nbArmors == inventory->maxArmors)
-    {
-        inventory->armors = realloc(inventory->armors, sizeof(Armor) * (inventory->maxArmors + 5));
-        inventory->maxArmors += 5;
-    }
     inventory->armors[inventory->nbArmors] = armor;
     inventory->nbArmors++;
 
     return inventory;
 }
 
-Inventory *add_a_potion(Inventory *inventory, Potion *potion)
+Inventory *add_a_potion(Inventory *inventory, Potion *potion, int isInit)
 {
-    // Check if the inventory is full
-    if (inventory->nbPotions == inventory->maxPotions)
+    if (!isInit)
     {
-        printf("Your have too many potions in your inventory\n");
+        clear_screen();
+        printf("You found a %s potion!\n", potion->name);
+        wait_for_enter();
+
+        // Check if the inventory is full
+        if (inventory->nbPotions == inventory->maxPotions)
+        {
+            char input = '9';
+
+            clear_screen();
+            printf("Your have too many potions in your inventory\n");
+            wait_for_enter();
+            clear_screen();
+            printf("What do you want to do?\n");
+            printf("1. Replace a potion\n");
+            printf("2. Throw away the new potion\n");
+
+            // Ask the user to choose an action
+            while (input != '1' && input != '2')
+            {
+                input = listen_user_input();
+            }
+
+            switch (input)
+            {
+            case '1':
+                // Ask the user to choose a potion to replace
+                while (1)
+                {
+                    clear_screen();
+                    display_potions(inventory);
+                    printf("\nWhich potion do you want to replace?\n");
+                    input = listen_user_input();
+                    if (input >= '1' && input <= ('0' + inventory->nbPotions))
+                    {
+                        break;
+                    }
+                }
+
+                clear_screen();
+                printf("You replaced your %s potion with a %s potion!\n", inventory->potions[input - '1']->name, potion->name);
+                wait_for_enter();
+
+                // Replace the potion
+                inventory->potions[input - '1'] = potion;
+                break;
+
+            case '2':
+                // Do nothing
+                break;
+            }
+
+            return inventory;
+        }
+        // Add the potion to the inventory
+        inventory->potions[inventory->nbPotions] = potion;
+        inventory->nbPotions++;
+
         return inventory;
     }
-
-    // Add the potion to the inventory
-    if (inventory->nbPotions == inventory->maxPotions)
+    else
     {
-        inventory->potions = realloc(inventory->potions, sizeof(Potion) * (inventory->maxPotions + 5));
-        inventory->maxPotions += 5;
-    }
-    inventory->potions[inventory->nbPotions] = potion;
-    inventory->nbPotions++;
+        // Add the potion to the inventory
+        inventory->potions[inventory->nbPotions] = potion;
+        inventory->nbPotions++;
 
-    return inventory;
+        return inventory;
+    }
 }
 
 Inventory *equip_weapon(Inventory *inventory, Weapon *weapon)
@@ -385,33 +537,24 @@ Inventory *open_chest(Inventory *inventory)
     switch (random)
     {
     case 0:
-        inventory = add_a_weapon(inventory, returnRandomWeapon());
         clear_screen();
         printf("You found a weapon!\n");
         wait_for_enter();
-        clear_screen();
-        printf("You found a %s!\n", inventory->weapons[inventory->nbWeapons - 1]->name);
-        wait_for_enter();
+        inventory = add_a_weapon(inventory, returnRandomWeapon());
         break;
 
     case 1:
-        inventory = add_an_armor(inventory, returnRandomArmor());
         clear_screen();
         printf("You found an armor!\n");
         wait_for_enter();
-        clear_screen();
-        printf("You found a %s armor!\n", inventory->armors[inventory->nbArmors - 1]->name);
-        wait_for_enter();
+        inventory = add_an_armor(inventory, returnRandomArmor());
         break;
 
     case 2:
-        inventory = add_a_potion(inventory, returnRandomPotion());
         clear_screen();
         printf("You found a potion!\n");
         wait_for_enter();
-        clear_screen();
-        printf("You found a %s potion!\n", inventory->potions[inventory->nbPotions - 1]->name);
-        wait_for_enter();
+        inventory = add_a_potion(inventory, returnRandomPotion(), 0);
         break;
     }
 
@@ -486,13 +629,14 @@ Inventory *initialize_inventory()
     inventory->weapons[0] = inventory->equipedWeapon;
     inventory->nbWeapons++;
 
-    // Add 5 health potions to the inventory
+    // Add 3 health potions to the inventory
     for (int i = 0; i < 3; i++)
     {
         // Create the potion
         Potion *potion = malloc(sizeof(Potion));
         defineActualPotion(potion, HEALTH);
-        inventory = add_a_potion(inventory, potion);
+        int isInit = 1;
+        inventory = add_a_potion(inventory, potion, isInit);
     }
 
     return inventory;
