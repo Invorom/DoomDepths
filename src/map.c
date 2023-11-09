@@ -337,7 +337,7 @@ void displayMap(Context *context, Hero *hero)
 
     for (int i = context->pos_y - 20; i < context->pos_y + 20; i++)
     {
-        for (int j = context->pos_x - 50; j < context->pos_x + 50; j++)
+        for (int j = context->pos_x - 40; j < context->pos_x + 40; j++)
         {
             if (i < 0 || j < 0 || j >= ROWS || i >= COLUMNS)
             {
@@ -411,14 +411,14 @@ void displayMap(Context *context, Hero *hero)
 
 void map_loading()
 {
-    printf("  _                     _ _                                             \n");
-    printf(" | |                   | (_)                                            \n");
-    printf(" | |     ___   __ _  __| |_ _ __   __ _   _ __ ___   __ _ _ __           \n");
-    printf(" | |    / _ \\ / _` |/ _` | | '_ \\ / _` | | '_ ` _ \\ / _` | '_ \\          \n");
-    printf(" | |___| (_) | (_| | (_| | | | | | (_| | | | | | | | (_| | |_) |  \033[5m_ _ _ \n" RESET "");
-    printf(" |______\\___/ \\__,_|\\__,_|_|_| |_|\\__, | |_| |_| |_|\\__,_| .__/  \033[5m(_|_|_)\n" RESET "");
-    printf("                                   __/ |                 | |            \n");
-    printf("                                  |___/                  |_|            \n");
+    printf("      _                     _ _                                             \n");
+    printf("     | |                   | (_)                                            \n");
+    printf("     | |     ___   __ _  __| |_ _ __   __ _   _ __ ___   __ _ _ __           \n");
+    printf("     | |    / _ \\ / _` |/ _` | | '_ \\ / _` | | '_ ` _ \\ / _` | '_ \\          \n");
+    printf("     | |___| (_) | (_| | (_| | | | | | (_| | | | | | | | (_| | |_) |  \033[5m_ _ _ \n" RESET "");
+    printf("     |______\\___/ \\__,_|\\__,_|_|_| |_|\\__, | |_| |_| |_|\\__,_| .__/  \033[5m(_|_|_)\n" RESET "");
+    printf("                                       __/ |                 | |            \n");
+    printf("                                      |___/                  |_|            \n");
     sleep(3);
 }
 

@@ -15,7 +15,7 @@ void clear_lines(int lines)
 
 void wait_for_enter()
 {
-    printf("\nPress [ENTER] to continue...");
+    printf("\n     Press [ENTER] to continue...");
     clear_stdin();
     struct termios orig_termios;
     struct termios new_termios;
@@ -119,8 +119,8 @@ int main_menu()
     clear_screen();
     display_menu_design();
 
-    printf("\n 1. Start Game\n 2. Quit\n\n");
-    printf("Enter your choice: \n\n");
+    printf("\n     1. Start Game\n     2. Quit\n\n");
+    printf("     Enter your choice: \n\n");
     fflush(stdout);
 
     while (input != '1' && input != '2')
@@ -137,13 +137,13 @@ int main_menu()
 
     case '2':
         clear_screen();
-        printf("See you next time!\n");
+        printf("     See you next time!\n");
         return 0;
         break;
 
     default:
         clear_screen();
-        printf("Something went wrong\n");
+        printf("     Something went wrong\n");
         return -1;
         break;
     }

@@ -144,7 +144,7 @@ Inventory *add_a_weapon(Inventory *inventory, Weapon *weapon)
 {
 
     clear_screen();
-    printf("You found a %s!\n", weapon->name);
+    printf("     You found a %s!\n", weapon->name);
     wait_for_enter();
 
     // Check if the inventory is full
@@ -153,12 +153,12 @@ Inventory *add_a_weapon(Inventory *inventory, Weapon *weapon)
         char input = '9';
 
         clear_screen();
-        printf("Your have too many weapons in your inventory\n");
+        printf("     Your have too many weapons in your inventory\n");
         wait_for_enter();
         clear_screen();
-        printf("What do you want to do?\n");
-        printf("1. Replace a weapon\n");
-        printf("2. Throw away the new weapon\n");
+        printf("     What do you want to do?\n");
+        printf("     1. Replace a weapon\n");
+        printf("     2. Throw away the new weapon\n");
 
         // Ask the user to choose an action
         while (input != '1' && input != '2')
@@ -174,7 +174,7 @@ Inventory *add_a_weapon(Inventory *inventory, Weapon *weapon)
             {
                 clear_screen();
                 display_weapons(inventory);
-                printf("\nWhich weapon do you want to replace?\n");
+                printf("\n     Which weapon do you want to replace?\n");
                 input = listen_user_input();
                 if (input >= '1' && input <= ('0' + inventory->nbWeapons))
                 {
@@ -183,7 +183,7 @@ Inventory *add_a_weapon(Inventory *inventory, Weapon *weapon)
             }
 
             clear_screen();
-            printf("You replaced your %s with a %s!\n", inventory->weapons[input - '1']->name, weapon->name);
+            printf("     You replaced your %s with a %s!\n", inventory->weapons[input - '1']->name, weapon->name);
             wait_for_enter();
 
             // Check if the weapon is already equiped
@@ -214,7 +214,7 @@ Inventory *add_a_weapon(Inventory *inventory, Weapon *weapon)
 Inventory *add_an_armor(Inventory *inventory, Armor *armor)
 {
     clear_screen();
-    printf("You found a %s armor!\n", armor->name);
+    printf("     You found a %s armor!\n", armor->name);
     wait_for_enter();
 
     // Check if the inventory is full
@@ -223,12 +223,12 @@ Inventory *add_an_armor(Inventory *inventory, Armor *armor)
         char input = '9';
 
         clear_screen();
-        printf("Your have too many armors in your inventory\n");
+        printf("     Your have too many armors in your inventory\n");
         wait_for_enter();
         clear_screen();
-        printf("What do you want to do?\n");
-        printf("1. Replace an armor\n");
-        printf("2. Throw away the new armor\n");
+        printf("     What do you want to do?\n");
+        printf("     1. Replace an armor\n");
+        printf("     2. Throw away the new armor\n");
 
         // Ask the user to choose an action
         while (input != '1' && input != '2')
@@ -244,7 +244,7 @@ Inventory *add_an_armor(Inventory *inventory, Armor *armor)
             {
                 clear_screen();
                 display_armors(inventory);
-                printf("\nWhich armor do you want to replace?\n");
+                printf("     \nWhich armor do you want to replace?\n");
                 input = listen_user_input();
                 if (input >= '1' && input <= ('0' + inventory->nbArmors))
                 {
@@ -253,7 +253,7 @@ Inventory *add_an_armor(Inventory *inventory, Armor *armor)
             }
 
             clear_screen();
-            printf("You replaced your %s armor with a %s armor!\n", inventory->armors[input - '1']->name, armor->name);
+            printf("     You replaced your %s armor with a %s armor!\n", inventory->armors[input - '1']->name, armor->name);
             wait_for_enter();
 
             // Check if the armor is already equiped
@@ -286,7 +286,7 @@ Inventory *add_a_potion(Inventory *inventory, Potion *potion, int isInit)
     if (!isInit)
     {
         clear_screen();
-        printf("You found a %s potion!\n", potion->name);
+        printf("     You found a %s potion!\n", potion->name);
         wait_for_enter();
 
         // Check if the inventory is full
@@ -295,12 +295,12 @@ Inventory *add_a_potion(Inventory *inventory, Potion *potion, int isInit)
             char input = '9';
 
             clear_screen();
-            printf("Your have too many potions in your inventory\n");
+            printf("     Your have too many potions in your inventory\n");
             wait_for_enter();
             clear_screen();
-            printf("What do you want to do?\n");
-            printf("1. Replace a potion\n");
-            printf("2. Throw away the new potion\n");
+            printf("     What do you want to do?\n");
+            printf("     1. Replace a potion\n");
+            printf("     2. Throw away the new potion\n");
 
             // Ask the user to choose an action
             while (input != '1' && input != '2')
@@ -316,7 +316,7 @@ Inventory *add_a_potion(Inventory *inventory, Potion *potion, int isInit)
                 {
                     clear_screen();
                     display_potions(inventory);
-                    printf("\nWhich potion do you want to replace?\n");
+                    printf("\n     Which potion do you want to replace?\n");
                     input = listen_user_input();
                     if (input >= '1' && input <= ('0' + inventory->nbPotions))
                     {
@@ -325,7 +325,7 @@ Inventory *add_a_potion(Inventory *inventory, Potion *potion, int isInit)
                 }
 
                 clear_screen();
-                printf("You replaced your %s potion with a %s potion!\n", inventory->potions[input - '1']->name, potion->name);
+                printf("     You replaced your %s potion with a %s potion!\n", inventory->potions[input - '1']->name, potion->name);
                 wait_for_enter();
 
                 // Replace the potion
@@ -360,7 +360,7 @@ Inventory *equip_weapon(Inventory *inventory, Weapon *weapon)
     // Check if the weapon is already equiped
     if (inventory->equipedWeapon == weapon)
     {
-        printf("This weapon is already equiped\n");
+        printf("     This weapon is already equiped\n");
         return inventory;
     }
 
@@ -375,7 +375,7 @@ Inventory *equip_armor(Inventory *inventory, Armor *armor)
     // Check if the armor is already equiped
     if (inventory->equipedArmor == armor)
     {
-        printf("This armor is already equiped\n");
+        printf("     This armor is already equiped\n");
         return inventory;
     }
 
@@ -399,7 +399,7 @@ Inventory *use_potion(Inventory *inventory, Potion *potion)
     }
     if (potionIndex == -1)
     {
-        printf("This potion is not in your inventory\n");
+        printf("     This potion is not in your inventory\n");
         return inventory;
     }
 
@@ -407,15 +407,15 @@ Inventory *use_potion(Inventory *inventory, Potion *potion)
     switch (potion->value)
     {
     case 1:
-        printf("You used a health potion\n");
+        printf("     You used a health potion\n");
         break;
 
     case 2:
-        printf("You used a strength potion\n");
+        printf("     You used a strength potion\n");
         break;
 
     case 3:
-        printf("You used a mana potion\n");
+        printf("     You used a mana potion\n");
         break;
     }
 
@@ -538,21 +538,21 @@ Inventory *open_chest(Inventory *inventory)
     {
     case 0:
         clear_screen();
-        printf("You found a weapon!\n");
+        printf("     You found a weapon!\n");
         wait_for_enter();
         inventory = add_a_weapon(inventory, returnRandomWeapon());
         break;
 
     case 1:
         clear_screen();
-        printf("You found an armor!\n");
+        printf("     You found an armor!\n");
         wait_for_enter();
         inventory = add_an_armor(inventory, returnRandomArmor());
         break;
 
     case 2:
         clear_screen();
-        printf("You found a potion!\n");
+        printf("     You found a potion!\n");
         wait_for_enter();
         inventory = add_a_potion(inventory, returnRandomPotion(), 0);
         break;
@@ -677,64 +677,64 @@ void freeInventory(Inventory *inventory)
 
 void display_inventory(Inventory *inventory)
 {
-    printf("Equiped armor: %s\n", inventory->equipedArmor->name);
-    printf("%s\n", inventory->equipedArmor->description);
-    printf("\nEquiped weapon: %s\n", inventory->equipedWeapon->name);
-    printf("%s\n", inventory->equipedWeapon->description);
+    printf("     Equiped armor: %s\n", inventory->equipedArmor->name);
+    printf("     %s\n", inventory->equipedArmor->description);
+    printf("\n     Equiped weapon: %s\n", inventory->equipedWeapon->name);
+    printf("     %s\n", inventory->equipedWeapon->description);
 
-    printf("\nArmors:\n");
+    printf("\n     Armors:\n");
     for (int i = 0; i < inventory->nbArmors; i++)
     {
         if (inventory->armors[i] != NULL) // Check for NULL pointers
-            printf("%d. %s\n", i + 1, inventory->armors[i]->name);
+            printf("     %d. %s\n", i + 1, inventory->armors[i]->name);
     }
-    printf("\nWeapons:\n");
+    printf("\n     Weapons:\n");
     for (int i = 0; i < inventory->nbWeapons; i++)
     {
         if (inventory->weapons[i] != NULL) // Check for NULL pointers
-            printf("%d. %s\n", i + 1, inventory->weapons[i]->name);
+            printf("     %d. %s\n", i + 1, inventory->weapons[i]->name);
     }
-    printf("\nPotions:\n");
+    printf("\n     Potions:\n");
     for (int i = 0; i < inventory->nbPotions; i++)
     {
         if (inventory->potions[i] != NULL) // Check for NULL pointers
-            printf("%d. %s\n", i + 1, inventory->potions[i]->name);
+            printf("     %d. %s\n", i + 1, inventory->potions[i]->name);
     }
 }
 
 void display_armors(Inventory *inventory)
 {
-    printf("Equiped armor: %s\n", inventory->equipedArmor->name);
-    printf("%s\n", inventory->equipedArmor->description);
+    printf("     Equiped armor: %s\n", inventory->equipedArmor->name);
+    printf("     %s\n", inventory->equipedArmor->description);
 
-    printf("\nArmors:\n");
+    printf("\n     Armors:\n");
     for (int i = 0; i < inventory->nbArmors; i++)
     {
         if (inventory->armors[i] != NULL) // Check for NULL pointers
-            printf("%d. %s\n", i + 1, inventory->armors[i]->name);
+            printf("     %d. %s\n", i + 1, inventory->armors[i]->name);
     }
 }
 
 void display_weapons(Inventory *inventory)
 {
-    printf("Equiped weapon: %s\n", inventory->equipedWeapon->name);
-    printf("%s\n", inventory->equipedWeapon->description);
+    printf("     Equiped weapon: %s\n", inventory->equipedWeapon->name);
+    printf("     %s\n", inventory->equipedWeapon->description);
 
-    printf("\nWeapons:\n");
+    printf("\n     Weapons:\n");
     for (int i = 0; i < inventory->nbWeapons; i++)
     {
         if (inventory->weapons[i] != NULL) // Check for NULL pointers
-            printf("%d. %s\n", i + 1, inventory->weapons[i]->name);
+            printf("     %d. %s\n", i + 1, inventory->weapons[i]->name);
     }
 }
 
 void display_potions(Inventory *inventory)
 {
-    printf("\nPotions:\n");
+    printf("\n     Potions:\n");
     for (int i = 0; i < inventory->nbPotions; i++)
     {
         if (inventory->potions[i] != NULL) // Check for NULL pointers
-            printf("%d. %s\n", i + 1, inventory->potions[i]->name);
+            printf("     %d. %s\n", i + 1, inventory->potions[i]->name);
     }
 }
 
@@ -743,10 +743,10 @@ Inventory *equip_another_item(Inventory *inventory, Hero *hero)
     char input = '9';
 
     clear_screen();
-    printf("What do you want to equip?\n");
-    printf("\n1. Armor\n");
-    printf("2. Weapon\n");
-    printf("\n0. Go back\n");
+    printf("     What do you want to equip?\n");
+    printf("\n     1. Armor\n");
+    printf("     2. Weapon\n");
+    printf("\n     0. Go back\n");
 
     // Ask the user to choose an action
     while (input != '1' && input != '2' && input != '0')
@@ -762,7 +762,7 @@ Inventory *equip_another_item(Inventory *inventory, Hero *hero)
         {
             clear_screen();
             display_armors(inventory);
-            printf("\nWhich armor do you want to equip?\n");
+            printf("\n     Which armor do you want to equip?\n");
             input = listen_user_input();
             if (input >= '1' && input <= ('0' + inventory->nbArmors))
             {
@@ -774,13 +774,13 @@ Inventory *equip_another_item(Inventory *inventory, Hero *hero)
         if (inventory->equipedArmor == inventory->armors[input - '1'])
         {
             clear_screen();
-            printf("This armor is already equiped\n");
+            printf("     This armor is already equiped\n");
             wait_for_enter();
             return inventory;
         }
 
         clear_screen();
-        printf("You equiped your %s armor!\n", inventory->armors[input - '1']->name);
+        printf("     You equiped your %s armor!\n", inventory->armors[input - '1']->name);
         wait_for_enter();
 
         // Equip the new armor
@@ -797,7 +797,7 @@ Inventory *equip_another_item(Inventory *inventory, Hero *hero)
         {
             clear_screen();
             display_weapons(inventory);
-            printf("\nWhich weapon do you want to equip?\n");
+            printf("\n     Which weapon do you want to equip?\n");
             input = listen_user_input();
             if (input >= '1' && input <= ('0' + inventory->nbWeapons))
             {
@@ -809,13 +809,13 @@ Inventory *equip_another_item(Inventory *inventory, Hero *hero)
         if (inventory->equipedWeapon == inventory->weapons[input - '1'])
         {
             clear_screen();
-            printf("This weapon is already equiped\n");
+            printf("     This weapon is already equiped\n");
             wait_for_enter();
             return inventory;
         }
 
         clear_screen();
-        printf("You equiped your %s!\n", inventory->weapons[input - '1']->name);
+        printf("     You equiped your %s!\n", inventory->weapons[input - '1']->name);
         wait_for_enter();
 
         // Equip the new weapon

@@ -280,7 +280,7 @@ void display_menu_design()
         // Display hero line (or spaces if not available)
         if (i < numLines1)
         {
-            printf("%-*s", maxLineLength1, heroArt[i]);
+            printf("     %-*s", maxLineLength1, heroArt[i]);
         }
         else
         {
@@ -293,19 +293,19 @@ void display_menu_design()
         // Display demon line (or spaces if not available)
         if (i < numLines2)
         {
-            printf("%-*s", maxLineLength2, demon[i]);
+            printf("     %-*s", maxLineLength2, demon[i]);
         }
 
         printf("\n");
     }
 
     // Print "DOOMDEPTHS" in ASCII art with colors
-    printf(RED " _____    ____    ____   __  __  _____   ______  _____  _______  _    _   _____ \n");
-    printf(RED_2 "|  __ \\  / __ \\  / __ \\ |  \\/  ||  __ \\ |  ____||  __ \\|__   __|| |  | | / ____|\n");
-    printf(RED_3 "| |  | || |  | || |  | || \\  / || |  | || |__   | |__) |  | |   | |__| || (___  \n");
-    printf(RED_4 "| |  | || |  | || |  | || |\\/| || |  | ||  __|  |  ___/   | |   |  __  | \\___ \\ \n");
-    printf(RED_5 "| |__| || |__| || |__| || |  | || |__| || |____ | |       | |   | |  | | ____) |\n");
-    printf(RED_6 "|_____/  \\____/  \\____/ |_|  |_||_____/ |______||_|       |_|   |_|  |_||_____/ \n" RESET);
+    printf(RED "      _____    ____    ____   __  __  _____   ______  _____  _______  _    _   _____ \n");
+    printf(RED_2 "     |  __ \\  / __ \\  / __ \\ |  \\/  ||  __ \\ |  ____||  __ \\|__   __|| |  | | / ____|\n");
+    printf(RED_3 "     | |  | || |  | || |  | || \\  / || |  | || |__   | |__) |  | |   | |__| || (___  \n");
+    printf(RED_4 "     | |  | || |  | || |  | || |\\/| || |  | ||  __|  |  ___/   | |   |  __  | \\___ \\ \n");
+    printf(RED_5 "     | |__| || |__| || |__| || |  | || |__| || |____ | |       | |   | |  | | ____) |\n");
+    printf(RED_6 "     |_____/  \\____/  \\____/ |_|  |_||_____/ |______||_|       |_|   |_|  |_||_____/ \n" RESET);
 }
 
 void display_all_monsters(Monsters *monsters, Hero *hero)

@@ -31,13 +31,13 @@ void start_battle(Hero *hero, Context *context, Inventory *inventory)
     {
         char input = '9';
 
-        printf("\nWhat do you want to do?\n");
-        printf("1. Attack (%d/3)\n", hero->nbTurns);
-        printf("2. Use a spell\n");
-        printf("3. Use a potion\n");
-        printf("4. Inventory\n");
-        printf("5. End turn\n\n");
-        printf("0. Quit\n");
+        printf("\n     What do you want to do?\n");
+        printf("     1. Attack (%d/3)\n", hero->nbTurns);
+        printf("     2. Use a spell\n");
+        printf("     3. Use a potion\n");
+        printf("     4. Inventory\n");
+        printf("     5. End turn\n\n");
+        printf("     0. Quit\n");
 
         // Ask the user to choose an action
         while (input != '1' && input != '2' && input != '3' && input != '4' && input != '5' && input != '0')
@@ -54,13 +54,13 @@ void start_battle(Hero *hero, Context *context, Inventory *inventory)
                 clear_lines(1);
                 break;
             }
-            printf("Which monster do you want to attack?\n");
+            printf("     Which monster do you want to attack?\n");
             int i;
             for (i = 0; i < monsters->numMonsters; ++i)
             {
-                printf("%d. %s (%d/%d)\n", i + 1, monsters->monsters[i]->name, monsters->monsters[i]->actualLife, monsters->monsters[i]->life);
+                printf("     %d. %s (%d/%d)\n", i + 1, monsters->monsters[i]->name, monsters->monsters[i]->actualLife, monsters->monsters[i]->life);
             }
-            printf("\n0. Go back\n");
+            printf("\n     0. Go back\n");
 
             char monsterInput = '9';
 
@@ -104,12 +104,12 @@ void start_battle(Hero *hero, Context *context, Inventory *inventory)
 
         case '2':
             clear_lines(8);
-            printf("You use a spell!\n");
+            printf("     You use a spell!\n");
             break;
 
         case '3':
             clear_lines(8);
-            printf("You use a potion!\n");
+            printf("     You use a potion!\n");
             break;
 
         case '4':
@@ -137,7 +137,7 @@ void start_battle(Hero *hero, Context *context, Inventory *inventory)
                     hero->actualLife -= damage;
                 clear_screen();
                 display_all_monsters(monsters, hero);
-                printf("\n%s attacks you!\n", monsters->monsters[i]->name);
+                printf("\n     %s attacks you!\n", monsters->monsters[i]->name);
                 sleep(1);
             }
             hero->nbTurns = 3;
@@ -156,7 +156,7 @@ void start_battle(Hero *hero, Context *context, Inventory *inventory)
 
         default:
             clear_screen();
-            printf("Something went wrong\n");
+            printf("     Something went wrong\n");
             return;
         }
     }
@@ -199,29 +199,29 @@ void attack_monster(Monsters *monsters, Hero *hero, int index)
 
 void display_hero_die()
 {
-    printf(RED " __     ______  _    _   _____ _____ ______   _ \n");
-    printf(RED_2 " \\ \\   / / __ \\| |  | | |  __ \\_   _|  ____| | |\n");
-    printf(RED_3 "  \\ \\_/ / |  | | |  | | | |  | || | | |__    | |\n");
-    printf(RED_4 "   \\   /| |  | | |  | | | |  | || | |  __|   | |\n");
-    printf(RED_5 "    | | | |__| | |__| | | |__| || |_| |____  |_|\n");
-    printf(RED_6 "    |_|  \\____/ \\____/  |_____/_____|______| (_)\n" RESET);
+    printf(RED "      __     ______  _    _   _____ _____ ______   _ \n");
+    printf(RED_2 "      \\ \\   / / __ \\| |  | | |  __ \\_   _|  ____| | |\n");
+    printf(RED_3 "       \\ \\_/ / |  | | |  | | | |  | || | | |__    | |\n");
+    printf(RED_4 "        \\   /| |  | | |  | | | |  | || | |  __|   | |\n");
+    printf(RED_5 "         | | | |__| | |__| | | |__| || |_| |____  |_|\n");
+    printf(RED_6 "         |_|  \\____/ \\____/  |_____/_____|______| (_)\n" RESET);
 }
 
 void display_win()
 {
-    printf(YELLOW " __     ______  _    _  __          _______ _   _   _ \n");
-    printf(YELLOW " \\ \\   / / __ \\| |  | | \\ \\        / /_   _| \\ | | | |\n");
-    printf(YELLOW "  \\ \\_/ / |  | | |  | |  \\ \\  /\\  / /  | | |  \\| | | |\n");
-    printf(YELLOW "   \\   /| |  | | |  | |   \\ \\/  \\/ /   | | | . ` | | |\n");
-    printf(YELLOW "    | | | |__| | |__| |    \\  /\\  /   _| |_| |\\  | |_|\n");
-    printf(YELLOW "    |_|  \\____/ \\____/      \\/  \\/   |_____|_| \\_| (_)\n" RESET);
+    printf(YELLOW "      __     ______  _    _  __          _______ _   _   _ \n");
+    printf(YELLOW "      \\ \\   / / __ \\| |  | | \\ \\        / /_   _| \\ | | | |\n");
+    printf(YELLOW "       \\ \\_/ / |  | | |  | |  \\ \\  /\\  / /  | | |  \\| | | |\n");
+    printf(YELLOW "        \\   /| |  | | |  | |   \\ \\/  \\/ /   | | | . ` | | |\n");
+    printf(YELLOW "         | | | |__| | |__| |    \\  /\\  /   _| |_| |\\  | |_|\n");
+    printf(YELLOW "         |_|  \\____/ \\____/      \\/  \\/   |_____|_| \\_| (_)\n" RESET);
 }
 
 void battle_win(Hero *hero, Monsters *monsters, Context *context)
 {
     clear_screen();
     display_win();
-    printf("\nYou earned %d gold and %d xp!\n", monsters->maxMonsters * 10, monsters->maxMonsters * 12);
+    printf("\n     You earned %d gold and %d xp!\n", monsters->maxMonsters * 10, monsters->maxMonsters * 12);
     hero->gold += monsters->maxMonsters * 10;
     hero->xp += monsters->maxMonsters * 12;
     if (hero->xp >= hero->level * 100)
@@ -234,7 +234,7 @@ void battle_win(Hero *hero, Monsters *monsters, Context *context)
         hero->attackMin += hero->attackMin / 10;
         hero->attackMax += hero->attackMax / 10;
         hero->defense += hero->defense / 10;
-        printf("You are now level %d!\n", hero->level);
+        printf("     You are now level %d!\n", hero->level);
     }
     wait_for_enter();
     free_monsters(monsters);
@@ -244,8 +244,8 @@ void battle_win(Hero *hero, Monsters *monsters, Context *context)
     if (context->killedMonsters == 10)
     {
         clear_screen();
-        printf("Well done! You killed all the monsters!\n");
-        printf("You can now fight the boss!\n");
+        printf("     Well done! You killed all the monsters!\n");
+        printf("     You can now fight the boss!\n");
         wait_for_enter();
     }
     clear_screen();

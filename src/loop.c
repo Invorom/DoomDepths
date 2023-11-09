@@ -76,8 +76,8 @@ int process_user_input(char userInput, Context *context, Hero *hero, Inventory *
             context->pos_y -= 1;
             system("/bin/stty cooked");
             clear_screen();
-            printf("You have to kill all the monsters before you can fight the boss!\n");
-            printf("%d monsters left!\n", 10 - context->killedMonsters);
+            printf("     You have to kill all the monsters before you can fight the boss!\n");
+            printf("     %d monsters left!\n", 10 - context->killedMonsters);
             wait_for_enter();
             system("/bin/stty raw");
             break;
@@ -124,8 +124,8 @@ int process_user_input(char userInput, Context *context, Hero *hero, Inventory *
             context->pos_x += 1;
             system("/bin/stty cooked");
             clear_screen();
-            printf("You have to kill all the monsters before you can fight the boss!\n");
-            printf("%d monsters left!\n", 10 - context->killedMonsters);
+            printf("     You have to kill all the monsters before you can fight the boss!\n");
+            printf("     %d monsters left!\n", 10 - context->killedMonsters);
             wait_for_enter();
             system("/bin/stty raw");
             break;
@@ -172,8 +172,8 @@ int process_user_input(char userInput, Context *context, Hero *hero, Inventory *
             context->pos_y += 1;
             system("/bin/stty cooked");
             clear_screen();
-            printf("You have to kill all the monsters before you can fight the boss!\n");
-            printf("%d monsters left!\n", 10 - context->killedMonsters);
+            printf("     You have to kill all the monsters before you can fight the boss!\n");
+            printf("     %d monsters left!\n", 10 - context->killedMonsters);
             wait_for_enter();
             system("/bin/stty raw");
             break;
@@ -220,8 +220,8 @@ int process_user_input(char userInput, Context *context, Hero *hero, Inventory *
             context->pos_x -= 1;
             system("/bin/stty cooked");
             clear_screen();
-            printf("You have to kill all the monsters before you can fight the boss!\n");
-            printf("%d monsters left!\n", 10 - context->killedMonsters);
+            printf("     You have to kill all the monsters before you can fight the boss!\n");
+            printf("     %d monsters left!\n", 10 - context->killedMonsters);
             wait_for_enter();
             system("/bin/stty raw");
             break;
