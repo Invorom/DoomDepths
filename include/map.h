@@ -38,7 +38,8 @@ typedef enum TILE
     MONSTER = 'M',
     CHEST = 'C',
     BOSS = 'B',
-    OBSTACLE = '#'
+    OBSTACLE = '#',
+    SHOP = '$',
 } TILE;
 
 typedef struct Context

@@ -63,6 +63,7 @@ int mapInit(Context *context)
     int monsterCount = 0;
     int chestCount = 0;
     int bossCount = 0;
+    int shopCount = 0;
     if (isFirstTime)
     {
         context->map = NULL;
@@ -173,6 +174,18 @@ int mapInit(Context *context)
         {
             context->map[newObjectx][newObjecty] = BOSS;
             bossCount++;
+        }
+    }
+
+    while (shopCount < 1)
+    {
+        int newObjectx = (rand() % (ROWS - 2)) + 2;
+        int newObjecty = (rand() % (COLUMNS - 2)) + 2;
+
+        if (context->map[newObjectx][newObjecty] == PATH && reachableResult[newObjectx][newObjecty] == 1)
+        {
+            context->map[newObjectx][newObjecty] = SHOP;
+            shopCount++;
         }
     }
 
@@ -354,6 +367,10 @@ void displayMap(Context *context, Hero *hero)
                 else if (context->map[j][i] == BOSS)
                 {
                     printf("\033[1;35m%c", context->map[j][i]);
+                }
+                else if (context->map[j][i] == SHOP)
+                {
+                    printf("\x1b[38;5;208m%c", context->map[j][i]);
                 }
             }
         }
