@@ -75,6 +75,7 @@ int process_user_input(char userInput, Context *context, Hero *hero, Inventory *
             system("/bin/stty cooked");
             clear_screen();
             printf("You have to kill all the monsters before you can fight the boss!\n");
+            printf("%d monsters left!\n", 10 - context->killedMonsters);
             wait_for_enter();
             system("/bin/stty raw");
             break;
@@ -121,6 +122,7 @@ int process_user_input(char userInput, Context *context, Hero *hero, Inventory *
             system("/bin/stty cooked");
             clear_screen();
             printf("You have to kill all the monsters before you can fight the boss!\n");
+            printf("%d monsters left!\n", 10 - context->killedMonsters);
             wait_for_enter();
             system("/bin/stty raw");
             break;
@@ -167,6 +169,7 @@ int process_user_input(char userInput, Context *context, Hero *hero, Inventory *
             system("/bin/stty cooked");
             clear_screen();
             printf("You have to kill all the monsters before you can fight the boss!\n");
+            printf("%d monsters left!\n", 10 - context->killedMonsters);
             wait_for_enter();
             system("/bin/stty raw");
             break;
@@ -213,6 +216,7 @@ int process_user_input(char userInput, Context *context, Hero *hero, Inventory *
             system("/bin/stty cooked");
             clear_screen();
             printf("You have to kill all the monsters before you can fight the boss!\n");
+            printf("%d monsters left!\n", 10 - context->killedMonsters);
             wait_for_enter();
             system("/bin/stty raw");
             break;
