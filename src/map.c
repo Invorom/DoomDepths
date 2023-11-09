@@ -88,7 +88,7 @@ int mapInit(Context *context)
             }
             else
             {
-                if (tmp <= 0.45) // Increasing the frequency of paths
+                if (tmp <= 0.45)
                 {
                     if (posx == -1 && posy == -1)
                     {
@@ -99,7 +99,7 @@ int mapInit(Context *context)
                 }
                 else
                 {
-                    fputc(PATH, f); // Decreasing the frequency of obstacles
+                    fputc(PATH, f);
                 }
             }
         }
