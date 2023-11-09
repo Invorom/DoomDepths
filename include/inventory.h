@@ -213,4 +213,25 @@ Potion *returnRandomPotion();
  */
 Inventory *open_chest(Inventory *inventory);
 
+/**
+ * @brief Displays the armors.
+ * 
+ * @param inventory 
+ */
+void display_armors(Inventory *inventory);
+
+/**
+ * @brief Displays the weapons.
+ * 
+ * @param inventory 
+ */
+void display_weapons(Inventory *inventory);
+
+/**
+ * @brief Displays the potions.
+ * 
+ * @param inventory 
+ */
+void display_potions(Inventory *inventory);
+
 #endif

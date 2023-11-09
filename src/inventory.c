@@ -529,3 +529,39 @@ void display_inventory(Inventory *inventory)
             printf("%d. %s\n", i + 1, inventory->potions[i]->name);
     }
 }
+
+void display_armors(Inventory *inventory)
+{
+    printf("Equiped armor: %s\n", inventory->equipedArmor->name);
+    printf("%s\n", inventory->equipedArmor->description);
+
+    printf("\nArmors:\n");
+    for (int i = 0; i < inventory->nbArmors; i++)
+    {
+        if (inventory->armors[i] != NULL) // Check for NULL pointers
+            printf("%d. %s\n", i + 1, inventory->armors[i]->name);
+    }
+}
+
+void display_weapons(Inventory *inventory)
+{
+    printf("Equiped weapon: %s\n", inventory->equipedWeapon->name);
+    printf("%s\n", inventory->equipedWeapon->description);
+
+    printf("\nWeapons:\n");
+    for (int i = 0; i < inventory->nbWeapons; i++)
+    {
+        if (inventory->weapons[i] != NULL) // Check for NULL pointers
+            printf("%d. %s\n", i + 1, inventory->weapons[i]->name);
+    }
+}
+
+void display_potions(Inventory *inventory)
+{
+    printf("\nPotions:\n");
+    for (int i = 0; i < inventory->nbPotions; i++)
+    {
+        if (inventory->potions[i] != NULL) // Check for NULL pointers
+            printf("%d. %s\n", i + 1, inventory->potions[i]->name);
+    }
+}
