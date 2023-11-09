@@ -737,3 +737,91 @@ void display_potions(Inventory *inventory)
             printf("%d. %s\n", i + 1, inventory->potions[i]->name);
     }
 }
+
+Inventory *equip_another_item(Inventory *inventory)
+{
+    char input = '9';
+
+    clear_screen();
+    printf("What do you want to equip?\n");
+    printf("\n1. Armor\n");
+    printf("2. Weapon\n");
+    printf("\n0. Go back\n");
+
+    // Ask the user to choose an action
+    while (input != '1' && input != '2' && input != '0')
+    {
+        input = listen_user_input();
+    }
+
+    switch (input)
+    {
+    case '1':
+        // Ask the user to choose an armor to equip
+        while (1)
+        {
+            clear_screen();
+            display_armors(inventory);
+            printf("\nWhich armor do you want to equip?\n");
+            input = listen_user_input();
+            if (input >= '1' && input <= ('0' + inventory->nbArmors))
+            {
+                break;
+            }
+        }
+
+        // Check if the armor is already equiped
+        if (inventory->equipedArmor == inventory->armors[input - '1'])
+        {
+            clear_screen();
+            printf("This armor is already equiped\n");
+            wait_for_enter();
+            return inventory;
+        }
+
+        clear_screen();
+        printf("You equiped your %s armor!\n", inventory->armors[input - '1']->name);
+        wait_for_enter();
+
+        // Equip the armor
+        inventory->equipedArmor = inventory->armors[input - '1'];
+        break;
+
+    case '2':
+        // Ask the user to choose a weapon to equip
+        while (1)
+        {
+            clear_screen();
+            display_weapons(inventory);
+            printf("\nWhich weapon do you want to equip?\n");
+            input = listen_user_input();
+            if (input >= '1' && input <= ('0' + inventory->nbWeapons))
+            {
+                break;
+            }
+        }
+
+        // Check if the weapon is already equiped
+        if (inventory->equipedWeapon == inventory->weapons[input - '1'])
+        {
+            clear_screen();
+            printf("This weapon is already equiped\n");
+            wait_for_enter();
+            return inventory;
+        }
+
+        clear_screen();
+        printf("You equiped your %s!\n", inventory->weapons[input - '1']->name);
+        wait_for_enter();
+
+        // Equip the weapon
+        inventory->equipedWeapon = inventory->weapons[input - '1'];
+        break;
+
+    case '0':
+        // Do nothing
+        break;
+    }
+
+    return inventory;
+}

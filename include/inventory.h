@@ -235,4 +235,12 @@ void display_weapons(Inventory *inventory);
  */
 void display_potions(Inventory *inventory);
 
+/**
+ * @brief Equips another item in a battle.
+ * 
+ * @param inventory 
+ * @return Inventory* 
+ */
+Inventory *equip_another_item(Inventory *inventory);
+
 #endif
