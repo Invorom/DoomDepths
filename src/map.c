@@ -319,7 +319,7 @@ void displayMap(Context *context, Hero *hero)
     // Rules
     printf("     Press 'z' to go up, 'q' to go left, 's' to go down and 'd' to go right.\n");
     printf("                              Press 'e' to open your inventory.\n");
-    printf("                              Press shift + 'x' to save and quit.\n");
+    printf("                              Press shift + 'x' to save and quit.\n\n");
 
     for (int i = context->pos_y - 20; i < context->pos_y + 20; i++)
     {
