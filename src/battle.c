@@ -72,8 +72,6 @@ void start_battle(Hero *hero, Context *context)
                 }
             }
 
-            int heroAttack;
-
             switch (monsterInput)
             {
             case '1':
@@ -133,6 +131,12 @@ void start_battle(Hero *hero, Context *context)
                 sleep(1);
             }
             hero->nbTurns = 3;
+            if (hero->actualMana < 100) // Regen 10% of the mana
+            {
+                hero->actualMana += 10;
+                if (hero->actualMana > 100)
+                    hero->actualMana = 100;
+            }
             break;
 
         case '0':
