@@ -139,6 +139,266 @@ Weapon *initWeapon()
     return weapon;
 }
 
+Inventory *add_a_weapon(Inventory *inventory, Weapon *weapon)
+{
+    // Check if the inventory is full
+    if (inventory->nbWeapons == inventory->maxWeapons)
+    {
+        printf("Your have too many weapons in your inventory\n");
+        return inventory;
+    }
+
+    // Add the weapon to the inventory
+    if (inventory->nbWeapons == inventory->maxWeapons)
+    {
+        inventory->weapons = realloc(inventory->weapons, sizeof(Weapon) * (inventory->maxWeapons + 5));
+        inventory->maxWeapons += 5;
+    }
+    inventory->weapons[inventory->nbWeapons] = weapon;
+    inventory->nbWeapons++;
+
+    return inventory;
+}
+
+Inventory *add_an_armor(Inventory *inventory, Armor *armor)
+{
+    // Check if the inventory is full
+    if (inventory->nbArmors == inventory->maxArmors)
+    {
+        printf("Your have too many armors in your inventory\n");
+        return inventory;
+    }
+
+    // Add the armor to the inventory
+    if (inventory->nbArmors == inventory->maxArmors)
+    {
+        inventory->armors = realloc(inventory->armors, sizeof(Armor) * (inventory->maxArmors + 5));
+        inventory->maxArmors += 5;
+    }
+    inventory->armors[inventory->nbArmors] = armor;
+    inventory->nbArmors++;
+
+    return inventory;
+}
+
+Inventory *add_a_potion(Inventory *inventory, Potion *potion)
+{
+    // Check if the inventory is full
+    if (inventory->nbPotions == inventory->maxPotions)
+    {
+        printf("Your have too many potions in your inventory\n");
+        return inventory;
+    }
+
+    // Add the potion to the inventory
+    if (inventory->nbPotions == inventory->maxPotions)
+    {
+        inventory->potions = realloc(inventory->potions, sizeof(Potion) * (inventory->maxPotions + 5));
+        inventory->maxPotions += 5;
+    }
+    inventory->potions[inventory->nbPotions] = potion;
+    inventory->nbPotions++;
+
+    return inventory;
+}
+
+Inventory *equip_weapon(Inventory *inventory, Weapon *weapon)
+{
+    // Check if the weapon is already equiped
+    if (inventory->equipedWeapon == weapon)
+    {
+        printf("This weapon is already equiped\n");
+        return inventory;
+    }
+
+    // Equip the weapon
+    inventory->equipedWeapon = weapon;
+
+    return inventory;
+}
+
+Inventory *equip_armor(Inventory *inventory, Armor *armor)
+{
+    // Check if the armor is already equiped
+    if (inventory->equipedArmor == armor)
+    {
+        printf("This armor is already equiped\n");
+        return inventory;
+    }
+
+    // Equip the armor
+    inventory->equipedArmor = armor;
+
+    return inventory;
+}
+
+Inventory *use_potion(Inventory *inventory, Potion *potion)
+{
+    // Check if the potion is in the inventory
+    int potionIndex = -1;
+    for (int i = 0; i < inventory->nbPotions; i++)
+    {
+        if (inventory->potions[i] == potion)
+        {
+            potionIndex = i;
+            break;
+        }
+    }
+    if (potionIndex == -1)
+    {
+        printf("This potion is not in your inventory\n");
+        return inventory;
+    }
+
+    // Use the potion
+    switch (potion->value)
+    {
+    case 1:
+        printf("You used a health potion\n");
+        break;
+
+    case 2:
+        printf("You used a strength potion\n");
+        break;
+
+    case 3:
+        printf("You used a mana potion\n");
+        break;
+    }
+
+    // Remove the potion from the inventory
+    for (int i = potionIndex; i < inventory->nbPotions - 1; i++)
+    {
+        inventory->potions[i] = inventory->potions[i + 1];
+    }
+    inventory->nbPotions--;
+
+    return inventory;
+}
+
+Armor *returnRandomArmor()
+{
+    // Get a random armor
+    int random = rand() % 6;
+    Armors type = NAKED;
+    switch (random)
+    {
+    case 0:
+        type = CLOTH;
+        break;
+
+    case 1:
+        type = LEATHER;
+        break;
+
+    case 2:
+        type = CHAINMAIL;
+        break;
+
+    case 3:
+        type = METAL;
+        break;
+
+    case 4:
+        type = GOLD;
+        break;
+
+    case 5:
+        type = DIAMOND;
+        break;
+    }
+
+    // Create the armor
+    Armor *armor = malloc(sizeof(Armor));
+    defineActualArmor(armor, type);
+
+    return armor;
+}
+
+Weapon *returnRandomWeapon()
+{
+    // Get a random weapon
+    int random = rand() % 5;
+    Weapons type = FISTS;
+    switch (random)
+    {
+    case 0:
+        type = DAGGER;
+        break;
+
+    case 1:
+        type = SWORD;
+        break;
+
+    case 2:
+        type = AXE;
+        break;
+
+    case 3:
+        type = MACE;
+        break;
+
+    case 4:
+        type = BOW;
+        break;
+    }
+
+    // Create the weapon
+    Weapon *weapon = malloc(sizeof(Weapon));
+    defineActualWeapon(weapon, type);
+
+    return weapon;
+}
+
+Potion *returnRandomPotion()
+{
+    // Get a random potion
+    int random = rand() % 3;
+    Potions type = NONE;
+    switch (random)
+    {
+    case 0:
+        type = HEALTH;
+        break;
+
+    case 1:
+        type = STRENGTH;
+        break;
+
+    case 2:
+        type = MANA;
+        break;
+    }
+
+    // Create the potion
+    Potion *potion = malloc(sizeof(Potion));
+    defineActualPotion(potion, type);
+
+    return potion;
+}
+
+Inventory *open_chest(Inventory *inventory)
+{
+    // Get a random item
+    int random = rand() % 3;
+    switch (random)
+    {
+    case 0:
+        inventory = add_a_weapon(inventory, returnRandomWeapon());
+        break;
+
+    case 1:
+        inventory = add_an_armor(inventory, returnRandomArmor());
+        break;
+
+    case 2:
+        inventory = add_a_potion(inventory, returnRandomPotion());
+        break;
+    }
+
+    return inventory;
+}
+
 void defineActualPotion(Potion *potion, Potions type)
 {
     switch (type)

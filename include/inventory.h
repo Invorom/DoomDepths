@@ -130,4 +130,87 @@ Weapon *initWeapon();
  */
 void display_inventory(Inventory *inventory);
 
+/**
+ * @brief Adds a weapon to the inventory.
+ *
+ * @param inventory
+ * @param weapon
+ * @return Inventory*
+ */
+Inventory *add_a_weapon(Inventory *inventory, Weapon *weapon);
+
+/**
+ * @brief Adds an armor to the inventory.
+ *
+ * @param inventory
+ * @param armor
+ * @return Inventory*
+ */
+Inventory *add_an_armor(Inventory *inventory, Armor *armor);
+
+/**
+ * @brief Adds a potion to the inventory.
+ *
+ * @param inventory
+ * @param potion
+ * @return Inventory*
+ */
+Inventory *add_a_potion(Inventory *inventory, Potion *potion);
+
+/**
+ * @brief Equips an armor.
+ *
+ * @param inventory
+ * @param weapon
+ * @return Inventory*
+ */
+Inventory *equip_weapon(Inventory *inventory, Weapon *weapon);
+
+/**
+ * @brief Equips an armor.
+ *
+ * @param inventory
+ * @param armor
+ * @return Inventory*
+ */
+Inventory *equip_armor(Inventory *inventory, Armor *armor);
+
+/**
+ * @brief Uses a potion.
+ *
+ * @param inventory
+ * @param potion
+ * @return Inventory*
+ */
+Inventory *use_potion(Inventory *inventory, Potion *potion);
+
+/**
+ * @brief Generates a random armor.
+ *
+ * @return Armor*
+ */
+Armor *returnRandomArmor();
+
+/**
+ * @brief Generates a random weapon.
+ *
+ * @return Weapon*
+ */
+Weapon *returnRandomWeapon();
+
+/**
+ * @brief Generates a random potion.
+ *
+ * @return Potion*
+ */
+Potion *returnRandomPotion();
+
+/**
+ * @brief Opens a chest, and adds a random item to the inventory.
+ *
+ * @param inventory
+ * @return Inventory*
+ */
+Inventory *open_chest(Inventory *inventory);
+
 #endif
