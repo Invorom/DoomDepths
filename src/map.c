@@ -403,7 +403,7 @@ void displayMap(Context *context, Hero *hero)
             printf(" ");
     }
     printf("] %d%%     " MAGENTA "XP: " RESET "%d/%d\n", hero->actualMana, hero->xp, hero->level * 100);
-    printf("     " ORANGE "Gold: " RESET "%d\n", hero->gold);
+    printf("     " ORANGE "Gold: " RESET "%d " ORANGE "$" RESET "\n", hero->gold);
 
     // Game stats
     printf("\n     " GREEN "Monsters killed: " RESET "%d/10     " BLUE "Chests found: " RESET "%d/5\n", context->killedMonsters, context->openedChests);
