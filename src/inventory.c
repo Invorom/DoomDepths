@@ -214,7 +214,7 @@ Inventory *add_a_weapon(Inventory *inventory, Weapon *weapon)
 Inventory *add_an_armor(Inventory *inventory, Armor *armor)
 {
     clear_screen();
-    printf("You found a %s!\n", armor->name);
+    printf("You found a %s armor!\n", armor->name);
     wait_for_enter();
 
     // Check if the inventory is full
@@ -783,14 +783,11 @@ Inventory *equip_another_item(Inventory *inventory, Hero *hero)
         printf("You equiped your %s armor!\n", inventory->armors[input - '1']->name);
         wait_for_enter();
 
-        // Change the hero's defense by the armor's value percentage
-        hero->defense -= hero->defense * (inventory->equipedArmor->value / 100);
-
         // Equip the new armor
         inventory->equipedArmor = inventory->armors[input - '1'];
 
-        // Change the hero's defense by the armor's value percentage
-        hero->defense += hero->defense * (inventory->equipedArmor->value / 100);
+        // Update the hero's defense
+        hero->defenseBonus = inventory->equipedArmor->value;
 
         break;
 
@@ -821,16 +818,11 @@ Inventory *equip_another_item(Inventory *inventory, Hero *hero)
         printf("You equiped your %s!\n", inventory->weapons[input - '1']->name);
         wait_for_enter();
 
-        // Change the hero's attack by the weapon's value percentage
-        hero->attackMin -= hero->attackMin * (inventory->equipedWeapon->value / 100);
-        hero->attackMax -= hero->attackMax * (inventory->equipedWeapon->value / 100);
-
         // Equip the new weapon
         inventory->equipedWeapon = inventory->weapons[input - '1'];
 
-        // Change the hero's attack by the weapon's value percentage
-        hero->attackMin += hero->attackMin * (inventory->equipedWeapon->value / 100);
-        hero->attackMax += hero->attackMax * (inventory->equipedWeapon->value / 100);
+        // Update the hero's attack
+        hero->attackBonus = inventory->equipedWeapon->value;
 
         break;
 

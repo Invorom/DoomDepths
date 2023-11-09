@@ -126,6 +126,7 @@ void start_battle(Hero *hero, Context *context, Inventory *inventory)
             {
                 int monsterAttack = rand() % (monsters->monsters[i]->attackMax - monsters->monsters[i]->attackMin + 1) + monsters->monsters[i]->attackMin;
                 int damage = monsterAttack * 4 - hero->defense * 2;
+                damage -= hero->defenseBonus * 1.5;
                 if (damage < 0)
                     damage = 0;
                 if (damage >= hero->actualLife)
@@ -180,6 +181,7 @@ void attack_monster(Monsters *monsters, Hero *hero, int index)
     // Attack the monster
     int heroAttack = rand() % (hero->attackMax - hero->attackMin + 1) + hero->attackMin;
     int damage = heroAttack * 4 - monsters->monsters[index]->defense * 2;
+    damage += hero->attackBonus * 1.5;
 
     if (damage < 0)
         damage = 0;
