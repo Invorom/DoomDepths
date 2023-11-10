@@ -183,9 +183,10 @@ Inventory *equip_armor(Inventory *inventory, Armor *armor);
  *
  * @param inventory
  * @param potion
+ * @param hero
  * @return Inventory*
  */
-Inventory *use_potion(Inventory *inventory, Potion *potion);
+Inventory *use_potion(Inventory *inventory, Potion *potion, Hero *hero);
 
 /**
  * @brief Generates a random armor.

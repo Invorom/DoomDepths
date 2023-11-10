@@ -385,7 +385,7 @@ Inventory *equip_armor(Inventory *inventory, Armor *armor)
     return inventory;
 }
 
-Inventory *use_potion(Inventory *inventory, Potion *potion)
+Inventory *use_potion(Inventory *inventory, Potion *potion, Hero *hero)
 {
     // Check if the potion is in the inventory
     int potionIndex = -1;
@@ -407,15 +407,38 @@ Inventory *use_potion(Inventory *inventory, Potion *potion)
     switch (potion->value)
     {
     case 1:
+        clear_screen();
         printf("     You used a health potion\n");
+        wait_for_enter();
+
+        // Heal the hero of 20% of his life
+        hero->actualLife += hero->life * 0.2;
+        if (hero->actualLife > hero->life)
+        {
+            hero->actualLife = hero->life;
+        }
         break;
 
     case 2:
+        clear_screen();
         printf("     You used a strength potion\n");
+        wait_for_enter();
+
+        // Increase the hero's attack by 20%
+        hero->attackBonus += hero->attack * 0.2;
         break;
 
     case 3:
+        clear_screen();
         printf("     You used a mana potion\n");
+        wait_for_enter();
+
+        // Heal the hero of 20% of his mana
+        hero->actualMana += hero->mana * 0.2;
+        if (hero->actualMana > hero->mana)
+        {
+            hero->actualMana = hero->mana;
+        }
         break;
     }
 
