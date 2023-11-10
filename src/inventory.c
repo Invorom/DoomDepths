@@ -601,7 +601,7 @@ void defineActualPotion(Potion *potion, Potions type)
         potion->name = malloc(sizeof(char) * 20);
         strcpy(potion->name, "Health");
         potion->description = malloc(sizeof(char) * 100);
-        strcpy(potion->description, "A potion to heal you (+20%% life))");
+        strcpy(potion->description, "A potion to heal you (+20%% life)");
         break;
 
     case STRENGTH:
@@ -609,7 +609,7 @@ void defineActualPotion(Potion *potion, Potions type)
         potion->name = malloc(sizeof(char) * 20);
         strcpy(potion->name, "Strength");
         potion->description = malloc(sizeof(char) * 100);
-        strcpy(potion->description, "A potion to increase your strength (+20%% bonus))");
+        strcpy(potion->description, "A potion to increase your strength (+20%% bonus)");
         break;
 
     case MANA:
@@ -617,7 +617,7 @@ void defineActualPotion(Potion *potion, Potions type)
         potion->name = malloc(sizeof(char) * 20);
         strcpy(potion->name, "Mana");
         potion->description = malloc(sizeof(char) * 100);
-        strcpy(potion->description, "A potion to increase your mana (+20%% mana))");
+        strcpy(potion->description, "A potion to increase your mana (+20%% mana)");
         break;
     }
 }
