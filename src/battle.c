@@ -2,6 +2,7 @@
 #include "cli.h"
 #include "map.h"
 #include "inventory.h"
+#include "boss.h"
 
 void start_battle(Hero *hero, Context *context, Inventory *inventory)
 {
@@ -24,9 +25,13 @@ void start_battle(Hero *hero, Context *context, Inventory *inventory)
 
     display_all_monsters(monsters, hero);
 
+    battle_loop(hero, monsters, inventory, context, 0);
+}
+
+void battle_loop(Hero *hero, Monsters *monsters, Inventory *inventory, Context *context, int isBoss)
+{
     char isRunning = 1;
 
-    // Battle loop
     while (monsters->numMonsters > 0 && isRunning && hero->actualLife > 0)
     {
         char input = '9';
@@ -49,56 +54,69 @@ void start_battle(Hero *hero, Context *context, Inventory *inventory)
         {
         case '1':
             clear_lines(8);
-            if (hero->nbTurns == 0)
+            if (!isBoss)
             {
-                clear_lines(1);
-                break;
-            }
-            printf("     Which monster do you want to attack?\n");
-            int i;
-            for (i = 0; i < monsters->numMonsters; ++i)
-            {
-                printf("     %d. %s (%d/%d)\n", i + 1, monsters->monsters[i]->name, monsters->monsters[i]->actualLife, monsters->monsters[i]->life);
-            }
-            printf("\n     0. Go back\n");
-
-            char monsterInput = '9';
-
-            // Ask the user to choose a monster and block the input if it's not an existing monster
-            while (1)
-            {
-                monsterInput = listen_user_input();
-                if (monsterInput == '0' || (monsterInput >= '1' && monsterInput <= ('0' + monsters->numMonsters)))
+                if (hero->nbTurns == 0)
                 {
+                    clear_lines(1);
+                    break;
+                }
+                printf("     Which monster do you want to attack?\n");
+                int i;
+                for (i = 0; i < monsters->numMonsters; ++i)
+                {
+                    printf("     %d. %s (%d/%d)\n", i + 1, monsters->monsters[i]->name, monsters->monsters[i]->actualLife, monsters->monsters[i]->life);
+                }
+                printf("\n     0. Go back\n");
+
+                char monsterInput = '9';
+
+                // Ask the user to choose a monster and block the input if it's not an existing monster
+                while (1)
+                {
+                    monsterInput = listen_user_input();
+                    if (monsterInput == '0' || (monsterInput >= '1' && monsterInput <= ('0' + monsters->numMonsters)))
+                    {
+                        break;
+                    }
+                }
+
+                switch (monsterInput)
+                {
+                case '1':
+                    attack_monster(monsters, hero, 0);
+                    break;
+
+                case '2':
+                    attack_monster(monsters, hero, 1);
+                    break;
+
+                case '3':
+                    attack_monster(monsters, hero, 2);
+                    break;
+
+                case '4':
+                    attack_monster(monsters, hero, 3);
+                    break;
+
+                case '5':
+                    attack_monster(monsters, hero, 4);
+                    break;
+
+                case '0':
+                    clear_lines(monsters->numMonsters + 4);
                     break;
                 }
             }
-
-            switch (monsterInput)
+            else
             {
-            case '1':
-                attack_monster(monsters, hero, 0);
-                break;
+                if (hero->nbTurns == 0)
+                {
+                    clear_lines(1);
+                    break;
+                }
 
-            case '2':
-                attack_monster(monsters, hero, 1);
-                break;
-
-            case '3':
-                attack_monster(monsters, hero, 2);
-                break;
-
-            case '4':
-                attack_monster(monsters, hero, 3);
-                break;
-
-            case '5':
-                attack_monster(monsters, hero, 4);
-                break;
-
-            case '0':
-                clear_lines(monsters->numMonsters + 4);
-                break;
+                attack_boss(monsters->monsters[0], hero, monsters);
             }
             break;
 
@@ -117,7 +135,10 @@ void start_battle(Hero *hero, Context *context, Inventory *inventory)
             {
                 use_a_potion(inventory, choose_a_potion(inventory), hero);
                 clear_screen();
-                display_all_monsters(monsters, hero);
+                if (!isBoss)
+                    display_all_monsters(monsters, hero);
+                else
+                    display_hero_and_boss(hero, monsters->monsters[0]);
             }
             break;
 
@@ -125,16 +146,41 @@ void start_battle(Hero *hero, Context *context, Inventory *inventory)
             clear_lines(9);
             equip_another_item(inventory, hero);
             clear_screen();
-            display_all_monsters(monsters, hero);
+            if (!isBoss)
+                display_all_monsters(monsters, hero);
+            else
+                display_hero_and_boss(hero, monsters->monsters[0]);
             break;
 
         case '5':
             clear_lines(9);
-            // Monsters attack
-            for (int i = 0; i < monsters->numMonsters; ++i)
+            if (!isBoss)
             {
-                int monsterAttack = rand() % (monsters->monsters[i]->attackMax - monsters->monsters[i]->attackMin + 1) + monsters->monsters[i]->attackMin;
-                int damage = monsterAttack * 4 - hero->defense * 2;
+                // Monsters attack
+                for (int i = 0; i < monsters->numMonsters; ++i)
+                {
+                    int monsterAttack = rand() % (monsters->monsters[i]->attackMax - monsters->monsters[i]->attackMin + 1) + monsters->monsters[i]->attackMin;
+                    int damage = monsterAttack * 4 - hero->defense * 2;
+                    damage -= hero->defenseBonus * 1.5;
+                    if (damage < 0)
+                        damage = 0;
+                    if (damage >= hero->actualLife)
+                    {
+                        hero->actualLife = 0;
+                    }
+                    else
+                        hero->actualLife -= damage;
+                    clear_screen();
+                    display_all_monsters(monsters, hero);
+                    printf("\n     %s attacks you!\n", monsters->monsters[i]->name);
+                    sleep(1);
+                }
+            }
+            else
+            {
+                // Boss attack
+                int bossAttack = rand() % (monsters->monsters[0]->attackMax - monsters->monsters[0]->attackMin + 1) + monsters->monsters[0]->attackMin;
+                int damage = bossAttack * 4 - hero->defense * 2;
                 damage -= hero->defenseBonus * 1.5;
                 if (damage < 0)
                     damage = 0;
@@ -145,10 +191,13 @@ void start_battle(Hero *hero, Context *context, Inventory *inventory)
                 else
                     hero->actualLife -= damage;
                 clear_screen();
-                display_all_monsters(monsters, hero);
-                printf("\n     %s attacks you!\n", monsters->monsters[i]->name);
+                display_hero_and_boss(hero, monsters->monsters[0]);
+                printf("\n     The boss attacks you!\n");
                 sleep(1);
+                clear_lines(1);
             }
+
+            // Reset
             hero->nbTurns = 3;
             if (hero->actualMana < 100) // Regen 10% of the mana
             {
@@ -172,7 +221,7 @@ void start_battle(Hero *hero, Context *context, Inventory *inventory)
 
     if (hero->actualLife <= 0)
     {
-        battle_loose(hero, monsters);
+        battle_loose(monsters);
     }
     else if (monsters->numMonsters == 0)
     {
@@ -204,6 +253,26 @@ void attack_monster(Monsters *monsters, Hero *hero, int index)
         clear_screen();
         display_all_monsters(monsters, hero);
     }
+}
+
+void attack_boss(Monster *boss, Hero *hero, Monsters *monsters)
+{
+    // Attack the boss
+    int heroAttack = rand() % (hero->attackMax - hero->attackMin + 1) + hero->attackMin;
+    int damage = heroAttack * 4 - boss->defense * 2;
+    damage += hero->attackBonus * 1.5;
+
+    if (damage < 0)
+        damage = 0;
+    boss->actualLife -= damage;
+
+    hero->nbTurns--;
+
+    if (boss->actualLife <= 0)
+        monsters = remove_monster_from_monsters(monsters, 0);
+
+    clear_screen();
+    display_hero_and_boss(hero, boss);
 }
 
 void display_hero_die()
@@ -277,7 +346,7 @@ void battle_win(Hero *hero, Monsters *monsters, Context *context, Inventory *inv
     clear_screen();
 }
 
-void battle_loose(Hero *hero, Monsters *monsters)
+void battle_loose(Monsters *monsters)
 {
     clear_screen();
     display_hero_die();

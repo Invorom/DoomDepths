@@ -1,5 +1,6 @@
 #include "boss.h"
 #include "monster.h"
+#include "battle.h"
 
 char *bossAscii[] = {
     "                              _.--\"\"-._  ",
@@ -159,12 +160,13 @@ void display_hero_and_boss(Hero *hero, Monster *boss)
 Monster *create_boss()
 {
     Monster *boss = malloc(sizeof(Monster));
-    boss->name = "Boss";
+    boss->name = malloc(strlen("The boss") + 1);
+    strcpy(boss->name, "The boss");
     boss->life = 200;
     boss->actualLife = 200;
-    boss->attackMin = 50;
-    boss->attackMax = 100;
-    boss->defense = 40;
+    boss->attackMin = 20;
+    boss->attackMax = 30;
+    boss->defense = 20;
 
     return boss;
 }
@@ -172,11 +174,10 @@ Monster *create_boss()
 void start_battle_with_boss(Hero *hero, Context *context, Inventory *inventory)
 {
     clear_screen();
-    display_hero_and_boss(hero, create_boss());
-    wait_for_enter();
-}
+    Monsters *monsters = initialize_monsters();
+    Monster *boss = create_boss();
 
-void free_boss(Monster *boss)
-{
-    free(boss);
+    display_hero_and_boss(hero, boss);
+    monsters = add_monster_to_monsters(monsters, boss);
+    battle_loop(hero, monsters, inventory, context, 1);
 }
