@@ -66,4 +66,18 @@ void restore_terminal_attributes(struct termios orig_termios);
  */
 char listen_user_input();
 
+/**
+ * @brief Restores original terminal attributes.
+ *
+ * @param orig_termios
+ */
+void restore_terminal_attributes(struct termios orig_termios);
+
+/**
+ * @brief Listens for user input.
+ *
+ * @return char
+ */
+char listen_user_input();
+
 #endif
