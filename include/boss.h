@@ -24,4 +24,11 @@ void display_hero_and_boss(Hero *hero, Monster *boss);
  */
 void start_battle_with_boss(Hero *hero, Context *context, Inventory *inventory);
 
+/**
+ * @brief Frees the boss.
+ *
+ * @param boss
+ */
+void free_boss(Monster *boss);
+
 #endif

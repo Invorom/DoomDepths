@@ -175,3 +175,8 @@ void start_battle_with_boss(Hero *hero, Context *context, Inventory *inventory)
     display_hero_and_boss(hero, create_boss());
     wait_for_enter();
 }
+
+void free_boss(Monster *boss)
+{
+    free(boss);
+}
