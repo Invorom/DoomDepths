@@ -697,54 +697,54 @@ void freeInventory(Inventory *inventory)
 
 void display_inventory(Inventory *inventory)
 {
-    printf("     Equiped armor: %s\n", inventory->equipedArmor->name);
+    printf("" CYAN "     Equiped armor: %s\n" RESET "", inventory->equipedArmor->name);
     printf("     %s\n", inventory->equipedArmor->description);
-    printf("\n     Equiped weapon: %s\n", inventory->equipedWeapon->name);
+    printf("" RED "     Equiped weapon: %s\n" RESET "", inventory->equipedWeapon->name);
     printf("     %s\n", inventory->equipedWeapon->description);
 
     printf("\n     Armors:\n");
     for (int i = 0; i < inventory->nbArmors; i++)
     {
         if (inventory->armors[i] != NULL) // Check for NULL pointers
-            printf("     %d. %s\n", i + 1, inventory->armors[i]->name);
+            printf("     %d. %s: %s\n", i + 1, inventory->armors[i]->name, inventory->armors[i]->description);
     }
     printf("\n     Weapons:\n");
     for (int i = 0; i < inventory->nbWeapons; i++)
     {
         if (inventory->weapons[i] != NULL) // Check for NULL pointers
-            printf("     %d. %s\n", i + 1, inventory->weapons[i]->name);
+            printf("     %d. %s: %s\n", i + 1, inventory->weapons[i]->name, inventory->weapons[i]->description);
     }
     printf("\n     Potions:\n");
     for (int i = 0; i < inventory->nbPotions; i++)
     {
         if (inventory->potions[i] != NULL) // Check for NULL pointers
-            printf("     %d. %s\n", i + 1, inventory->potions[i]->name);
+            printf("     %d. %s: %s\n", i + 1, inventory->potions[i]->name, inventory->potions[i]->description);
     }
 }
 
 void display_armors(Inventory *inventory)
 {
-    printf("     Equiped armor: %s\n", inventory->equipedArmor->name);
+    printf("" CYAN "     Equiped armor: %s\n" RESET "", inventory->equipedArmor->name);
     printf("     %s\n", inventory->equipedArmor->description);
 
     printf("\n     Armors:\n");
     for (int i = 0; i < inventory->nbArmors; i++)
     {
         if (inventory->armors[i] != NULL) // Check for NULL pointers
-            printf("     %d. %s\n", i + 1, inventory->armors[i]->name);
+            printf("     %d. %s: %s\n", i + 1, inventory->armors[i]->name, inventory->armors[i]->description);
     }
 }
 
 void display_weapons(Inventory *inventory)
 {
-    printf("     Equiped weapon: %s\n", inventory->equipedWeapon->name);
+    printf("" RED "     Equiped weapon: %s\n" RESET "", inventory->equipedWeapon->name);
     printf("     %s\n", inventory->equipedWeapon->description);
 
     printf("\n     Weapons:\n");
     for (int i = 0; i < inventory->nbWeapons; i++)
     {
         if (inventory->weapons[i] != NULL) // Check for NULL pointers
-            printf("     %d. %s\n", i + 1, inventory->weapons[i]->name);
+            printf("     %d. %s: %s\n", i + 1, inventory->weapons[i]->name, inventory->weapons[i]->description);
     }
 }
 
@@ -754,7 +754,7 @@ void display_potions(Inventory *inventory)
     for (int i = 0; i < inventory->nbPotions; i++)
     {
         if (inventory->potions[i] != NULL) // Check for NULL pointers
-            printf("     %d. %s\n", i + 1, inventory->potions[i]->name);
+            printf("     %d. %s: %s\n", i + 1, inventory->potions[i]->name, inventory->potions[i]->description);
     }
 }
 
