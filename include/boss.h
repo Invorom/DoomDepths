@@ -32,4 +32,12 @@ void start_battle_with_boss(Hero *hero, Context *context, Inventory *inventory);
  */
 Monster *create_boss(Hero *hero);
 
+/**
+ * @brief Creates a new donjon level.
+ *
+ * @param hero
+ * @param context
+ */
+void new_donjon_level(Hero *hero, Context *context);
+
 #endif

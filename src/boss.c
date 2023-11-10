@@ -177,7 +177,29 @@ void start_battle_with_boss(Hero *hero, Context *context, Inventory *inventory)
     Monsters *monsters = initialize_monsters();
     Monster *boss = create_boss(hero);
 
+    hero->nbTurns = 3;
+
     display_hero_and_boss(hero, boss);
     monsters = add_monster_to_monsters(monsters, boss);
     battle_loop(hero, monsters, inventory, context, 1);
+}
+
+void new_donjon_level(Hero *hero, Context *context)
+{
+    clear_screen();
+    hero->donjonLevel++;
+    printf("     You have reached the next level of the donjon!\n");
+    printf("     You are now level %d.\n", hero->donjonLevel);
+    printf("     You have %d gold.\n", hero->gold);
+    printf("     You have killed %d monsters and opened %d chests.\n", context->killedMonsters - 1, context->openedChests);
+
+    context->killedMonsters = 0;
+    context->openedChests = 0;
+    context->pos_x = -1;
+    context->pos_y = -1;
+
+    wait_for_enter();
+    clear_screen();
+    map_loading();
+    map_initialization(context);
 }

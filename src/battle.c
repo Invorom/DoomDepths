@@ -225,7 +225,7 @@ void battle_loop(Hero *hero, Monsters *monsters, Inventory *inventory, Context *
     }
     else if (monsters->numMonsters == 0)
     {
-        battle_win(hero, monsters, context, inventory);
+        battle_win(hero, monsters, context, inventory, isBoss);
     }
     else
     {
@@ -295,15 +295,24 @@ void display_win()
     printf(YELLOW "         |_|  \\____/ \\____/      \\/  \\/   |_____|_| \\_| (_)\n" RESET);
 }
 
-void battle_win(Hero *hero, Monsters *monsters, Context *context, Inventory *inventory)
+void battle_win(Hero *hero, Monsters *monsters, Context *context, Inventory *inventory, int isBoss)
 {
     clear_screen();
     display_win();
 
     // Win gold and xp
-    printf("\n     You earned %d gold and %d xp!\n", monsters->maxMonsters * 10, monsters->maxMonsters * 12);
-    hero->gold += monsters->maxMonsters * 10;
-    hero->xp += monsters->maxMonsters * 12;
+    if (isBoss)
+    {
+        printf("\n     You earned %d gold and %d xp!\n", hero->donjonLevel * 100, hero->donjonLevel * 120);
+        hero->gold += hero->donjonLevel * 100;
+        hero->xp += hero->donjonLevel * 120;
+    }
+    else
+    {
+        printf("\n     You earned %d gold and %d xp!\n", monsters->maxMonsters * 10, monsters->maxMonsters * 12);
+        hero->gold += monsters->maxMonsters * 10;
+        hero->xp += monsters->maxMonsters * 12;
+    }
 
     // Level up
     if (hero->xp >= hero->level * 100)
@@ -334,6 +343,12 @@ void battle_win(Hero *hero, Monsters *monsters, Context *context, Inventory *inv
     // Remove the monster from the map
     context->map[context->pos_x][context->pos_y] = PATH;
     context->killedMonsters++;
+
+    if (isBoss)
+    {
+        new_donjon_level(hero, context);
+        return;
+    }
 
     // If the hero killed 10 monsters, he can fight the boss
     if (context->killedMonsters == 10)
