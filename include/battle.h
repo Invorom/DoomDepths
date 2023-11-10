@@ -43,8 +43,9 @@ void display_win();
  * @param hero
  * @param monsters
  * @param context
+ * @param inventory
  */
-void battle_win(Hero *hero, Monsters *monsters, Context *context);
+void battle_win(Hero *hero, Monsters *monsters, Context *context, Inventory *inventory);
 
 /**
  * @brief Displays the loose screen.

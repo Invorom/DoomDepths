@@ -176,7 +176,7 @@ void start_battle(Hero *hero, Context *context, Inventory *inventory)
     }
     else if (monsters->numMonsters == 0)
     {
-        battle_win(hero, monsters, context);
+        battle_win(hero, monsters, context, inventory);
     }
     else
     {
@@ -226,13 +226,17 @@ void display_win()
     printf(YELLOW "         |_|  \\____/ \\____/      \\/  \\/   |_____|_| \\_| (_)\n" RESET);
 }
 
-void battle_win(Hero *hero, Monsters *monsters, Context *context)
+void battle_win(Hero *hero, Monsters *monsters, Context *context, Inventory *inventory)
 {
     clear_screen();
     display_win();
+
+    // Win gold and xp
     printf("\n     You earned %d gold and %d xp!\n", monsters->maxMonsters * 10, monsters->maxMonsters * 12);
     hero->gold += monsters->maxMonsters * 10;
     hero->xp += monsters->maxMonsters * 12;
+
+    // Level up
     if (hero->xp >= hero->level * 100)
     {
         hero->level++;
@@ -247,9 +251,22 @@ void battle_win(Hero *hero, Monsters *monsters, Context *context)
     }
     wait_for_enter();
     free_monsters(monsters);
+
+    // Probability to find a chest
+    int chestProbability = rand() % 100 + 1;
+    if (chestProbability <= 20)
+    {
+        clear_screen();
+        printf("     A monster dropped something!\n");
+        wait_for_enter();
+        open_chest(inventory);
+    }
+
     // Remove the monster from the map
     context->map[context->pos_x][context->pos_y] = PATH;
     context->killedMonsters++;
+
+    // If the hero killed 10 monsters, he can fight the boss
     if (context->killedMonsters == 10)
     {
         clear_screen();

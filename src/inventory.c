@@ -427,8 +427,8 @@ Inventory *use_a_potion(Inventory *inventory, Potion *potion, Hero *hero)
         printf("     You used a strength potion\n");
         wait_for_enter();
 
-        // Increase the hero's attack by 20%
-        hero->attackBonus += hero->attackBonus * 0.2;
+        // Increase the hero's attack by 20
+        hero->attackBonus += 20;
         break;
 
     case 3:
@@ -610,7 +610,7 @@ void define_actual_potion(Potion *potion, Potions type)
         potion->name = malloc(sizeof(char) * 20);
         strcpy(potion->name, "Strength");
         potion->description = malloc(sizeof(char) * 100);
-        strcpy(potion->description, "A potion to increase your strength (+20% bonus)");
+        strcpy(potion->description, "A potion to increase your strength (+20 bonus)");
         break;
 
     case MANA:
