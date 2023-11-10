@@ -388,7 +388,7 @@ Inventory *equip_armor(Inventory *inventory, Armor *armor)
     return inventory;
 }
 
-Inventory *use_potion(Inventory *inventory, Potion *potion, Hero *hero)
+Inventory *use_a_potion(Inventory *inventory, Potion *potion, Hero *hero)
 {
     // Check if the potion is in the inventory
     int potionIndex = -1;
@@ -451,6 +451,7 @@ Inventory *use_potion(Inventory *inventory, Potion *potion, Hero *hero)
         inventory->potions[i] = inventory->potions[i + 1];
     }
     inventory->nbPotions--;
+    hero->nbTurns--;
 
     return inventory;
 }
@@ -846,10 +847,17 @@ Potion *choose_a_potion(Inventory *inventory)
         clear_screen();
         display_potions(inventory);
         printf("\n     Which potion do you want to use?\n");
+        printf("\n     0. Go back\n");
+
         input = listen_user_input();
-        if (input >= '1' && input <= ('0' + inventory->nbPotions))
+        if (input >= '1' && input <= ('0' + inventory->nbPotions) || input == '0')
         {
             break;
+        }
+
+        if (input == '0')
+        {
+            return NULL;
         }
     }
 

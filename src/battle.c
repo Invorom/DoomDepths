@@ -31,8 +31,8 @@ void start_battle(Hero *hero, Context *context, Inventory *inventory)
     {
         char input = '9';
 
-        printf("\n     What do you want to do?\n");
-        printf("     1. Attack (%d/3)\n", hero->nbTurns);
+        printf("\n     What do you want to do? (%d/3 turns)\n", hero->nbTurns);
+        printf("     1. Attack\n");
         printf("     2. Use a spell\n");
         printf("     3. Use a potion\n");
         printf("     4. Inventory\n");
@@ -103,15 +103,22 @@ void start_battle(Hero *hero, Context *context, Inventory *inventory)
             break;
 
         case '2':
-            clear_lines(8);
-            printf("     You use a spell!\n");
+            if (hero->nbTurns > 0)
+            {
+                clear_lines(8);
+                printf("     You use a spell!\n");
+                hero->nbTurns--; // To be place in the function that manage spell
+            }
             break;
 
         case '3':
-            clear_lines(8);
-            use_potion(inventory, choose_a_potion(inventory), hero);
-            clear_screen();
-            display_all_monsters(monsters, hero);
+            if (hero->nbTurns > 0)
+            {
+                clear_lines(8);
+                use_a_potion(inventory, choose_a_potion(inventory), hero);
+                clear_screen();
+                display_all_monsters(monsters, hero);
+            }
             break;
 
         case '4':
