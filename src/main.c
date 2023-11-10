@@ -16,23 +16,23 @@ int main(int argc, char **argv)
 
         // Init the map
         map_loading();
-        mapInit(context);
+        map_initialization(context);
 
         if (event_loop(context, hero, inventory) == 0)
         {
-            freeContext(context);
+            free_context(context);
             free_hero(hero);
-            freeInventory(inventory);
+            free_inventory(inventory);
             return EXIT_SUCCESS;
         }
     }
     else
     {
-        freeContext(context);
+        free_context(context);
         return EXIT_SUCCESS;
     }
 
-    freeContext(context);
+    free_context(context);
 
     return 0;
 }

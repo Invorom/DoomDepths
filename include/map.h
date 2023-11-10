@@ -100,7 +100,7 @@ float perlin2d(float x, float y, float freq, int depth, int seed);
  *
  * @return int
  */
-int mapInit(Context *context);
+int map_initialization(Context *context);
 
 /**
  * @brief Get the Map object
@@ -108,7 +108,7 @@ int mapInit(Context *context);
  * @param context
  * @return int
  */
-int getMap(Context *context);
+int get_map(Context *context);
 
 /**
  * @brief Display the map
@@ -116,7 +116,7 @@ int getMap(Context *context);
  * @param context
  * @param hero
  */
-void displayMap(Context *context, Hero *hero);
+void display_map(Context *context, Hero *hero);
 
 /**
  * @brief Valid the map
@@ -128,7 +128,7 @@ void displayMap(Context *context, Hero *hero);
  * @param count
  * @return int
  */
-int validMap(int posx, int posy, Context *context, short **available, int *count);
+int map_validation(int posx, int posy, Context *context, short **available, int *count);
 
 /**
  * @brief Display a message when the map is loading
@@ -137,7 +137,7 @@ int validMap(int posx, int posy, Context *context, short **available, int *count
 void map_loading();
 
 /**
- * @brief Check if the case is reachable
+ * @brief Check if the case is get_reachable_cases
  *
  * @param posx
  * @param posy
@@ -145,35 +145,35 @@ void map_loading();
  * @param available
  * @return int
  */
-int reachableCase(int posx, int posy, Context *context, short **available);
+int find_all_reachable_cases(int posx, int posy, Context *context, short **available);
 
 /**
- * @brief Return a matrix of reachable case
+ * @brief Return a matrix of get_reachable_cases case
  *
  * @param context
  * @return short**
  */
-short **reachable(Context *context);
+short **get_reachable_cases(Context *context);
 
 /**
  * @brief Free the map
  *
  * @param context
  */
-void freeMap(Context *context);
+void free_map(Context *context);
 
 /**
  * @brief Free the available matrix
  *
  * @param available
  */
-void freeAvailable(short **available);
+void free_reachable_cases(short **available);
 
 /**
  * @brief Free the context
  *
  * @param context
  */
-void freeContext(Context *context);
+void free_context(Context *context);
 
 #endif

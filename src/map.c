@@ -53,7 +53,7 @@ float perlin2d(float x, float y, float freq, int depth, int seed)
     return fin / div;
 }
 
-int mapInit(Context *context)
+int map_initialization(Context *context)
 {
     static int isFirstTime = 1; // Static variable to keep track of the first time
 
@@ -123,22 +123,22 @@ int mapInit(Context *context)
         }
     }
 
-    freeMap(context);
-    getMap(context);
+    free_map(context);
+    get_map(context);
 
     int *count = malloc(sizeof(int));
     *count = 0;
-    if (!validMap(posx, posy, context, available, count))
+    if (!map_validation(posx, posy, context, available, count))
     {
-        mapInit(context);
-        freeAvailable(available);
+        map_initialization(context);
+        free_reachable_cases(available);
         free(count);
         return 0;
     }
-    freeAvailable(available);
+    free_reachable_cases(available);
     free(count);
 
-    short **reachableResult = reachable(context);
+    short **reachableResult = get_reachable_cases(context);
 
     // Put the monsters and chests
     while (monsterCount < 10)
@@ -189,12 +189,12 @@ int mapInit(Context *context)
         }
     }
 
-    freeAvailable(reachableResult);
+    free_reachable_cases(reachableResult);
 
     return 0;
 }
 
-int getMap(Context *context)
+int get_map(Context *context)
 {
     context->map = malloc(sizeof(TILE *) * ROWS);
     if (context->map == NULL)
@@ -224,7 +224,7 @@ int getMap(Context *context)
     return 0;
 }
 
-int validMap(int posx, int posy, Context *context, short **available, int *count)
+int map_validation(int posx, int posy, Context *context, short **available, int *count)
 {
     if (posx < 0 || posy < 0 || posx >= ROWS || posy >= COLUMNS)
     {
@@ -251,10 +251,10 @@ int validMap(int posx, int posy, Context *context, short **available, int *count
 
     int nbAction = 0;
 
-    nbAction += validMap(posx + 1, posy, context, available, count);
-    nbAction += validMap(posx - 1, posy, context, available, count);
-    nbAction += validMap(posx, posy + 1, context, available, count);
-    nbAction += validMap(posx, posy - 1, context, available, count);
+    nbAction += map_validation(posx + 1, posy, context, available, count);
+    nbAction += map_validation(posx - 1, posy, context, available, count);
+    nbAction += map_validation(posx, posy + 1, context, available, count);
+    nbAction += map_validation(posx, posy - 1, context, available, count);
 
     if (nbAction == 0)
     {
@@ -266,7 +266,7 @@ int validMap(int posx, int posy, Context *context, short **available, int *count
     }
 }
 
-int reachableCase(int posx, int posy, Context *context, short **available)
+int find_all_reachable_cases(int posx, int posy, Context *context, short **available)
 {
     if (posx < 0 || posy < 0 || posx >= ROWS || posy >= COLUMNS)
     {
@@ -287,10 +287,10 @@ int reachableCase(int posx, int posy, Context *context, short **available)
 
     int nbAction = 0;
 
-    nbAction += reachableCase(posx + 1, posy, context, available);
-    nbAction += reachableCase(posx - 1, posy, context, available);
-    nbAction += reachableCase(posx, posy + 1, context, available);
-    nbAction += reachableCase(posx, posy - 1, context, available);
+    nbAction += find_all_reachable_cases(posx + 1, posy, context, available);
+    nbAction += find_all_reachable_cases(posx - 1, posy, context, available);
+    nbAction += find_all_reachable_cases(posx, posy + 1, context, available);
+    nbAction += find_all_reachable_cases(posx, posy - 1, context, available);
 
     if (nbAction == 0)
     {
@@ -302,7 +302,7 @@ int reachableCase(int posx, int posy, Context *context, short **available)
     }
 }
 
-short **reachable(Context *context)
+short **get_reachable_cases(Context *context)
 {
     short **available = malloc(sizeof(short *) * ROWS);
     if (available == NULL)
@@ -319,12 +319,12 @@ short **reachable(Context *context)
         }
     }
 
-    reachableCase(context->pos_x, context->pos_y, context, available);
+    find_all_reachable_cases(context->pos_x, context->pos_y, context, available);
 
     return available;
 }
 
-void displayMap(Context *context, Hero *hero)
+void display_map(Context *context, Hero *hero)
 {
     clear_screen();
 
@@ -422,7 +422,7 @@ void map_loading()
     sleep(3);
 }
 
-void freeMap(Context *context)
+void free_map(Context *context)
 {
     if (context->map != NULL)
     {
@@ -439,7 +439,7 @@ void freeMap(Context *context)
     }
 }
 
-void freeAvailable(short **available)
+void free_reachable_cases(short **available)
 {
     for (int i = 0; i < ROWS; i++)
     {
@@ -448,11 +448,11 @@ void freeAvailable(short **available)
     free(available);
 }
 
-void freeContext(Context *context)
+void free_context(Context *context)
 {
     if (context != NULL)
     {
-        freeMap(context);
+        free_map(context);
         free(context);
     }
 }

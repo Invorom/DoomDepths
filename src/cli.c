@@ -49,7 +49,7 @@ void wait_for_enter()
     }
 }
 
-int actualStringLength(const char *str)
+int get_actual_string_length(const char *str)
 {
     int length = 0;
     int inColorCode = 0;

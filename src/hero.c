@@ -74,7 +74,7 @@ void display_hero(Hero *hero)
     int maxLineLength = 0;
     for (int i = 0; i < numLines1; i++)
     {
-        int lineLength = actualStringLength(heroAscii[i]);
+        int lineLength = get_actual_string_length(heroAscii[i]);
         if (lineLength > maxLineLength)
         {
             maxLineLength = lineLength;

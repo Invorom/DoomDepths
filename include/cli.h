@@ -50,7 +50,7 @@ void wait_for_enter();
  * @param str
  * @return int
  */
-int actualStringLength(const char *str);
+int get_actual_string_length(const char *str);
 
 /**
  * @brief Restores original terminal attributes.

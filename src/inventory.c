@@ -4,7 +4,7 @@
 #include <string.h>
 #include "cli.h"
 
-void defineActualArmor(Armor *armor, Armors type)
+void define_actual_armor(Armor *armor, Armors type)
 {
     switch (type)
     {
@@ -66,17 +66,17 @@ void defineActualArmor(Armor *armor, Armors type)
     }
 }
 
-Armor *initArmor()
+Armor *initialize_armor()
 {
     Armor *armor = malloc(sizeof(Armor));
     Armors type = NAKED;
 
-    defineActualArmor(armor, type);
+    define_actual_armor(armor, type);
 
     return armor;
 }
 
-void defineActualWeapon(Weapon *weapon, Weapons type)
+void define_actual_weapon(Weapon *weapon, Weapons type)
 {
     switch (type)
     {
@@ -130,12 +130,12 @@ void defineActualWeapon(Weapon *weapon, Weapons type)
     }
 }
 
-Weapon *initWeapon()
+Weapon *initialize_weapon()
 {
     Weapon *weapon = malloc(sizeof(Weapon));
     Weapons type = FISTS;
 
-    defineActualWeapon(weapon, type);
+    define_actual_weapon(weapon, type);
 
     return weapon;
 }
@@ -456,7 +456,7 @@ Inventory *use_a_potion(Inventory *inventory, Potion *potion, Hero *hero)
     return inventory;
 }
 
-Armor *returnRandomArmor()
+Armor *get_random_armor()
 {
     // Get a random armor with probability
     int random = rand() % 100;
@@ -489,12 +489,12 @@ Armor *returnRandomArmor()
 
     // Create the armor
     Armor *armor = malloc(sizeof(Armor));
-    defineActualArmor(armor, type);
+    define_actual_armor(armor, type);
 
     return armor;
 }
 
-Weapon *returnRandomWeapon()
+Weapon *get_random_weapon()
 {
     // Get a random weapon with probability
     int random = rand() % 100;
@@ -522,12 +522,12 @@ Weapon *returnRandomWeapon()
 
     // Create the weapon
     Weapon *weapon = malloc(sizeof(Weapon));
-    defineActualWeapon(weapon, type);
+    define_actual_weapon(weapon, type);
 
     return weapon;
 }
 
-Potion *returnRandomPotion()
+Potion *get_random_potion()
 {
     // Get a random potion
     int random = rand() % 3;
@@ -549,7 +549,7 @@ Potion *returnRandomPotion()
 
     // Create the potion
     Potion *potion = malloc(sizeof(Potion));
-    defineActualPotion(potion, type);
+    define_actual_potion(potion, type);
 
     return potion;
 }
@@ -564,28 +564,28 @@ Inventory *open_chest(Inventory *inventory)
         clear_screen();
         printf("     You found a weapon!\n");
         wait_for_enter();
-        inventory = add_a_weapon(inventory, returnRandomWeapon());
+        inventory = add_a_weapon(inventory, get_random_weapon());
         break;
 
     case 1:
         clear_screen();
         printf("     You found an armor!\n");
         wait_for_enter();
-        inventory = add_an_armor(inventory, returnRandomArmor());
+        inventory = add_an_armor(inventory, get_random_armor());
         break;
 
     case 2:
         clear_screen();
         printf("     You found a potion!\n");
         wait_for_enter();
-        inventory = add_a_potion(inventory, returnRandomPotion(), 0);
+        inventory = add_a_potion(inventory, get_random_potion(), 0);
         break;
     }
 
     return inventory;
 }
 
-void defineActualPotion(Potion *potion, Potions type)
+void define_actual_potion(Potion *potion, Potions type)
 {
     switch (type)
     {
@@ -644,8 +644,8 @@ Inventory *initialize_inventory()
     inventory->maxPotions = 15;
 
     // Init the equiped armor and weapon
-    inventory->equipedArmor = initArmor();
-    inventory->equipedWeapon = initWeapon();
+    inventory->equipedArmor = initialize_armor();
+    inventory->equipedWeapon = initialize_weapon();
 
     // Add the equiped armor and weapon to the inventory
     inventory->armors[0] = inventory->equipedArmor;
@@ -658,7 +658,7 @@ Inventory *initialize_inventory()
     {
         // Create the potion
         Potion *potion = malloc(sizeof(Potion));
-        defineActualPotion(potion, HEALTH);
+        define_actual_potion(potion, HEALTH);
         int isInit = 1;
         inventory = add_a_potion(inventory, potion, isInit);
     }
@@ -666,7 +666,7 @@ Inventory *initialize_inventory()
     return inventory;
 }
 
-void freeInventory(Inventory *inventory)
+void free_inventory(Inventory *inventory)
 {
     // Free the armors
     for (int i = 0; i < inventory->nbArmors; i++)

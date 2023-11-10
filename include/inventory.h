@@ -79,7 +79,7 @@ typedef struct Inventory
  * @param type
  *
  */
-void defineActualArmor(Armor *armor, Armors type);
+void define_actual_armor(Armor *armor, Armors type);
 
 /**
  * @brief Defines the actual weapon.
@@ -87,7 +87,7 @@ void defineActualArmor(Armor *armor, Armors type);
  * @param weapon
  * @param type
  */
-void defineActualWeapon(Weapon *weapon, Weapons type);
+void define_actual_weapon(Weapon *weapon, Weapons type);
 
 /**
  * @brief Defines the actual potion.
@@ -95,7 +95,7 @@ void defineActualWeapon(Weapon *weapon, Weapons type);
  * @param potion
  * @param type
  */
-void defineActualPotion(Potion *potion, Potions type);
+void define_actual_potion(Potion *potion, Potions type);
 
 /**
  * @brief Initializes the inventory.
@@ -109,21 +109,21 @@ Inventory *initialize_inventory();
  *
  * @param inventory
  */
-void freeInventory(Inventory *inventory);
+void free_inventory(Inventory *inventory);
 
 /**
  * @brief Initializes the armor.
  *
  * @return Armor*
  */
-Armor *initArmor();
+Armor *initialize_armor();
 
 /**
  * @brief Initializes the weapon.
  *
  * @return Weapon*
  */
-Weapon *initWeapon();
+Weapon *initialize_weapon();
 
 /**
  * @brief Displays the inventory.
@@ -193,21 +193,21 @@ Inventory *use_a_potion(Inventory *inventory, Potion *potion, Hero *hero);
  *
  * @return Armor*
  */
-Armor *returnRandomArmor();
+Armor *get_random_armor();
 
 /**
  * @brief Generates a random weapon.
  *
  * @return Weapon*
  */
-Weapon *returnRandomWeapon();
+Weapon *get_random_weapon();
 
 /**
  * @brief Generates a random potion.
  *
  * @return Potion*
  */
-Potion *returnRandomPotion();
+Potion *get_random_potion();
 
 /**
  * @brief Opens a chest, and adds a random item to the inventory.

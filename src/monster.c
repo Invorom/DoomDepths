@@ -255,7 +255,7 @@ void display_menu_design()
 
     for (int i = 0; i < numLines1; i++)
     {
-        int lineLength = actualStringLength(heroArt[i]);
+        int lineLength = get_actual_string_length(heroArt[i]);
         if (lineLength > maxLineLength1)
         {
             maxLineLength1 = lineLength;
@@ -264,7 +264,7 @@ void display_menu_design()
 
     for (int i = 0; i < numLines2; i++)
     {
-        int lineLength = actualStringLength(demon[i]);
+        int lineLength = get_actual_string_length(demon[i]);
         if (lineLength > maxLineLength2)
         {
             maxLineLength2 = lineLength;
@@ -313,7 +313,7 @@ void display_all_monsters(Monsters *monsters, Hero *hero)
     clear_screen();
 
     // Determine the maximum line length
-    int maxLineLength = actualStringLength(snake[0]);
+    int maxLineLength = get_actual_string_length(snake[0]);
 
     // Find the monster with the maximum number of lines
     int maxNumLines = 0;
