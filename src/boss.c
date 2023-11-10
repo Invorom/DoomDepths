@@ -118,3 +118,10 @@ void display_hero_and_boss()
         printf("\n");
     }
 }
+
+void start_battle_with_boss(Hero *hero, Context *context, Inventory *inventory)
+{
+    clear_screen();
+    display_hero_and_boss();
+    wait_for_enter();
+}
