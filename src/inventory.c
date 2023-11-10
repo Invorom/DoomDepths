@@ -431,34 +431,33 @@ Inventory *use_potion(Inventory *inventory, Potion *potion)
 
 Armor *returnRandomArmor()
 {
-    // Get a random armor
-    int random = rand() % 6;
+    // Get a random armor with probability
+    int random = rand() % 100;
     Armors type = NAKED;
-    switch (random)
+
+    if (random < 50)
     {
-    case 0:
         type = CLOTH;
-        break;
-
-    case 1:
+    }
+    else if (random < 75)
+    {
         type = LEATHER;
-        break;
-
-    case 2:
+    }
+    else if (random < 90)
+    {
         type = CHAINMAIL;
-        break;
-
-    case 3:
+    }
+    else if (random < 95)
+    {
         type = METAL;
-        break;
-
-    case 4:
+    }
+    else if (random < 99)
+    {
         type = GOLD;
-        break;
-
-    case 5:
+    }
+    else
+    {
         type = DIAMOND;
-        break;
     }
 
     // Create the armor
@@ -470,30 +469,28 @@ Armor *returnRandomArmor()
 
 Weapon *returnRandomWeapon()
 {
-    // Get a random weapon
-    int random = rand() % 5;
+    // Get a random weapon with probability
+    int random = rand() % 100;
     Weapons type = FISTS;
-    switch (random)
+    if (random < 50)
     {
-    case 0:
         type = DAGGER;
-        break;
-
-    case 1:
+    }
+    else if (random < 75)
+    {
         type = SWORD;
-        break;
-
-    case 2:
+    }
+    else if (random < 90)
+    {
         type = AXE;
-        break;
-
-    case 3:
+    }
+    else if (random < 95)
+    {
         type = MACE;
-        break;
-
-    case 4:
+    }
+    else
+    {
         type = BOW;
-        break;
     }
 
     // Create the weapon
