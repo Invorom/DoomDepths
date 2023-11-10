@@ -16,7 +16,6 @@
 #define BLUE "\x1b[34m"
 #define LIGHT_GREEN "\x1b[38;5;10m"
 #define GREEN "\x1b[38;5;34m"
-#define DARK_GREEN "\x1b[38;5;22m"
 #define LIGHT_BLUE "\x1b[38;5;14m"
 #define RED_2 "\x1b[38;5;196m"
 #define RED_3 "\x1b[38;5;160m"

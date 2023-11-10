@@ -96,9 +96,13 @@ void display_all_stats(Hero *hero)
 {
     display_hero(hero);
 
+    // Print the general stats
+    printf("" RED "\n     Max life: " RESET "%d\n", hero->life);
+    printf("" BLUE "     Max mana: " RESET "%d\n", hero->mana);
+
     // Print the attack stats
     printf("" GREEN "\n     Attack min: " RESET "%d\n", hero->attackMin);
-    printf("" DARK_GREEN "     Attack max: " RESET "%d\n", hero->attackMax);
+    printf("" GREEN "     Attack max: " RESET "%d\n", hero->attackMax);
     printf("" LIGHT_GREEN "     Attack bonus: " RESET "%d\n", hero->attackBonus);
 
     // Print the defense stats
