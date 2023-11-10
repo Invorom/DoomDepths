@@ -53,7 +53,7 @@ float perlin2d(float x, float y, float freq, int depth, int seed)
     return fin / div;
 }
 
-int mapInit(Context *context)
+int map_initialization(Context *context)
 {
     static int isFirstTime = 1; // Static variable to keep track of the first time
 
@@ -63,6 +63,7 @@ int mapInit(Context *context)
     int monsterCount = 0;
     int chestCount = 0;
     int bossCount = 0;
+    int shopCount = 0;
     if (isFirstTime)
     {
         context->map = NULL;
@@ -87,7 +88,7 @@ int mapInit(Context *context)
             }
             else
             {
-                if (tmp <= 0.45) // Increasing the frequency of paths
+                if (tmp <= 0.45)
                 {
                     if (posx == -1 && posy == -1)
                     {
@@ -98,7 +99,7 @@ int mapInit(Context *context)
                 }
                 else
                 {
-                    fputc(PATH, f); // Decreasing the frequency of obstacles
+                    fputc(PATH, f);
                 }
             }
         }
@@ -122,22 +123,22 @@ int mapInit(Context *context)
         }
     }
 
-    freeMap(context);
-    getMap(context);
+    free_map(context);
+    get_map(context);
 
     int *count = malloc(sizeof(int));
     *count = 0;
-    if (!validMap(posx, posy, context, available, count))
+    if (!map_validation(posx, posy, context, available, count))
     {
-        mapInit(context);
-        freeAvailable(available);
+        map_initialization(context);
+        free_reachable_cases(available);
         free(count);
         return 0;
     }
-    freeAvailable(available);
+    free_reachable_cases(available);
     free(count);
 
-    short **reachableResult = reachable(context);
+    short **reachableResult = get_reachable_cases(context);
 
     // Put the monsters and chests
     while (monsterCount < 10)
@@ -176,12 +177,24 @@ int mapInit(Context *context)
         }
     }
 
-    freeAvailable(reachableResult);
+    while (shopCount < 1)
+    {
+        int newObjectx = (rand() % (ROWS - 2)) + 2;
+        int newObjecty = (rand() % (COLUMNS - 2)) + 2;
+
+        if (context->map[newObjectx][newObjecty] == PATH && reachableResult[newObjectx][newObjecty] == 1)
+        {
+            context->map[newObjectx][newObjecty] = SHOP;
+            shopCount++;
+        }
+    }
+
+    free_reachable_cases(reachableResult);
 
     return 0;
 }
 
-int getMap(Context *context)
+int get_map(Context *context)
 {
     context->map = malloc(sizeof(TILE *) * ROWS);
     if (context->map == NULL)
@@ -211,7 +224,7 @@ int getMap(Context *context)
     return 0;
 }
 
-int validMap(int posx, int posy, Context *context, short **available, int *count)
+int map_validation(int posx, int posy, Context *context, short **available, int *count)
 {
     if (posx < 0 || posy < 0 || posx >= ROWS || posy >= COLUMNS)
     {
@@ -238,10 +251,10 @@ int validMap(int posx, int posy, Context *context, short **available, int *count
 
     int nbAction = 0;
 
-    nbAction += validMap(posx + 1, posy, context, available, count);
-    nbAction += validMap(posx - 1, posy, context, available, count);
-    nbAction += validMap(posx, posy + 1, context, available, count);
-    nbAction += validMap(posx, posy - 1, context, available, count);
+    nbAction += map_validation(posx + 1, posy, context, available, count);
+    nbAction += map_validation(posx - 1, posy, context, available, count);
+    nbAction += map_validation(posx, posy + 1, context, available, count);
+    nbAction += map_validation(posx, posy - 1, context, available, count);
 
     if (nbAction == 0)
     {
@@ -253,7 +266,7 @@ int validMap(int posx, int posy, Context *context, short **available, int *count
     }
 }
 
-int reachableCase(int posx, int posy, Context *context, short **available)
+int find_all_reachable_cases(int posx, int posy, Context *context, short **available)
 {
     if (posx < 0 || posy < 0 || posx >= ROWS || posy >= COLUMNS)
     {
@@ -274,10 +287,10 @@ int reachableCase(int posx, int posy, Context *context, short **available)
 
     int nbAction = 0;
 
-    nbAction += reachableCase(posx + 1, posy, context, available);
-    nbAction += reachableCase(posx - 1, posy, context, available);
-    nbAction += reachableCase(posx, posy + 1, context, available);
-    nbAction += reachableCase(posx, posy - 1, context, available);
+    nbAction += find_all_reachable_cases(posx + 1, posy, context, available);
+    nbAction += find_all_reachable_cases(posx - 1, posy, context, available);
+    nbAction += find_all_reachable_cases(posx, posy + 1, context, available);
+    nbAction += find_all_reachable_cases(posx, posy - 1, context, available);
 
     if (nbAction == 0)
     {
@@ -289,7 +302,7 @@ int reachableCase(int posx, int posy, Context *context, short **available)
     }
 }
 
-short **reachable(Context *context)
+short **get_reachable_cases(Context *context)
 {
     short **available = malloc(sizeof(short *) * ROWS);
     if (available == NULL)
@@ -306,18 +319,25 @@ short **reachable(Context *context)
         }
     }
 
-    reachableCase(context->pos_x, context->pos_y, context, available);
+    find_all_reachable_cases(context->pos_x, context->pos_y, context, available);
 
     return available;
 }
 
-void displayMap(Context *context)
+void display_map(Context *context, Hero *hero)
 {
     clear_screen();
 
-    for (int i = context->pos_y - 12; i < context->pos_y + 12; i++)
+    printf("     " YELLOW "Donjon level: " RESET "%d     ", hero->donjonLevel);
+    // Rules
+    printf("     Press 'z' to go up, 'q' to go left, 's' to go down and 'd' to go right.\n");
+    printf("                              Press 'e' to open your inventory.\n");
+    printf("                              Press 'r' to display your stats.\n");
+    printf("                              Press shift + 'x' to save and quit.\n\n");
+
+    for (int i = context->pos_y - 20; i < context->pos_y + 20; i++)
     {
-        for (int j = context->pos_x - 24; j < context->pos_x + 24; j++)
+        for (int j = context->pos_x - 40; j < context->pos_x + 40; j++)
         {
             if (i < 0 || j < 0 || j >= ROWS || i >= COLUMNS)
             {
@@ -333,29 +353,76 @@ void displayMap(Context *context)
                 {
                     printf("\033[1;37m%c", context->map[j][i]);
                 }
-                else if (context->map[j][i] == PATH || context->map[j][i] == MONSTER || context->map[j][i] == CHEST || context->map[j][i] == BOSS)
+                else if (context->map[j][i] == PATH)
                 {
                     printf("\033[1;33m%c", context->map[j][i]);
+                }
+                else if (context->map[j][i] == MONSTER)
+                {
+                    printf("\033[1;32m%c", context->map[j][i]);
+                }
+                else if (context->map[j][i] == CHEST)
+                {
+                    printf("\033[1;34m%c", context->map[j][i]);
+                }
+                else if (context->map[j][i] == BOSS)
+                {
+                    printf("\033[1;35m%c", context->map[j][i]);
+                }
+                else if (context->map[j][i] == SHOP)
+                {
+                    printf("\x1b[38;5;208m%c", context->map[j][i]);
                 }
             }
         }
         printf("\n");
     }
+    printf("\033[1;37m");
+
+    // Player stats
+    // Print the life bar
+    printf("\n\n     " RED "Life: " RESET "[");
+    int lifeBarLength = (hero->actualLife * 10) / 100; // 10 is the length of the bar
+    for (int i = 0; i < 10; i++)
+    {
+        if (i < lifeBarLength)
+            printf("" RED "#" RESET "");
+        else
+            printf(" ");
+    }
+    printf("] %d%%     " CYAN "Level: " RESET "%d\n", hero->actualLife, hero->level);
+
+    // Print the mana bar
+    printf("     " BLUE "Mana: " RESET "[");
+    int manaBarLength = (hero->actualMana * 10) / 100; // 10 is the length of the bar
+    for (int i = 0; i < 10; i++)
+    {
+        if (i < manaBarLength)
+            printf("" BLUE "#" RESET "");
+        else
+            printf(" ");
+    }
+    printf("] %d%%     " MAGENTA "XP: " RESET "%d/%d\n", hero->actualMana, hero->xp, hero->level * 100);
+    printf("     " ORANGE "Gold: " RESET "%d " ORANGE "$" RESET "\n", hero->gold);
+
+    // Game stats
+    printf("\n     " GREEN "Monsters killed: " RESET "%d/10     " BLUE "Chests found: " RESET "%d/5\n", context->killedMonsters, context->openedChests);
 }
 
 void map_loading()
 {
-    printf("  _                     _ _                                             \n");
-    printf(" | |                   | (_)                                            \n");
-    printf(" | |     ___   __ _  __| |_ _ __   __ _   _ __ ___   __ _ _ __           \n");
-    printf(" | |    / _ \\ / _` |/ _` | | '_ \\ / _` | | '_ ` _ \\ / _` | '_ \\          \n");
-    printf(" | |___| (_) | (_| | (_| | | | | | (_| | | | | | | | (_| | |_) |  _ _ _ \n");
-    printf(" |______\\___/ \\__,_|\\__,_|_|_| |_|\\__, | |_| |_| |_|\\__,_| .__/  (_|_|_)\n");
-    printf("                                   __/ |                 | |            \n");
-    printf("                                  |___/                  |_|            \n");
+    printf("      _                     _ _                                             \n");
+    printf("     | |                   | (_)                                            \n");
+    printf("     | |     ___   __ _  __| |_ _ __   __ _   _ __ ___   __ _ _ __           \n");
+    printf("     | |    / _ \\ / _` |/ _` | | '_ \\ / _` | | '_ ` _ \\ / _` | '_ \\          \n");
+    printf("     | |___| (_) | (_| | (_| | | | | | (_| | | | | | | | (_| | |_) |  \033[5m_ _ _ \n" RESET "");
+    printf("     |______\\___/ \\__,_|\\__,_|_|_| |_|\\__, | |_| |_| |_|\\__,_| .__/  \033[5m(_|_|_)\n" RESET "");
+    printf("                                       __/ |                 | |            \n");
+    printf("                                      |___/                  |_|            \n");
+    sleep(3);
 }
 
-void freeMap(Context *context)
+void free_map(Context *context)
 {
     if (context->map != NULL)
     {
@@ -372,7 +439,7 @@ void freeMap(Context *context)
     }
 }
 
-void freeAvailable(short **available)
+void free_reachable_cases(short **available)
 {
     for (int i = 0; i < ROWS; i++)
     {
@@ -381,11 +448,11 @@ void freeAvailable(short **available)
     free(available);
 }
 
-void freeContext(Context *context)
+void free_context(Context *context)
 {
     if (context != NULL)
     {
-        freeMap(context);
+        free_map(context);
         free(context);
     }
 }

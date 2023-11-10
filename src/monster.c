@@ -125,46 +125,6 @@ char *ghost[] = {
     "           \\   \\                 ",
     "            `~~~'                  "};
 
-char *boss[] = {
-    "                              _.--\"\"-._  ",
-    "  .                         .\"         \".",
-    " / \\    ,^.         /(     Y             |      )\\",
-    "/   `---. |--'\\    (  \\__..'--   -   -- -'\"\"-.-'  )",
-    "|        :|    `>   '.     l_..-------.._l      .'",
-    "|      __l;__ .'      \"-.__.||_.-'v'-._||`\"----\"",
-    " \\  .-' | |  `              l._       _.'",
-    "  \\/    | |                   l`^^'^^'j",
-    "        | |                _   \\_____/     _",
-    "        j |               l `--__)-'(__.--' |",
-    "        | |               | /`---``-----'\"1 |  ,-----.",
-    "        | |               )/  `--' '---'   \\'-'  ___  `-.",
-    "        | |              //  `-'  '`----'  /  ,-'   I`.  \\",
-    "      _ L |_            //  `-.-.'`-----' /  /  |   |  `. \\",
-    "     '._' / \\         _/(   `/   )- ---' ;  /__.J   L.__.\\ :",
-    "      `._;/7(-.......'  /        ) (     |  |            | |",
-    "      `._;l _'--------_/        )-'/     :  |___.    _._./ ;",
-    "        | |                 .__ )-'\\  __  \\  \\  I   1   / /",
-    "        `-'                /   `-\\-(-'   \\ \\  `.|   | ,' /",
-    "                           \\__  `-'    __/  `-. `---'',-'",
-    "                              )-._.-- (        `-----'",
-    "                             )(  l\\ o ('..-.",
-    "                       _..--' _'-' '--'.-. |",
-    "                __,,-'' _,,-''            \\ \\",
-    "               f'. _,,-'                   \\ \\",
-    "              ()--  |                       \\ \\",
-    "                \\.  |                       /  \\",
-    "                  \\ \\                      |._  |",
-    "                   \\ \\                     |  ()|",
-    "                    \\ \\                     \\  /",
-    "                     ) `-.                   | |",
-    "                    // .__)                  | |",
-    "                 _.//7'                      | |",
-    "               '---'                         j_| ` ",
-    "                                            (| |",
-    "                                             |  \\",
-    "                                             |lllj",
-    "                                             ||||| "};
-
 Monster *create_monster(unsigned int seed, Hero *hero)
 {
     // Allocate memory for the monster
@@ -180,7 +140,7 @@ Monster *create_monster(unsigned int seed, Hero *hero)
     srand(seed);
 
     // Create random monster
-    int randomIndex = rand() % (sizeof(names) / sizeof(names[0]));
+    int randomIndex = rand() % 6;
     char *name = names[randomIndex];
     int life = rand() % 81 + 20 + (hero->level - 1) * 10 + (hero->donjonLevel - 1) * 10;
     int attackMin = rand() % 10 + 1 + (hero->level - 1) * 5 + (hero->donjonLevel - 1) * 5;
@@ -255,7 +215,7 @@ void display_menu_design()
 
     for (int i = 0; i < numLines1; i++)
     {
-        int lineLength = actualStringLength(heroArt[i]);
+        int lineLength = get_actual_string_length(heroArt[i]);
         if (lineLength > maxLineLength1)
         {
             maxLineLength1 = lineLength;
@@ -264,7 +224,7 @@ void display_menu_design()
 
     for (int i = 0; i < numLines2; i++)
     {
-        int lineLength = actualStringLength(demon[i]);
+        int lineLength = get_actual_string_length(demon[i]);
         if (lineLength > maxLineLength2)
         {
             maxLineLength2 = lineLength;
@@ -280,7 +240,7 @@ void display_menu_design()
         // Display hero line (or spaces if not available)
         if (i < numLines1)
         {
-            printf("%-*s", maxLineLength1, heroArt[i]);
+            printf("     %-*s", maxLineLength1, heroArt[i]);
         }
         else
         {
@@ -293,19 +253,19 @@ void display_menu_design()
         // Display demon line (or spaces if not available)
         if (i < numLines2)
         {
-            printf("%-*s", maxLineLength2, demon[i]);
+            printf("     %-*s", maxLineLength2, demon[i]);
         }
 
         printf("\n");
     }
 
     // Print "DOOMDEPTHS" in ASCII art with colors
-    printf(RED " _____    ____    ____   __  __  _____   ______  _____  _______  _    _   _____ \n");
-    printf(RED_2 "|  __ \\  / __ \\  / __ \\ |  \\/  ||  __ \\ |  ____||  __ \\|__   __|| |  | | / ____|\n");
-    printf(RED_3 "| |  | || |  | || |  | || \\  / || |  | || |__   | |__) |  | |   | |__| || (___  \n");
-    printf(RED_4 "| |  | || |  | || |  | || |\\/| || |  | ||  __|  |  ___/   | |   |  __  | \\___ \\ \n");
-    printf(RED_5 "| |__| || |__| || |__| || |  | || |__| || |____ | |       | |   | |  | | ____) |\n");
-    printf(RED_6 "|_____/  \\____/  \\____/ |_|  |_||_____/ |______||_|       |_|   |_|  |_||_____/ \n" RESET);
+    printf(RED "      _____    ____    ____   __  __  _____   ______  _____  _______  _    _   _____ \n");
+    printf(RED_2 "     |  __ \\  / __ \\  / __ \\ |  \\/  ||  __ \\ |  ____||  __ \\|__   __|| |  | | / ____|\n");
+    printf(RED_3 "     | |  | || |  | || |  | || \\  / || |  | || |__   | |__) |  | |   | |__| || (___  \n");
+    printf(RED_4 "     | |  | || |  | || |  | || |\\/| || |  | ||  __|  |  ___/   | |   |  __  | \\___ \\ \n");
+    printf(RED_5 "     | |__| || |__| || |__| || |  | || |__| || |____ | |       | |   | |  | | ____) |\n");
+    printf(RED_6 "     |_____/  \\____/  \\____/ |_|  |_||_____/ |______||_|       |_|   |_|  |_||_____/ \n" RESET);
 }
 
 void display_all_monsters(Monsters *monsters, Hero *hero)
@@ -313,7 +273,7 @@ void display_all_monsters(Monsters *monsters, Hero *hero)
     clear_screen();
 
     // Determine the maximum line length
-    int maxLineLength = actualStringLength(snake[0]);
+    int maxLineLength = get_actual_string_length(snake[0]);
 
     // Find the monster with the maximum number of lines
     int maxNumLines = 0;

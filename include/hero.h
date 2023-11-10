@@ -4,10 +4,6 @@
 #include "utils.h"
 #include "cli.h"
 
-#define RED "\x1b[31m"
-#define BLUE "\x1b[34m"
-#define RESET "\x1b[0m"
-
 typedef struct Hero
 {
     int life;
@@ -20,7 +16,9 @@ typedef struct Hero
     int nbTurns;
     int attackMin;
     int attackMax;
+    int attackBonus;
     int defense;
+    int defenseBonus;
     int donjonLevel;
 } Hero;
 
@@ -43,5 +41,12 @@ Hero *initialize_hero();
  * @param hero
  */
 void free_hero(Hero *hero);
+
+/**
+ * @brief Displays all the hero's stats.
+ *
+ * @param hero
+ */
+void display_all_stats(Hero *hero);
 
 #endif

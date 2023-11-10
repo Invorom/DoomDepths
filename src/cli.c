@@ -15,11 +15,41 @@ void clear_lines(int lines)
 
 void wait_for_enter()
 {
-    printf("\nPress [ENTER] to continue...");
+    printf("\n     Press [ENTER] to continue...");
     clear_stdin();
+    struct termios orig_termios;
+    struct termios new_termios;
+
+    // Get the current terminal attributes
+    tcgetattr(STDIN_FILENO, &orig_termios);
+    new_termios = orig_termios;
+
+    // Disable canonical mode and echoing
+    new_termios.c_lflag &= ~(ICANON | ECHO);
+
+    // Set the new terminal attributes
+    tcsetattr(STDIN_FILENO, TCSANOW, &new_termios);
+
+    // Set non-blocking input
+    fcntl(STDIN_FILENO, F_SETFL, O_NONBLOCK);
+
+    while (1)
+    {
+        char input;
+        ssize_t bytesRead = read(STDIN_FILENO, &input, 1);
+
+        if (bytesRead > 0)
+        {
+            if (input == '\n')
+            {
+                restore_terminal_attributes(orig_termios); // Avoid broken terminal
+                return;
+            }
+        }
+    }
 }
 
-int actualStringLength(const char *str)
+int get_actual_string_length(const char *str)
 {
     int length = 0;
     int inColorCode = 0;
@@ -89,8 +119,8 @@ int main_menu()
     clear_screen();
     display_menu_design();
 
-    printf("\n 1. Start Game\n 2. Quit\n\n");
-    printf("Enter your choice: \n\n");
+    printf("\n     1. Start Game\n     2. Quit\n\n");
+    printf("     Enter your choice: \n\n");
     fflush(stdout);
 
     while (input != '1' && input != '2')
@@ -107,13 +137,13 @@ int main_menu()
 
     case '2':
         clear_screen();
-        printf("See you next time!\n");
+        printf("     See you next time!\n");
         return 0;
         break;
 
     default:
         clear_screen();
-        printf("Something went wrong\n");
+        printf("     Something went wrong\n");
         return -1;
         break;
     }

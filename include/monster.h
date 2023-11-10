@@ -5,17 +5,6 @@
 #include "cli.h"
 #include "hero.h"
 
-#define RED "\x1b[31m"
-#define RED_2 "\x1b[38;5;196m"
-#define RED_3 "\x1b[38;5;160m"
-#define RED_4 "\x1b[38;5;124m"
-#define RED_5 "\x1b[38;5;88m"
-#define RED_6 "\x1b[38;5;52m"
-
-#define RESET "\x1b[0m"
-
-#define YELLOW "\x1b[33m"
-
 typedef struct Monster
 {
     char *name;

@@ -31,7 +31,9 @@ Hero *initialize_hero()
     hero->actualMana = 100;
     hero->attackMin = 10;
     hero->attackMax = 20;
+    hero->attackBonus = 0;
     hero->defense = 10;
+    hero->defenseBonus = 0;
     hero->gold = 0;
     hero->xp = 0;
     hero->level = 1;
@@ -44,7 +46,7 @@ Hero *initialize_hero()
 void display_hero(Hero *hero)
 {
     // Print the life bar
-    printf("" RED "Life: " RESET "[");
+    printf("" RED "     Life: " RESET "[");
     int lifeBarLength = (hero->actualLife * 10) / 100; // 10 is the length of the bar
     for (int i = 0; i < 10; i++)
     {
@@ -56,7 +58,7 @@ void display_hero(Hero *hero)
     printf("] %d%%\n", hero->actualLife);
 
     // Print the mana bar
-    printf("" BLUE "Mana: " RESET "[");
+    printf("" BLUE "     Mana: " RESET "[");
     int manaBarLength = (hero->actualMana * 10) / 100; // 10 is the length of the bar
     for (int i = 0; i < 10; i++)
     {
@@ -72,7 +74,7 @@ void display_hero(Hero *hero)
     int maxLineLength = 0;
     for (int i = 0; i < numLines1; i++)
     {
-        int lineLength = actualStringLength(heroAscii[i]);
+        int lineLength = get_actual_string_length(heroAscii[i]);
         if (lineLength > maxLineLength)
         {
             maxLineLength = lineLength;
@@ -80,7 +82,7 @@ void display_hero(Hero *hero)
     }
     for (int i = 0; i < numLines1; i++)
     {
-        printf("%-*s", maxLineLength, heroAscii[i]);
+        printf("     %-*s", maxLineLength, heroAscii[i]);
         printf("\n");
     }
 }
@@ -88,4 +90,22 @@ void display_hero(Hero *hero)
 void free_hero(Hero *hero)
 {
     free(hero);
+}
+
+void display_all_stats(Hero *hero)
+{
+    display_hero(hero);
+
+    // Print the general stats
+    printf("" RED "\n     Max life: " RESET "%d\n", hero->life);
+    printf("" BLUE "     Max mana: " RESET "%d\n", hero->mana);
+
+    // Print the attack stats
+    printf("" GREEN "\n     Attack min: " RESET "%d\n", hero->attackMin);
+    printf("" GREEN "     Attack max: " RESET "%d\n", hero->attackMax);
+    printf("" LIGHT_GREEN "     Attack bonus: " RESET "%d\n", hero->attackBonus);
+
+    // Print the defense stats
+    printf("" BLUE "\n     Defense: " RESET "%d\n", hero->defense);
+    printf("" LIGHT_BLUE "     Defense bonus: " RESET "%d\n", hero->defenseBonus);
 }
