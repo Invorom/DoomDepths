@@ -5,12 +5,15 @@
 #include "hero.h"
 #include "inventory.h"
 #include "map.h"
+#include "monster.h"
 
 /**
  * @brief Displays the hero and the boss.
  *
+ * @param hero
+ * @param boss
  */
-void display_hero_and_boss();
+void display_hero_and_boss(Hero *hero, Monster *boss);
 
 /**
  * @brief Starts a battle between the hero and the boss.

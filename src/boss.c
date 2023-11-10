@@ -1,6 +1,7 @@
 #include "boss.h"
+#include "monster.h"
 
-char *boss[] = {
+char *bossAscii[] = {
     "                              _.--\"\"-._  ",
     "  .                         .\"         \".",
     " / \\    ,^.         /(     Y             |      )\\",
@@ -62,15 +63,51 @@ char *heroDesign[] = {
     "    |     {__}",
     "          ()"};
 
-void display_hero_and_boss()
+void display_hero_and_boss(Hero *hero, Monster *boss)
 {
     // Calculate the number of lines for both hero and boss
     int numLines1 = sizeof(heroDesign) / sizeof(heroDesign[0]);
-    int numLines2 = sizeof(boss) / sizeof(boss[0]);
+    int numLines2 = sizeof(bossAscii) / sizeof(bossAscii[0]);
 
     // Find the maximum line length for both hero and boss
     int maxLineLength1 = 0;
     int maxLineLength2 = 0;
+
+    // Print the life bar
+    printf("" RED "     Life: " RESET "[");
+    int lifeBarLength = (hero->actualLife * 10) / 100; // 10 is the length of the bar
+    for (int i = 0; i < 10; i++)
+    {
+        if (i < lifeBarLength)
+            printf("" RED "#" RESET "");
+        else
+            printf(" ");
+    }
+    printf("] %d%%\n", hero->actualLife);
+
+    // Print the mana bar
+    printf("" BLUE "     Mana: " RESET "[");
+    int manaBarLength = (hero->actualMana * 10) / 100; // 10 is the length of the bar
+    for (int i = 0; i < 10; i++)
+    {
+        if (i < manaBarLength)
+            printf("" BLUE "#" RESET "");
+        else
+            printf(" ");
+    }
+    printf("] %d%%", hero->actualMana);
+
+    // Print the boss life bar
+    printf("" RED "                              Boss life: " RESET "[");
+    int bossLifeBarLength = (boss->actualLife * 10) / 200; // 10 is the length of the bar
+    for (int i = 0; i < 10; i++)
+    {
+        if (i < bossLifeBarLength)
+            printf("" RED "#" RESET "");
+        else
+            printf(" ");
+    }
+    printf("] %d%%\n", boss->actualLife);
 
     for (int i = 0; i < numLines1; i++)
     {
@@ -83,7 +120,7 @@ void display_hero_and_boss()
 
     for (int i = 0; i < numLines2; i++)
     {
-        int lineLength = get_actual_string_length(boss[i]);
+        int lineLength = get_actual_string_length(bossAscii[i]);
         if (lineLength > maxLineLength2)
         {
             maxLineLength2 = lineLength;
@@ -112,16 +149,29 @@ void display_hero_and_boss()
         // Display boss line (or spaces if not available)
         if (i < numLines2)
         {
-            printf("     %-*s", maxLineLength2, boss[i]);
+            printf("     %-*s", maxLineLength2, bossAscii[i]);
         }
 
         printf("\n");
     }
 }
 
+Monster *create_boss()
+{
+    Monster *boss = malloc(sizeof(Monster));
+    boss->name = "Boss";
+    boss->life = 200;
+    boss->actualLife = 200;
+    boss->attackMin = 50;
+    boss->attackMax = 100;
+    boss->defense = 40;
+
+    return boss;
+}
+
 void start_battle_with_boss(Hero *hero, Context *context, Inventory *inventory)
 {
     clear_screen();
-    display_hero_and_boss();
+    display_hero_and_boss(hero, create_boss());
     wait_for_enter();
 }
