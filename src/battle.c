@@ -103,18 +103,18 @@ void start_battle(Hero *hero, Context *context, Inventory *inventory)
             break;
 
         case '2':
+            clear_lines(9);
             if (hero->nbTurns > 0)
             {
-                clear_lines(8);
                 printf("     You use a spell!\n");
                 hero->nbTurns--; // To be place in the function that manage spell
             }
             break;
 
         case '3':
+            clear_lines(9);
             if (hero->nbTurns > 0)
             {
-                clear_lines(8);
                 use_a_potion(inventory, choose_a_potion(inventory), hero);
                 clear_screen();
                 display_all_monsters(monsters, hero);
@@ -122,14 +122,14 @@ void start_battle(Hero *hero, Context *context, Inventory *inventory)
             break;
 
         case '4':
-            clear_lines(8);
+            clear_lines(9);
             equip_another_item(inventory, hero);
             clear_screen();
             display_all_monsters(monsters, hero);
             break;
 
         case '5':
-            clear_lines(8);
+            clear_lines(9);
             // Monsters attack
             for (int i = 0; i < monsters->numMonsters; ++i)
             {
