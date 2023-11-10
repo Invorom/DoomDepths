@@ -144,7 +144,8 @@ Inventory *add_a_weapon(Inventory *inventory, Weapon *weapon)
 {
 
     clear_screen();
-    printf("     You found a %s!\n", weapon->name);
+    printf("     You found a %s! (+%d bonus)\n", weapon->name, weapon->value);
+    printf("     %s\n", weapon->description);
     wait_for_enter();
 
     // Check if the inventory is full
@@ -214,7 +215,8 @@ Inventory *add_a_weapon(Inventory *inventory, Weapon *weapon)
 Inventory *add_an_armor(Inventory *inventory, Armor *armor)
 {
     clear_screen();
-    printf("     You found a %s armor!\n", armor->name);
+    printf("     You found a %s armor! (+%d bonus)\n", armor->name, armor->value);
+    printf("     %s\n", armor->description);
     wait_for_enter();
 
     // Check if the inventory is full
@@ -287,6 +289,7 @@ Inventory *add_a_potion(Inventory *inventory, Potion *potion, int isInit)
     {
         clear_screen();
         printf("     You found a %s potion!\n", potion->name);
+        printf("     %s\n", potion->description);
         wait_for_enter();
 
         // Check if the inventory is full
@@ -598,7 +601,7 @@ void defineActualPotion(Potion *potion, Potions type)
         potion->name = malloc(sizeof(char) * 20);
         strcpy(potion->name, "Health");
         potion->description = malloc(sizeof(char) * 100);
-        strcpy(potion->description, "A potion to heal you");
+        strcpy(potion->description, "A potion to heal you (+20%% life))");
         break;
 
     case STRENGTH:
@@ -606,7 +609,7 @@ void defineActualPotion(Potion *potion, Potions type)
         potion->name = malloc(sizeof(char) * 20);
         strcpy(potion->name, "Strength");
         potion->description = malloc(sizeof(char) * 100);
-        strcpy(potion->description, "A potion to increase your strength");
+        strcpy(potion->description, "A potion to increase your strength (+20%% bonus))");
         break;
 
     case MANA:
@@ -614,7 +617,7 @@ void defineActualPotion(Potion *potion, Potions type)
         potion->name = malloc(sizeof(char) * 20);
         strcpy(potion->name, "Mana");
         potion->description = malloc(sizeof(char) * 100);
-        strcpy(potion->description, "A potion to increase your mana");
+        strcpy(potion->description, "A potion to increase your mana (+20%% mana))");
         break;
     }
 }
@@ -705,26 +708,26 @@ void display_inventory(Inventory *inventory)
 void display_armors(Inventory *inventory)
 {
     printf("\n" CYAN "     Armors:\n\n" RESET "");
-    printf("" CYAN "     Equiped armor: %s\n" RESET "", inventory->equipedArmor->name);
+    printf("" CYAN "     Equiped armor: %s (+%d bonus)\n" RESET "", inventory->equipedArmor->name, inventory->equipedArmor->value);
     printf("     %s\n\n", inventory->equipedArmor->description);
 
     for (int i = 0; i < inventory->nbArmors; i++)
     {
         if (inventory->armors[i] != NULL) // Check for NULL pointers
-            printf("     %d. %s: %s\n", i + 1, inventory->armors[i]->name, inventory->armors[i]->description);
+            printf("     %d. %s: %s (+%d bonus)\n", i + 1, inventory->armors[i]->name, inventory->armors[i]->description, inventory->armors[i]->value);
     }
 }
 
 void display_weapons(Inventory *inventory)
 {
     printf("\n" RED "     Weapons:\n\n" RESET "");
-    printf("" RED "     Equiped weapon: %s\n" RESET "", inventory->equipedWeapon->name);
+    printf("" RED "     Equiped weapon: %s (+%d bonus)\n" RESET "", inventory->equipedWeapon->name, inventory->equipedWeapon->value);
     printf("     %s\n\n", inventory->equipedWeapon->description);
 
     for (int i = 0; i < inventory->nbWeapons; i++)
     {
         if (inventory->weapons[i] != NULL) // Check for NULL pointers
-            printf("     %d. %s: %s\n", i + 1, inventory->weapons[i]->name, inventory->weapons[i]->description);
+            printf("     %d. %s: %s (+%d bonus)\n", i + 1, inventory->weapons[i]->name, inventory->weapons[i]->description, inventory->weapons[i]->value);
     }
 }
 
