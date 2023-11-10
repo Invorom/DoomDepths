@@ -425,7 +425,7 @@ Inventory *use_potion(Inventory *inventory, Potion *potion, Hero *hero)
         wait_for_enter();
 
         // Increase the hero's attack by 20%
-        hero->attackBonus += hero->attack * 0.2;
+        hero->attackBonus += hero->attackBonus * 0.2;
         break;
 
     case 3:
