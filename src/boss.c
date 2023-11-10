@@ -157,16 +157,16 @@ void display_hero_and_boss(Hero *hero, Monster *boss)
     }
 }
 
-Monster *create_boss()
+Monster *create_boss(Hero *hero)
 {
     Monster *boss = malloc(sizeof(Monster));
     boss->name = malloc(strlen("The boss") + 1);
     strcpy(boss->name, "The boss");
-    boss->life = 200;
-    boss->actualLife = 200;
-    boss->attackMin = 20;
-    boss->attackMax = 30;
-    boss->defense = 20;
+    boss->life = 200 + (hero->donjonLevel - 1) * 50;
+    boss->actualLife = 200 + (hero->donjonLevel - 1) * 50;
+    boss->attackMin = 20 + (hero->donjonLevel - 1) * 8;
+    boss->attackMax = 30 + (hero->donjonLevel - 1) * 8;
+    boss->defense = 20 + (hero->donjonLevel - 1) * 5;
 
     return boss;
 }
@@ -175,7 +175,7 @@ void start_battle_with_boss(Hero *hero, Context *context, Inventory *inventory)
 {
     clear_screen();
     Monsters *monsters = initialize_monsters();
-    Monster *boss = create_boss();
+    Monster *boss = create_boss(hero);
 
     display_hero_and_boss(hero, boss);
     monsters = add_monster_to_monsters(monsters, boss);
