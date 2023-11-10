@@ -247,4 +247,12 @@ void display_potions(Inventory *inventory);
  */
 Inventory *equip_another_item(Inventory *inventory, Hero *hero);
 
+/**
+ * @brief Chooses a potion.
+ *
+ * @param inventory
+ * @return Potion*
+ */
+Potion *choose_a_potion(Inventory *inventory);
+
 #endif

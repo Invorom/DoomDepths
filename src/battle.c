@@ -109,11 +109,13 @@ void start_battle(Hero *hero, Context *context, Inventory *inventory)
 
         case '3':
             clear_lines(8);
-            printf("     You use a potion!\n");
+            use_potion(inventory, choose_a_potion(inventory), hero);
+            clear_screen();
+            display_all_monsters(monsters, hero);
             break;
 
         case '4':
-            clear_screen();
+            clear_lines(8);
             equip_another_item(inventory, hero);
             clear_screen();
             display_all_monsters(monsters, hero);

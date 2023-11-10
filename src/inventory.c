@@ -853,3 +853,22 @@ Inventory *equip_another_item(Inventory *inventory, Hero *hero)
 
     return inventory;
 }
+
+Potion *choose_a_potion(Inventory *inventory)
+{
+    // Ask the user to choose a potion
+    char input = '9';
+    while (1)
+    {
+        clear_screen();
+        display_potions(inventory);
+        printf("\n     Which potion do you want to use?\n");
+        input = listen_user_input();
+        if (input >= '1' && input <= ('0' + inventory->nbPotions))
+        {
+            break;
+        }
+    }
+
+    return inventory->potions[input - '1'];
+}
