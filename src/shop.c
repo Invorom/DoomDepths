@@ -2,7 +2,7 @@
 
 void display_shop(Inventory *inventory, Hero *hero)
 {
-    int input;
+    int input = -1;
 
     printf("Welcome to the shop!\n");
     printf("You have " ORANGE "%d" RESET " gold.\n", hero->gold);
@@ -34,7 +34,7 @@ void display_shop(Inventory *inventory, Hero *hero)
 
 void display_shop_spells(Inventory *inventory, Hero *hero)
 {
-    int input;
+    int input = -1;
 
     clear_screen();
     printf("Which spell would you like to buy?\n\n");
@@ -100,7 +100,7 @@ void display_shop_spells(Inventory *inventory, Hero *hero)
 
 void display_shop_potions(Inventory *inventory, Hero *hero)
 {
-    int input;
+    int input = -1;
 
     clear_screen();
     printf("Which potion would you like to buy?\n\n");
