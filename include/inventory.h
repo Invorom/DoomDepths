@@ -57,6 +57,21 @@ typedef struct Potion
     char *description;
 } Potion;
 
+typedef struct Spell
+{
+    int value;
+    int cost;
+    char *name;
+    char *description;
+} Spell;
+
+typedef enum Spells
+{
+    FIREBALL,
+    BLIZZARD,
+    METEOR
+} Spells;
+
 typedef struct Inventory
 {
     Armor **armors;
@@ -70,6 +85,8 @@ typedef struct Inventory
     int maxPotions;
     Armor *equipedArmor;
     Weapon *equipedWeapon;
+    Spell **spells;
+    int spellCount;
 } Inventory;
 
 /**

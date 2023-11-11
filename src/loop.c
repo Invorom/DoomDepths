@@ -4,6 +4,7 @@
 #include "battle.h"
 #include "hero.h"
 #include "boss.h"
+#include "shop.h"
 
 int event_loop(Context *context, Hero *hero, Inventory *inventory)
 {
@@ -88,8 +89,7 @@ int process_user_input(char userInput, Context *context, Hero *hero, Inventory *
             context->pos_y -= 1;
             system("/bin/stty cooked");
             clear_screen();
-            printf("     You have entered the shop!\n");
-            wait_for_enter();
+            display_shop(inventory, hero);
             system("/bin/stty raw");
             break;
         }
@@ -146,8 +146,7 @@ int process_user_input(char userInput, Context *context, Hero *hero, Inventory *
             context->pos_x += 1;
             system("/bin/stty cooked");
             clear_screen();
-            printf("     You have entered the shop!\n");
-            wait_for_enter();
+            display_shop(inventory, hero);
             system("/bin/stty raw");
             break;
         }
@@ -204,8 +203,7 @@ int process_user_input(char userInput, Context *context, Hero *hero, Inventory *
             context->pos_y += 1;
             system("/bin/stty cooked");
             clear_screen();
-            printf("     You have entered the shop!\n");
-            wait_for_enter();
+            display_shop(inventory, hero);
             system("/bin/stty raw");
             break;
         }
@@ -262,8 +260,7 @@ int process_user_input(char userInput, Context *context, Hero *hero, Inventory *
             context->pos_x -= 1;
             system("/bin/stty cooked");
             clear_screen();
-            printf("     You have entered the shop!\n");
-            wait_for_enter();
+            display_shop(inventory, hero);
             system("/bin/stty raw");
             break;
         }

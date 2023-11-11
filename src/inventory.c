@@ -653,6 +653,10 @@ Inventory *initialize_inventory()
     inventory->weapons[0] = inventory->equipedWeapon;
     inventory->nbWeapons++;
 
+    // Init the spells
+    inventory->spells = malloc(sizeof(Spell) * 3);
+    inventory->spellCount = 0;
+
     // Add 3 health potions to the inventory
     for (int i = 0; i < 3; i++)
     {
@@ -694,6 +698,14 @@ void free_inventory(Inventory *inventory)
         free(inventory->potions[i]);
     }
     free(inventory->potions);
+
+    // Free the spells
+    for (int i = 0; i < inventory->spellCount; i++)
+    {
+        free(inventory->spells[i]->name);
+        free(inventory->spells[i]);
+    }
+    free(inventory->spells);
 
     // Free the inventory
     free(inventory);
