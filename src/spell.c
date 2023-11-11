@@ -2,8 +2,24 @@
 
 void add_spell_to_inventory(Inventory *inventory, Spell *spell)
 {
+    // Check if Spell is already in inventory
+    for (int i = 0; i < inventory->spellCount; i++)
+    {
+        if (strcmp(inventory->spells[i]->name, spell->name) == 0)
+        {
+            clear_screen();
+            printf("You upgraded your %s spell!\n", spell->name);
+            inventory->spells[i]->value += spell->value;
+            inventory->spells[i]->cost *= 1.5;
+            return;
+        }
+    }
+
     inventory->spells[inventory->spellCount] = spell;
     inventory->spellCount++;
+
+    // Upgrade the cost of the spell
+    inventory->spells[inventory->spellCount - 1]->cost *= 1.5;
 }
 
 Spell *get_fireball_spell()
