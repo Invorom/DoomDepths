@@ -357,7 +357,10 @@ Inventory *add_a_potion(Inventory *inventory, Potion *potion, int isInit, int is
                 break;
 
             case '2':
-                // Do nothing
+                // Free the potion
+                free(potion->name);
+                free(potion->description);
+                free(potion);
                 break;
             }
 
@@ -474,6 +477,11 @@ Inventory *use_a_potion(Inventory *inventory, Potion *potion, Hero *hero)
     inventory->nbPotions--;
     hero->nbTurns--;
 
+    // Free the potion
+    free(potion->name);
+    free(potion->description);
+    free(potion);
+
     return inventory;
 }
 
@@ -552,7 +560,7 @@ Potion *get_random_potion()
 {
     // Get a random potion
     int random = rand() % 3;
-    Potions type = NONE;
+    Potions type = HEALING;
     switch (random)
     {
     case 0:
@@ -610,35 +618,27 @@ void define_actual_potion(Potion *potion, Potions type)
 {
     switch (type)
     {
-    case NONE:
-        potion->value = 0;
-        potion->name = malloc(sizeof(char) * 20);
-        strcpy(potion->name, "None");
-        potion->description = malloc(sizeof(char) * 100);
-        strcpy(potion->description, "No potion");
-        break;
-
     case HEALING:
         potion->value = 1;
-        potion->name = malloc(sizeof(char) * 20);
+        potion->name = malloc(strlen("Healing") + 1);
         strcpy(potion->name, "Healing");
-        potion->description = malloc(sizeof(char) * 100);
+        potion->description = malloc(strlen("A potion to heal you (+20% life)") + 1);
         strcpy(potion->description, "A potion to heal you (+20% life)");
         break;
 
     case STRENGTH:
         potion->value = 2;
-        potion->name = malloc(sizeof(char) * 20);
+        potion->name = malloc(strlen("Strength") + 1);
         strcpy(potion->name, "Strength");
-        potion->description = malloc(sizeof(char) * 100);
+        potion->description = malloc(strlen("A potion to increase your strength (+20 bonus)") + 1);
         strcpy(potion->description, "A potion to increase your strength (+20 bonus)");
         break;
 
     case MANA:
         potion->value = 3;
-        potion->name = malloc(sizeof(char) * 20);
+        potion->name = malloc(strlen("Mana") + 1);
         strcpy(potion->name, "Mana");
-        potion->description = malloc(sizeof(char) * 100);
+        potion->description = malloc(strlen("A potion to increase your mana (+20% mana)") + 1);
         strcpy(potion->description, "A potion to increase your mana (+20% mana)");
         break;
     }
@@ -711,6 +711,7 @@ void free_inventory(Inventory *inventory)
     free(inventory->weapons);
 
     // Free the potions
+    printf("%d\n", inventory->nbPotions);
     for (int i = 0; i < inventory->nbPotions; i++)
     {
         free(inventory->potions[i]->name);

@@ -30,7 +30,6 @@ typedef enum Weapons
 
 typedef enum Potions
 {
-    NONE,
     HEALING,
     STRENGTH,
     MANA
