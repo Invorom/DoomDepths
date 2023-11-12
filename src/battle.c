@@ -355,11 +355,11 @@ void battle_win(Hero *hero, Monsters *monsters, Context *context, Inventory *inv
         hero->level++;
         hero->xp = 0;
         // Add 10% to the hero's stats
-        hero->life += hero->life / 10;
-        hero->mana += hero->mana / 10;
-        hero->attackMin += hero->attackMin / 10;
-        hero->attackMax += hero->attackMax / 10;
-        hero->defense += hero->defense / 10;
+        hero->life += hero->life / 15;
+        hero->mana += hero->mana / 15;
+        hero->attackMin += hero->attackMin / 20;
+        hero->attackMax += hero->attackMax / 20;
+        hero->defense += hero->defense / 20;
         printf("     You are now level %d!\n", hero->level);
     }
     wait_for_enter();
