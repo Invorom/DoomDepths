@@ -193,6 +193,11 @@ Inventory *add_a_weapon(Inventory *inventory, Weapon *weapon)
                 inventory->equipedWeapon = weapon;
             }
 
+            // Free the weapon
+            free(inventory->weapons[input - '1']->name);
+            free(inventory->weapons[input - '1']->description);
+            free(inventory->weapons[input - '1']);
+
             // Replace the weapon
             inventory->weapons[input - '1'] = weapon;
             break;
@@ -264,6 +269,11 @@ Inventory *add_an_armor(Inventory *inventory, Armor *armor)
                 inventory->equipedArmor = armor;
             }
 
+            // Free the armor
+            free(inventory->armors[input - '1']->name);
+            free(inventory->armors[input - '1']->description);
+            free(inventory->armors[input - '1']);
+
             // Replace the armor
             inventory->armors[input - '1'] = armor;
             break;
@@ -283,12 +293,18 @@ Inventory *add_an_armor(Inventory *inventory, Armor *armor)
     return inventory;
 }
 
-Inventory *add_a_potion(Inventory *inventory, Potion *potion, int isInit)
+Inventory *add_a_potion(Inventory *inventory, Potion *potion, int isInit, int isShop)
 {
     if (!isInit)
     {
         clear_screen();
-        printf("     You found a %s potion!\n", potion->name);
+        if (isShop)
+        {
+            printf("     You bought a %s potion!\n", potion->name);
+        }
+        else
+
+            printf("     You found a %s potion!\n", potion->name);
         printf("     %s\n", potion->description);
         wait_for_enter();
 
@@ -330,6 +346,11 @@ Inventory *add_a_potion(Inventory *inventory, Potion *potion, int isInit)
                 clear_screen();
                 printf("     You replaced your %s potion with a %s potion!\n", inventory->potions[input - '1']->name, potion->name);
                 wait_for_enter();
+
+                // Free the potion
+                free(inventory->potions[input - '1']->name);
+                free(inventory->potions[input - '1']->description);
+                free(inventory->potions[input - '1']);
 
                 // Replace the potion
                 inventory->potions[input - '1'] = potion;
@@ -578,7 +599,7 @@ Inventory *open_chest(Inventory *inventory)
         clear_screen();
         printf("     You found a potion!\n");
         wait_for_enter();
-        inventory = add_a_potion(inventory, get_random_potion(), 0);
+        inventory = add_a_potion(inventory, get_random_potion(), 0, 0);
         break;
     }
 
@@ -663,8 +684,7 @@ Inventory *initialize_inventory()
         // Create the potion
         Potion *potion = malloc(sizeof(Potion));
         define_actual_potion(potion, HEALING);
-        int isInit = 1;
-        inventory = add_a_potion(inventory, potion, isInit);
+        inventory = add_a_potion(inventory, potion, 1, 0);
     }
 
     return inventory;

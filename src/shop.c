@@ -188,7 +188,7 @@ void display_shop_potions(Inventory *inventory, Hero *hero)
     case '1':
         if (hero->gold >= 50)
         {
-            inventory = add_a_potion(inventory, get_healing_potion(), 1);
+            inventory = add_a_potion(inventory, get_healing_potion(), 0, 1);
             hero->gold -= 50;
         }
         else
@@ -202,7 +202,7 @@ void display_shop_potions(Inventory *inventory, Hero *hero)
     case '2':
         if (hero->gold >= 50)
         {
-            inventory = add_a_potion(inventory, get_mana_potion(), 1);
+            inventory = add_a_potion(inventory, get_mana_potion(), 0, 1);
             hero->gold -= 50;
         }
         else
@@ -216,7 +216,7 @@ void display_shop_potions(Inventory *inventory, Hero *hero)
     case '3':
         if (hero->gold >= 50)
         {
-            inventory = add_a_potion(inventory, get_attack_potion(), 1);
+            inventory = add_a_potion(inventory, get_attack_potion(), 0, 1);
             hero->gold -= 50;
         }
         else

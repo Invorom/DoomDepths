@@ -174,9 +174,10 @@ Inventory *add_an_armor(Inventory *inventory, Armor *armor);
  * @param inventory
  * @param potion
  * @param isInit
+ * @param isShop
  * @return Inventory*
  */
-Inventory *add_a_potion(Inventory *inventory, Potion *potion, int isInit);
+Inventory *add_a_potion(Inventory *inventory, Potion *potion, int isInit, int isShop);
 
 /**
  * @brief Equips an armor.
