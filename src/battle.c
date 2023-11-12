@@ -160,23 +160,23 @@ void battle_loop(Hero *hero, Monsters *monsters, Inventory *inventory, Context *
                 switch (monsterInput)
                 {
                 case '1':
-                    use_spell(monsters->monsters[0], hero, inventory);
+                    use_spell(monsters, monsters->monsters[0], hero, inventory);
                     break;
 
                 case '2':
-                    use_spell(monsters->monsters[1], hero, inventory);
+                    use_spell(monsters, monsters->monsters[1], hero, inventory);
                     break;
 
                 case '3':
-                    use_spell(monsters->monsters[2], hero, inventory);
+                    use_spell(monsters, monsters->monsters[2], hero, inventory);
                     break;
 
                 case '4':
-                    use_spell(monsters->monsters[3], hero, inventory);
+                    use_spell(monsters, monsters->monsters[3], hero, inventory);
                     break;
 
                 case '5':
-                    use_spell(monsters->monsters[4], hero, inventory);
+                    use_spell(monsters, monsters->monsters[4], hero, inventory);
                     break;
 
                 case '0':
@@ -217,6 +217,16 @@ void battle_loop(Hero *hero, Monsters *monsters, Inventory *inventory, Context *
 
         case '5':
             clear_lines(9);
+
+            // Reset
+            hero->nbTurns = 3;
+            if (hero->actualMana < 100) // Regen 10% of the mana
+            {
+                hero->actualMana += 10;
+                if (hero->actualMana > 100)
+                    hero->actualMana = 100;
+            }
+
             if (!isBoss)
             {
                 // Monsters attack
@@ -260,14 +270,6 @@ void battle_loop(Hero *hero, Monsters *monsters, Inventory *inventory, Context *
                 clear_lines(1);
             }
 
-            // Reset
-            hero->nbTurns = 3;
-            if (hero->actualMana < 100) // Regen 10% of the mana
-            {
-                hero->actualMana += 10;
-                if (hero->actualMana > 100)
-                    hero->actualMana = 100;
-            }
             clear_lines(1);
             break;
 
@@ -362,6 +364,13 @@ void battle_win(Hero *hero, Monsters *monsters, Context *context, Inventory *inv
 {
     clear_screen();
     display_win();
+
+    if (hero->actualMana < 100) // Regen 10% of the mana
+    {
+        hero->actualMana += 10;
+        if (hero->actualMana > 100)
+            hero->actualMana = 100;
+    }
 
     // Win gold and xp
     if (isBoss)

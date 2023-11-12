@@ -56,6 +56,6 @@ void upgrade_spell(Inventory *inventory, Spell *spell, Hero *hero);
  * @param hero
  * @param inventory
  */
-void use_spell(Monster *monster, Hero *hero, Inventory *inventory);
+void use_spell(Monsters *monsters, Monster *monster, Hero *hero, Inventory *inventory);
 
 #endif
