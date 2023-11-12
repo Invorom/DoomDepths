@@ -334,6 +334,7 @@ void display_map(Context *context, Hero *hero)
     printf("                              Press 'e' to open your inventory.\n");
     printf("                              Press 'r' to display your stats.\n");
     printf("                              Press shift + 'x' to save and quit.\n\n");
+    printf("                              Press shift + 's' to save your game\n");
 
     for (int i = context->pos_y - 20; i < context->pos_y + 20; i++)
     {

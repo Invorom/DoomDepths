@@ -115,15 +115,24 @@ char listen_user_input()
 int main_menu()
 {
     char input = '0';
+    FILE *file = fopen("savefile.json", "r");
+    int saveExists = (file != NULL);
+    if (file != NULL) {
+        fclose(file);
+    }
 
     clear_screen();
     display_menu_design();
 
-    printf("\n     1. Start Game\n     2. Quit\n\n");
+    printf("\n     1. Start Game\n");
+    if (saveExists) {
+        printf("     2. Load Save\n");
+    }
+    printf("     %d. Quit\n\n", saveExists ? 3 : 2);
     printf("     Enter your choice: \n\n");
     fflush(stdout);
 
-    while (input != '1' && input != '2')
+    while (input != '1' && input != '2' && (!saveExists || input != '3'))
     {
         input = listen_user_input();
     }
@@ -133,18 +142,22 @@ int main_menu()
     case '1':
         clear_screen();
         return 1;
-        break;
 
     case '2':
+    if (file != NULL) {
+        fclose(file);
+        break;
+    }
+    clear_screen();
+    return 2;
+    case '3':
         clear_screen();
         printf("     See you next time!\n");
         return 0;
-        break;
 
     default:
         clear_screen();
         printf("     Something went wrong\n");
         return -1;
-        break;
     }
 }

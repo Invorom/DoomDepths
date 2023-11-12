@@ -4,6 +4,7 @@
 #include "battle.h"
 #include "hero.h"
 #include "boss.h"
+#include "save_load.h"
 
 int event_loop(Context *context, Hero *hero, Inventory *inventory)
 {
@@ -249,6 +250,11 @@ int process_user_input(char userInput, Context *context, Hero *hero, Inventory *
         system("/bin/stty raw");
 
         break;
+
+    case 'S':
+    save_game_state(hero, inventory, context, "savefile.json");
+    printf("Game saved successfully!\n");
+    break;
 
     case 'X':
         // exits program
