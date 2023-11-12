@@ -193,7 +193,7 @@ void use_spell(Monsters *monsters, Hero *hero, Inventory *inventory)
         }
 
         // Remove the monsters from the monsters list if they're dead
-        for (int i = 0; i < monsters->numMonsters; i++)
+        for (int i = monsters->numMonsters - 1; i >= 0; i--)
         {
             if (monsters->monsters[i]->actualLife <= 0)
                 remove_monster_from_monsters(monsters, i);
