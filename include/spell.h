@@ -9,7 +9,7 @@
  * @param inventory
  * @param spell
  */
-void add_spell_to_inventory(Inventory *inventory, Spell *spell);
+void add_spell_to_inventory(Inventory *inventory, Spell *spell, Hero *hero);
 
 /**
  * @brief Get the fireball spell object
@@ -39,5 +39,13 @@ Spell *get_meteor_spell();
  * @param type
  */
 void define_actual_spell(Spell *spell, Spells type);
+
+/**
+ * @brief Upgrades the spell.
+ *
+ * @param spell
+ * @param hero
+ */
+void upgrade_spell(Inventory *inventory, Spell *spell, Hero *hero);
 
 #endif

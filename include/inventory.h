@@ -60,6 +60,7 @@ typedef struct Potion
 typedef struct Spell
 {
     int value;
+    int mana;
     int cost;
     char *name;
     char *description;

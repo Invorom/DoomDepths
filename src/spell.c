@@ -1,25 +1,49 @@
 #include "spell.h"
 
-void add_spell_to_inventory(Inventory *inventory, Spell *spell)
+void add_spell_to_inventory(Inventory *inventory, Spell *spell, Hero *hero)
 {
-    // Check if Spell is already in inventory
-    for (int i = 0; i < inventory->spellCount; i++)
+
+    if (hero->gold < spell->cost)
     {
-        if (strcmp(inventory->spells[i]->name, spell->name) == 0)
-        {
-            clear_screen();
-            printf("You upgraded your %s spell!\n", spell->name);
-            inventory->spells[i]->value += spell->value;
-            inventory->spells[i]->cost *= 1.5;
-            return;
-        }
+        clear_screen();
+        printf("     You don't have enough gold!\n");
+        wait_for_enter();
+        return;
     }
 
     inventory->spells[inventory->spellCount] = spell;
     inventory->spellCount++;
+    hero->gold -= spell->cost;
 
     // Upgrade the cost of the spell
-    inventory->spells[inventory->spellCount - 1]->cost *= 1.5;
+    inventory->spells[inventory->spellCount - 1]->cost *= 2;
+}
+
+void upgrade_spell(Inventory *inventory, Spell *spell, Hero *hero)
+{
+    // Check if Spell is already in inventory
+    for (int i = 0; i < inventory->spellCount; i++)
+    {
+        if (hero->gold < spell->cost)
+        {
+            clear_screen();
+            printf("     You don't have enough gold!\n");
+            wait_for_enter();
+            return;
+        }
+
+        if (strcmp(inventory->spells[i]->name, spell->name) == 0)
+        {
+            clear_screen();
+            printf("     You upgraded your %s spell!\n", spell->name);
+            printf("     It now deals %d damage and costs %d mana.\n", spell->value, spell->mana);
+            inventory->spells[i]->value += spell->value * 0.5;
+            hero->gold -= inventory->spells[i]->cost;
+            inventory->spells[i]->cost *= 2;
+            wait_for_enter();
+            return;
+        }
+    }
 }
 
 Spell *get_fireball_spell()
@@ -55,6 +79,7 @@ void define_actual_spell(Spell *spell, Spells type)
         strcpy(spell->name, "Fireball");
         spell->value = 10;
         spell->cost = 10;
+        spell->mana = 20;
         break;
 
     case BLIZZARD:
@@ -62,6 +87,7 @@ void define_actual_spell(Spell *spell, Spells type)
         strcpy(spell->name, "Blizzard");
         spell->value = 15;
         spell->cost = 15;
+        spell->mana = 30;
         break;
 
     case METEOR:
@@ -69,6 +95,7 @@ void define_actual_spell(Spell *spell, Spells type)
         strcpy(spell->name, "Meteor");
         spell->value = 20;
         spell->cost = 20;
+        spell->mana = 40;
         break;
     }
 }

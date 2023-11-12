@@ -4,12 +4,12 @@ void display_shop(Inventory *inventory, Hero *hero)
 {
     int input = -1;
 
-    printf("Welcome to the shop!\n");
-    printf("You have " ORANGE "%d" RESET " gold.\n", hero->gold);
-    printf("What would you like to buy?\n\n");
-    printf("1. Spells\n");
-    printf("2. Potions\n");
-    printf("\n0. Exit\n");
+    printf("     Welcome to the shop!\n");
+    printf("     You have " ORANGE "%d" RESET " gold.\n", hero->gold);
+    printf("     What would you like to buy?\n\n");
+    printf("     1. Spells\n");
+    printf("     2. Potions\n");
+    printf("\n     0. Exit\n");
 
     // Ask the user to choose an action
     while (input != '1' && input != '2' && input != '0')
@@ -37,60 +37,80 @@ void display_shop_spells(Inventory *inventory, Hero *hero)
     int input = -1;
 
     clear_screen();
-    printf("Which spell would you like to buy?\n\n");
-    printf("1. Fireball (10 damage, 10 mana) - 10 gold\n");
-    printf("2. Blizzard (20 damage, 20 mana) - 20 gold\n");
-    printf("3. Meteor (30 damage, 30 mana) - 30 gold\n");
-    printf("\n0. Exit\n");
+    if (inventory->spellCount == 0)
+    {
+        printf("     Which spell would you like to buy?\n\n");
+        printf("     1. Fireball (10 damage, 10 mana) - 10 gold\n");
+        printf("     2. Blizzard (20 damage, 20 mana) - 20 gold\n");
+        printf("     3. Meteor (30 damage, 30 mana) - 30 gold\n");
+        printf("\n     0. Exit\n");
+    }
+    else
+    {
+        printf("     Which spell would you like to upgrade?\n\n");
+        for (int i = 0; i < inventory->spellCount; i++)
+        {
+            printf("     %d. %s (%d damage, %d mana) - %d gold\n", i + 1, inventory->spells[i]->name, inventory->spells[i]->value, inventory->spells[i]->mana, inventory->spells[i]->cost);
+        }
+        printf("\n     0. Exit\n");
+    }
 
     // Ask the user to choose an action
-    while (input != '1' && input != '2' && input != '3' && input != '0')
+    if (inventory->spellCount == 0)
     {
-        input = listen_user_input();
+        while (input != '1' && input != '2' && input != '3' && input != '0')
+        {
+            input = listen_user_input();
+        }
+    }
+    else
+    {
+        while (1)
+        {
+            input = listen_user_input();
+            if (input >= '1' && input <= ('0' + inventory->spellCount) || input == '0')
+            {
+                break;
+            }
+        }
     }
 
     switch (input)
     {
     case '1':
-        if (hero->gold >= 10)
+        if (inventory->spellCount == 0)
         {
-            add_spell_to_inventory(inventory, get_fireball_spell());
-            hero->gold -= 10;
+            add_spell_to_inventory(inventory, get_fireball_spell(), hero);
         }
         else
         {
-            clear_screen();
-            printf("     You don't have enough gold!\n");
-            wait_for_enter();
+            upgrade_spell(inventory, inventory->spells[input - '1'], hero);
         }
+
         break;
 
     case '2':
-        if (hero->gold >= 20)
+        if (inventory->spellCount == 0)
         {
-            add_spell_to_inventory(inventory, get_blizzard_spell());
-            hero->gold -= 20;
+            add_spell_to_inventory(inventory, get_blizzard_spell(), hero);
         }
         else
         {
-            clear_screen();
-            printf("     You don't have enough gold!\n");
-            wait_for_enter();
+            upgrade_spell(inventory, inventory->spells[input - '1'], hero);
         }
+
         break;
 
     case '3':
-        if (hero->gold >= 30)
+        if (inventory->spellCount == 0)
         {
-            add_spell_to_inventory(inventory, get_meteor_spell());
-            hero->gold -= 30;
+            add_spell_to_inventory(inventory, get_meteor_spell(), hero);
         }
         else
         {
-            clear_screen();
-            printf("     You don't have enough gold!\n");
-            wait_for_enter();
+            upgrade_spell(inventory, inventory->spells[input - '1'], hero);
         }
+
         break;
 
     case '0':
