@@ -294,7 +294,10 @@ void attack_boss(Monster *boss, Hero *hero, Monsters *monsters)
     hero->nbTurns--;
 
     if (boss->actualLife <= 0)
+    {
         monsters = remove_monster_from_monsters(monsters, 0);
+        return;
+    }
 
     clear_screen();
     display_hero_and_boss(hero, boss);
