@@ -811,11 +811,14 @@ Inventory *equip_another_item(Inventory *inventory, Hero *hero)
         printf("     You equiped your %s armor!\n", inventory->armors[input - '1']->name);
         wait_for_enter();
 
+        // Update the hero's defense
+        hero->defenseBonus -= inventory->equipedArmor->value;
+
         // Equip the new armor
         inventory->equipedArmor = inventory->armors[input - '1'];
 
         // Update the hero's defense
-        hero->defenseBonus = inventory->equipedArmor->value;
+        hero->defenseBonus += inventory->equipedArmor->value;
 
         break;
 
@@ -846,11 +849,14 @@ Inventory *equip_another_item(Inventory *inventory, Hero *hero)
         printf("     You equiped your %s!\n", inventory->weapons[input - '1']->name);
         wait_for_enter();
 
+        // Update the hero's attack
+        hero->attackBonus -= inventory->equipedWeapon->value;
+
         // Equip the new weapon
         inventory->equipedWeapon = inventory->weapons[input - '1'];
 
         // Update the hero's attack
-        hero->attackBonus = inventory->equipedWeapon->value;
+        hero->attackBonus += inventory->equipedWeapon->value;
 
         break;
 
