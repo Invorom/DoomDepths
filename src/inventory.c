@@ -203,7 +203,9 @@ Inventory *add_a_weapon(Inventory *inventory, Weapon *weapon)
             break;
 
         case '2':
-            // Do nothing
+            free(weapon->name);
+            free(weapon->description);
+            free(weapon);
             break;
         }
 
@@ -280,6 +282,9 @@ Inventory *add_an_armor(Inventory *inventory, Armor *armor)
 
         case '2':
             // Do nothing
+            free(armor->name);
+            free(armor->description);
+            free(armor);
             break;
         }
 
