@@ -711,7 +711,6 @@ void free_inventory(Inventory *inventory)
     free(inventory->weapons);
 
     // Free the potions
-    printf("%d\n", inventory->nbPotions);
     for (int i = 0; i < inventory->nbPotions; i++)
     {
         free(inventory->potions[i]->name);
