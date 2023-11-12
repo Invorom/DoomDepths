@@ -257,6 +257,13 @@ void display_weapons(Inventory *inventory);
 void display_potions(Inventory *inventory);
 
 /**
+ * @brief Displays the spells.
+ *
+ * @param inventory
+ */
+void display_spells(Inventory *inventory);
+
+/**
  * @brief Equips another item in a battle.
  *
  * @param inventory

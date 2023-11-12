@@ -717,6 +717,7 @@ void display_inventory(Inventory *inventory)
     display_armors(inventory);
     display_weapons(inventory);
     display_potions(inventory);
+    display_spells(inventory);
 }
 
 void display_armors(Inventory *inventory)
@@ -752,6 +753,16 @@ void display_potions(Inventory *inventory)
     {
         if (inventory->potions[i] != NULL) // Check for NULL pointers
             printf("     %d. %s: %s\n", i + 1, inventory->potions[i]->name, inventory->potions[i]->description);
+    }
+}
+
+void display_spells(Inventory *inventory)
+{
+    printf("\n" ORANGE "     Spells:\n" RESET "");
+    for (int i = 0; i < inventory->spellCount; i++)
+    {
+        if (inventory->spells[i] != NULL) // Check for NULL pointers
+            printf("     %d. %s: %s\n", i + 1, inventory->spells[i]->name, inventory->spells[i]->description);
     }
 }
 
