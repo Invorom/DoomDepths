@@ -2,6 +2,7 @@
 #define SPELL_H
 
 #include "inventory.h"
+#include "monster.h"
 
 /**
  * @brief Adds a spell to the inventory.
@@ -47,5 +48,14 @@ void define_actual_spell(Spell *spell, Spells type);
  * @param hero
  */
 void upgrade_spell(Inventory *inventory, Spell *spell, Hero *hero);
+
+/**
+ * @brief Uses a spell.
+ *
+ * @param monsters
+ * @param hero
+ * @param inventory
+ */
+void use_spell(Monster *monster, Hero *hero, Inventory *inventory);
 
 #endif

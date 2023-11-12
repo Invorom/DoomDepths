@@ -100,3 +100,85 @@ void define_actual_spell(Spell *spell, Spells type)
         break;
     }
 }
+
+void use_spell(Monster *monster, Hero *hero, Inventory *inventory)
+{
+    clear_screen();
+    printf("     Which spell would you like to use?\n\n");
+    for (int i = 0; i < inventory->spellCount; i++)
+    {
+        printf("     %d. %s (%d damage, %d mana)\n", i + 1, inventory->spells[i]->name, inventory->spells[i]->value, inventory->spells[i]->mana);
+    }
+    printf("\n     0. Exit\n");
+
+    // Ask the user to choose an action
+    char input;
+    while (1)
+    {
+        input = listen_user_input();
+        if (input >= '1' && input <= ('0' + inventory->spellCount) || input == '0')
+        {
+            break;
+        }
+    }
+
+    switch (input)
+    {
+    case '1':
+        if (hero->actualMana < inventory->spells[input - '1']->mana)
+        {
+            clear_screen();
+            printf("     You don't have enough mana!\n");
+            wait_for_enter();
+            return;
+        }
+
+        hero->actualMana -= inventory->spells[input - '1']->mana;
+        hero->nbTurns--;
+        monster->actualLife -= inventory->spells[input - '1']->value;
+        clear_screen();
+        printf("     You used %s!\n", inventory->spells[input - '1']->name);
+        printf("     It dealt %d damage to the monster!\n", inventory->spells[input - '1']->value);
+        wait_for_enter();
+        break;
+
+    case '2':
+        if (hero->actualMana < inventory->spells[input - '1']->mana)
+        {
+            clear_screen();
+            printf("     You don't have enough mana!\n");
+            wait_for_enter();
+            return;
+        }
+
+        hero->actualMana -= inventory->spells[input - '1']->mana;
+        hero->nbTurns--;
+        monster->actualLife -= inventory->spells[input - '1']->value;
+        clear_screen();
+        printf("     You used %s!\n", inventory->spells[input - '1']->name);
+        printf("     It dealt %d damage to the monster!\n", inventory->spells[input - '1']->value);
+        wait_for_enter();
+        break;
+
+    case '3':
+        if (hero->actualMana < inventory->spells[input - '1']->mana)
+        {
+            clear_screen();
+            printf("     You don't have enough mana!\n");
+            wait_for_enter();
+            return;
+        }
+
+        hero->actualMana -= inventory->spells[input - '1']->mana;
+        hero->nbTurns--;
+        monster->actualLife -= inventory->spells[input - '1']->value;
+        clear_screen();
+        printf("     You used %s!\n", inventory->spells[input - '1']->name);
+        printf("     It dealt %d damage to the monster!\n", inventory->spells[input - '1']->value);
+        wait_for_enter();
+        break;
+
+    case '0':
+        break;
+    }
+}
