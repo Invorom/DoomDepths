@@ -30,8 +30,7 @@ typedef enum Weapons
 
 typedef enum Potions
 {
-    NONE,
-    HEALTH,
+    HEALING,
     STRENGTH,
     MANA
 } Potions;
@@ -57,6 +56,22 @@ typedef struct Potion
     char *description;
 } Potion;
 
+typedef struct Spell
+{
+    int value;
+    int mana;
+    int cost;
+    char *name;
+    char *description;
+} Spell;
+
+typedef enum Spells
+{
+    HEALTH,
+    BLIZZARD,
+    METEOR
+} Spells;
+
 typedef struct Inventory
 {
     Armor **armors;
@@ -70,6 +85,8 @@ typedef struct Inventory
     int maxPotions;
     Armor *equipedArmor;
     Weapon *equipedWeapon;
+    Spell **spells;
+    int spellCount;
 } Inventory;
 
 /**
@@ -156,9 +173,10 @@ Inventory *add_an_armor(Inventory *inventory, Armor *armor);
  * @param inventory
  * @param potion
  * @param isInit
+ * @param isShop
  * @return Inventory*
  */
-Inventory *add_a_potion(Inventory *inventory, Potion *potion, int isInit);
+Inventory *add_a_potion(Inventory *inventory, Potion *potion, int isInit, int isShop);
 
 /**
  * @brief Equips an armor.
@@ -237,6 +255,13 @@ void display_weapons(Inventory *inventory);
  * @param inventory
  */
 void display_potions(Inventory *inventory);
+
+/**
+ * @brief Displays the spells.
+ *
+ * @param inventory
+ */
+void display_spells(Inventory *inventory);
 
 /**
  * @brief Equips another item in a battle.

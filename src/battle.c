@@ -3,6 +3,7 @@
 #include "map.h"
 #include "inventory.h"
 #include "boss.h"
+#include "spell.h"
 
 void start_battle(Hero *hero, Context *context, Inventory *inventory)
 {
@@ -122,10 +123,27 @@ void battle_loop(Hero *hero, Monsters *monsters, Inventory *inventory, Context *
 
         case '2':
             clear_lines(9);
+            if (inventory->spellCount == 0)
+            {
+                clear_screen();
+                printf("     You don't have any spell!\n");
+                wait_for_enter();
+
+                if (!isBoss)
+                    display_all_monsters(monsters, hero);
+                else
+                    display_hero_and_boss(hero, monsters->monsters[0]);
+                break;
+            }
             if (hero->nbTurns > 0)
             {
-                printf("     You use a spell!\n");
-                hero->nbTurns--; // To be place in the function that manage spell
+                use_spell(monsters, hero, inventory);
+
+                clear_screen();
+                if (!isBoss)
+                    display_all_monsters(monsters, hero);
+                else if (monsters->numMonsters > 0)
+                    display_hero_and_boss(hero, monsters->monsters[0]);
             }
             break;
 
@@ -133,7 +151,12 @@ void battle_loop(Hero *hero, Monsters *monsters, Inventory *inventory, Context *
             clear_lines(9);
             if (hero->nbTurns > 0)
             {
-                use_a_potion(inventory, choose_a_potion(inventory), hero);
+                Potion *potion = choose_a_potion(inventory);
+                if (potion != NULL)
+                {
+                    use_a_potion(inventory, potion, hero);
+                }
+
                 clear_screen();
                 if (!isBoss)
                     display_all_monsters(monsters, hero);
@@ -154,6 +177,16 @@ void battle_loop(Hero *hero, Monsters *monsters, Inventory *inventory, Context *
 
         case '5':
             clear_lines(9);
+
+            // Reset
+            hero->nbTurns = 3;
+            if (hero->actualMana < 100) // Regen 10% of the mana
+            {
+                hero->actualMana += 10;
+                if (hero->actualMana > 100)
+                    hero->actualMana = 100;
+            }
+
             if (!isBoss)
             {
                 // Monsters attack
@@ -197,14 +230,6 @@ void battle_loop(Hero *hero, Monsters *monsters, Inventory *inventory, Context *
                 clear_lines(1);
             }
 
-            // Reset
-            hero->nbTurns = 3;
-            if (hero->actualMana < 100) // Regen 10% of the mana
-            {
-                hero->actualMana += 10;
-                if (hero->actualMana > 100)
-                    hero->actualMana = 100;
-            }
             clear_lines(1);
             break;
 
@@ -221,7 +246,7 @@ void battle_loop(Hero *hero, Monsters *monsters, Inventory *inventory, Context *
 
     if (hero->actualLife <= 0)
     {
-        battle_loose(monsters);
+        battle_loose(monsters, context, inventory, hero);
     }
     else if (monsters->numMonsters == 0)
     {
@@ -269,7 +294,10 @@ void attack_boss(Monster *boss, Hero *hero, Monsters *monsters)
     hero->nbTurns--;
 
     if (boss->actualLife <= 0)
+    {
         monsters = remove_monster_from_monsters(monsters, 0);
+        return;
+    }
 
     clear_screen();
     display_hero_and_boss(hero, boss);
@@ -299,6 +327,13 @@ void battle_win(Hero *hero, Monsters *monsters, Context *context, Inventory *inv
 {
     clear_screen();
     display_win();
+
+    if (hero->actualMana < 100) // Regen 10% of the mana
+    {
+        hero->actualMana += 10;
+        if (hero->actualMana > 100)
+            hero->actualMana = 100;
+    }
 
     // Win gold and xp
     if (isBoss)
@@ -361,11 +396,15 @@ void battle_win(Hero *hero, Monsters *monsters, Context *context, Inventory *inv
     clear_screen();
 }
 
-void battle_loose(Monsters *monsters)
+void battle_loose(Monsters *monsters, Context *context, Inventory *inventory, Hero *hero)
 {
     clear_screen();
     display_hero_die();
     wait_for_enter();
     clear_screen();
     free_monsters(monsters);
+    free_context(context);
+    free_inventory(inventory);
+    free_hero(hero);
+    exit(EXIT_SUCCESS);
 }

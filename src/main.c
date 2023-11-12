@@ -28,7 +28,7 @@ int main(int argc, char **argv)
     }
     else
     {
-        free_context(context);
+        free(context);
         return EXIT_SUCCESS;
     }
 

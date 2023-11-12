@@ -52,8 +52,11 @@ void battle_win(Hero *hero, Monsters *monsters, Context *context, Inventory *inv
  * @brief Displays the loose screen.
  *
  * @param monsters
+ * @param context
+ * @param inventory
+ * @param hero
  */
-void battle_loose(Monsters *monsters);
+void battle_loose(Monsters *monsters, Context *context, Inventory *inventory, Hero *hero);
 
 /**
  * @brief Loops for the battle.
