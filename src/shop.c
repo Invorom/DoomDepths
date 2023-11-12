@@ -41,8 +41,11 @@ void display_shop_spells(Inventory *inventory, Hero *hero)
     {
         printf("     Which spell would you like to buy?\n\n");
         printf("     1. Health (30 health, 50 mana) - 100 gold\n");
+        printf("        Gives you a big amount of health\n\n");
         printf("     2. Blizzard (15 damage, 30 mana) - 100 gold\n");
+        printf("        Deals moderate damage to all the monsters\n\n");
         printf("     3. Meteor (80 damage, 60 mana) - 100 gold\n");
+        printf("        Deals a huge amount of damage to a monster\n\n");
         printf("\n     0. Exit\n");
     }
     else if (inventory->spellCount == 3)
@@ -53,9 +56,13 @@ void display_shop_spells(Inventory *inventory, Hero *hero)
             if (strcmp(inventory->spells[i]->name, "Health") == 0)
             {
                 printf("     %d. %s (%d health, %d mana) - %d gold\n", i + 1, inventory->spells[i]->name, inventory->spells[i]->value, inventory->spells[i]->mana, inventory->spells[i]->cost);
+                printf("        %s\n\n", inventory->spells[i]->description);
             }
             else
+            {
                 printf("     %d. %s (%d damage, %d mana) - %d gold\n", i + 1, inventory->spells[i]->name, inventory->spells[i]->value, inventory->spells[i]->mana, inventory->spells[i]->cost);
+                printf("        %s\n\n", inventory->spells[i]->description);
+            }
         }
         printf("\n     0. Exit\n");
     }

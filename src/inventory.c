@@ -703,6 +703,7 @@ void free_inventory(Inventory *inventory)
     for (int i = 0; i < inventory->spellCount; i++)
     {
         free(inventory->spells[i]->name);
+        free(inventory->spells[i]->description);
         free(inventory->spells[i]);
     }
     free(inventory->spells);
