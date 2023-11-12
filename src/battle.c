@@ -246,7 +246,7 @@ void battle_loop(Hero *hero, Monsters *monsters, Inventory *inventory, Context *
 
     if (hero->actualLife <= 0)
     {
-        battle_loose(monsters);
+        battle_loose(monsters, context, inventory, hero);
     }
     else if (monsters->numMonsters == 0)
     {
@@ -393,11 +393,15 @@ void battle_win(Hero *hero, Monsters *monsters, Context *context, Inventory *inv
     clear_screen();
 }
 
-void battle_loose(Monsters *monsters)
+void battle_loose(Monsters *monsters, Context *context, Inventory *inventory, Hero *hero)
 {
     clear_screen();
     display_hero_die();
     wait_for_enter();
     clear_screen();
     free_monsters(monsters);
+    free_context(context);
+    free_inventory(inventory);
+    free_hero(hero);
+    exit(EXIT_SUCCESS);
 }
