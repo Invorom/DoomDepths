@@ -140,8 +140,8 @@ Monster *create_monster(unsigned int seed, Hero *hero)
     srand(seed);
 
     // Create random monster
-    int randomIndex = rand() % 6;
-    char *name = names[randomIndex];
+    int randomIndex = rand() % 7 + 1;
+    char *name = names[randomIndex - 1];
     int life = rand() % 81 + 20 + (hero->donjonLevel - 1) * 10;
     int attackMin = rand() % 10 + 1 + (hero->donjonLevel - 1) * 5;
     int attackMax = attackMin + rand() % (20 - attackMin + 1) + (hero->donjonLevel - 1) * 5;
