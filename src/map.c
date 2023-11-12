@@ -189,6 +189,23 @@ int map_initialization(Context *context)
         }
     }
 
+    // Add new objects to the file
+    f = fopen("../save/map.map", "w");
+    if (f == NULL)
+    {
+        return -1;
+    }
+    for (y = 0; y < ROWS; y++)
+    {
+        for (x = 0; x < COLUMNS; x++)
+        {
+            fputc(context->map[x][y], f);
+        }
+        fputc('\n', f);
+    }
+    fprintf(f, "%d %d", posx, posy);
+    fclose(f);
+
     free_reachable_cases(reachableResult);
 
     return 0;
