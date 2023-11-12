@@ -180,11 +180,11 @@ void battle_loop(Hero *hero, Monsters *monsters, Inventory *inventory, Context *
 
             // Reset
             hero->nbTurns = 3;
-            if (hero->actualMana < 100) // Regen 10% of the mana
+            if (hero->actualMana < hero->mana) // Regen 10% of the mana
             {
                 hero->actualMana += 10;
-                if (hero->actualMana > 100)
-                    hero->actualMana = 100;
+                if (hero->actualMana > hero->mana)
+                    hero->actualMana = hero->mana;
             }
 
             if (!isBoss)
