@@ -151,7 +151,12 @@ void battle_loop(Hero *hero, Monsters *monsters, Inventory *inventory, Context *
             clear_lines(9);
             if (hero->nbTurns > 0)
             {
-                use_a_potion(inventory, choose_a_potion(inventory), hero);
+                Potion *potion = choose_a_potion(inventory);
+                if (potion != NULL)
+                {
+                    use_a_potion(inventory, potion, hero);
+                }
+
                 clear_screen();
                 if (!isBoss)
                     display_all_monsters(monsters, hero);

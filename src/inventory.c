@@ -884,11 +884,11 @@ Potion *choose_a_potion(Inventory *inventory)
         {
             break;
         }
+    }
 
-        if (input == '0')
-        {
-            return NULL;
-        }
+    if (input == '0')
+    {
+        return NULL;
     }
 
     return inventory->potions[input - '1'];
