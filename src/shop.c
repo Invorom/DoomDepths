@@ -37,15 +37,15 @@ void display_shop_spells(Inventory *inventory, Hero *hero)
     int input = -1;
 
     clear_screen();
-    if (inventory->spellCount == 0)
+    if (inventory->spellCount != 3)
     {
         printf("     Which spell would you like to buy?\n\n");
-        printf("     1. Fireball (10 damage, 10 mana) - 10 gold\n");
-        printf("     2. Blizzard (20 damage, 20 mana) - 20 gold\n");
-        printf("     3. Meteor (30 damage, 30 mana) - 30 gold\n");
+        printf("     1. Fireball (10 damage, 20 mana) - 10 gold\n");
+        printf("     2. Blizzard (15 damage, 30 mana) - 15 gold\n");
+        printf("     3. Meteor (20 damage, 40 mana) - 20 gold\n");
         printf("\n     0. Exit\n");
     }
-    else
+    else if (inventory->spellCount == 3)
     {
         printf("     Which spell would you like to upgrade?\n\n");
         for (int i = 0; i < inventory->spellCount; i++)
@@ -56,7 +56,7 @@ void display_shop_spells(Inventory *inventory, Hero *hero)
     }
 
     // Ask the user to choose an action
-    if (inventory->spellCount == 0)
+    if (inventory->spellCount != 3)
     {
         while (input != '1' && input != '2' && input != '3' && input != '0')
         {
@@ -78,8 +78,20 @@ void display_shop_spells(Inventory *inventory, Hero *hero)
     switch (input)
     {
     case '1':
-        if (inventory->spellCount == 0)
+        if (inventory->spellCount != 3)
         {
+            // Check if the hero doesn't already have the spell
+            for (int i = 0; i < inventory->spellCount; i++)
+            {
+                if (strcmp(inventory->spells[i]->name, "Fireball") == 0)
+                {
+                    clear_screen();
+                    printf("     You already have this spell!\n");
+                    printf("     Buy all the spells to upgrade them!\n");
+                    wait_for_enter();
+                    return;
+                }
+            }
             add_spell_to_inventory(inventory, get_fireball_spell(), hero);
         }
         else
@@ -90,8 +102,20 @@ void display_shop_spells(Inventory *inventory, Hero *hero)
         break;
 
     case '2':
-        if (inventory->spellCount == 0)
+        if (inventory->spellCount != 3)
         {
+            // Check if the hero doesn't already have the spell
+            for (int i = 0; i < inventory->spellCount; i++)
+            {
+                if (strcmp(inventory->spells[i]->name, "Blizzard") == 0)
+                {
+                    clear_screen();
+                    printf("     You already have this spell!\n");
+                    printf("     Buy all the spells to upgrade them!\n");
+                    wait_for_enter();
+                    return;
+                }
+            }
             add_spell_to_inventory(inventory, get_blizzard_spell(), hero);
         }
         else
@@ -102,8 +126,20 @@ void display_shop_spells(Inventory *inventory, Hero *hero)
         break;
 
     case '3':
-        if (inventory->spellCount == 0)
+        if (inventory->spellCount != 3)
         {
+            // Check if the hero doesn't already have the spell
+            for (int i = 0; i < inventory->spellCount; i++)
+            {
+                if (strcmp(inventory->spells[i]->name, "Meteor") == 0)
+                {
+                    clear_screen();
+                    printf("     You already have this spell!\n");
+                    printf("     Buy all the spells to upgrade them!\n");
+                    wait_for_enter();
+                    return;
+                }
+            }
             add_spell_to_inventory(inventory, get_meteor_spell(), hero);
         }
         else
