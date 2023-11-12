@@ -122,7 +122,7 @@ void battle_loop(Hero *hero, Monsters *monsters, Inventory *inventory, Context *
             break;
 
         case '2':
-            clear_lines(8);
+            clear_lines(9);
             if (inventory->spellCount == 0)
             {
                 clear_screen();
@@ -137,52 +137,7 @@ void battle_loop(Hero *hero, Monsters *monsters, Inventory *inventory, Context *
             }
             if (hero->nbTurns > 0)
             {
-                printf("     Which monster do you want to attack?\n");
-                int i;
-                for (i = 0; i < monsters->numMonsters; ++i)
-                {
-                    printf("     %d. %s (%d/%d)\n", i + 1, monsters->monsters[i]->name, monsters->monsters[i]->actualLife, monsters->monsters[i]->life);
-                }
-                printf("\n     0. Go back\n");
-
-                char monsterInput = '9';
-
-                // Ask the user to choose a monster and block the input if it's not an existing monster
-                while (1)
-                {
-                    monsterInput = listen_user_input();
-                    if (monsterInput == '0' || (monsterInput >= '1' && monsterInput <= ('0' + monsters->numMonsters)))
-                    {
-                        break;
-                    }
-                }
-
-                switch (monsterInput)
-                {
-                case '1':
-                    use_spell(monsters, monsters->monsters[0], hero, inventory);
-                    break;
-
-                case '2':
-                    use_spell(monsters, monsters->monsters[1], hero, inventory);
-                    break;
-
-                case '3':
-                    use_spell(monsters, monsters->monsters[2], hero, inventory);
-                    break;
-
-                case '4':
-                    use_spell(monsters, monsters->monsters[3], hero, inventory);
-                    break;
-
-                case '5':
-                    use_spell(monsters, monsters->monsters[4], hero, inventory);
-                    break;
-
-                case '0':
-                    clear_lines(monsters->numMonsters + 4);
-                    break;
-                }
+                use_spell(monsters, hero, inventory);
 
                 clear_screen();
                 if (!isBoss)

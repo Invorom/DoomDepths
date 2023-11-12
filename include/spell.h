@@ -13,11 +13,11 @@
 void add_spell_to_inventory(Inventory *inventory, Spell *spell, Hero *hero);
 
 /**
- * @brief Get the fireball spell object
+ * @brief Get the health spell object
  *
  * @return Spell*
  */
-Spell *get_fireball_spell();
+Spell *get_health_spell();
 
 /**
  * @brief Get the blizzard spell object
@@ -56,6 +56,6 @@ void upgrade_spell(Inventory *inventory, Spell *spell, Hero *hero);
  * @param hero
  * @param inventory
  */
-void use_spell(Monsters *monsters, Monster *monster, Hero *hero, Inventory *inventory);
+void use_spell(Monsters *monsters, Hero *hero, Inventory *inventory);
 
 #endif

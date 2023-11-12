@@ -31,7 +31,7 @@ typedef enum Weapons
 typedef enum Potions
 {
     NONE,
-    HEALTH,
+    HEALING,
     STRENGTH,
     MANA
 } Potions;
@@ -68,7 +68,7 @@ typedef struct Spell
 
 typedef enum Spells
 {
-    FIREBALL,
+    HEALTH,
     BLIZZARD,
     METEOR
 } Spells;

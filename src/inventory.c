@@ -411,7 +411,7 @@ Inventory *use_a_potion(Inventory *inventory, Potion *potion, Hero *hero)
     {
     case 1:
         clear_screen();
-        printf("     You used a health potion\n");
+        printf("     You used a healing potion\n");
         wait_for_enter();
 
         // Heal the hero of 20% of his life
@@ -535,7 +535,7 @@ Potion *get_random_potion()
     switch (random)
     {
     case 0:
-        type = HEALTH;
+        type = HEALING;
         break;
 
     case 1:
@@ -597,10 +597,10 @@ void define_actual_potion(Potion *potion, Potions type)
         strcpy(potion->description, "No potion");
         break;
 
-    case HEALTH:
+    case HEALING:
         potion->value = 1;
         potion->name = malloc(sizeof(char) * 20);
-        strcpy(potion->name, "Health");
+        strcpy(potion->name, "Healing");
         potion->description = malloc(sizeof(char) * 100);
         strcpy(potion->description, "A potion to heal you (+20% life)");
         break;
@@ -657,12 +657,12 @@ Inventory *initialize_inventory()
     inventory->spells = malloc(sizeof(Spell) * 3);
     inventory->spellCount = 0;
 
-    // Add 3 health potions to the inventory
+    // Add 3 healing potions to the inventory
     for (int i = 0; i < 3; i++)
     {
         // Create the potion
         Potion *potion = malloc(sizeof(Potion));
-        define_actual_potion(potion, HEALTH);
+        define_actual_potion(potion, HEALING);
         int isInit = 1;
         inventory = add_a_potion(inventory, potion, isInit);
     }

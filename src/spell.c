@@ -40,17 +40,17 @@ void upgrade_spell(Inventory *inventory, Spell *spell, Hero *hero)
             inventory->spells[i]->mana += spell->mana * 0.1;
             hero->gold -= inventory->spells[i]->cost;
             inventory->spells[i]->cost *= 2;
-            printf("     It now deals %d damage and costs %d mana.\n", spell->value, spell->mana);
+            printf("     It now gives %d bonus and costs %d mana!\n", inventory->spells[i]->value, inventory->spells[i]->mana);
             wait_for_enter();
             return;
         }
     }
 }
 
-Spell *get_fireball_spell()
+Spell *get_health_spell()
 {
     Spell *spell = malloc(sizeof(Spell));
-    define_actual_spell(spell, FIREBALL);
+    define_actual_spell(spell, HEALTH);
 
     return spell;
 }
@@ -75,39 +75,39 @@ void define_actual_spell(Spell *spell, Spells type)
 {
     switch (type)
     {
-    case FIREBALL:
-        spell->name = malloc(strlen("Fireball") + 1);
-        strcpy(spell->name, "Fireball");
-        spell->value = 10;
-        spell->cost = 10;
-        spell->mana = 20;
+    case HEALTH:
+        spell->name = malloc(strlen("Health") + 1);
+        strcpy(spell->name, "Health");
+        spell->value = 30;
+        spell->cost = 100;
+        spell->mana = 50;
         break;
 
     case BLIZZARD:
         spell->name = malloc(strlen("Blizzard") + 1);
         strcpy(spell->name, "Blizzard");
         spell->value = 15;
-        spell->cost = 15;
+        spell->cost = 100;
         spell->mana = 30;
         break;
 
     case METEOR:
         spell->name = malloc(strlen("Meteor") + 1);
         strcpy(spell->name, "Meteor");
-        spell->value = 20;
-        spell->cost = 20;
-        spell->mana = 40;
+        spell->value = 80;
+        spell->cost = 100;
+        spell->mana = 60;
         break;
     }
 }
 
-void use_spell(Monsters *monsters, Monster *monster, Hero *hero, Inventory *inventory)
+void use_spell(Monsters *monsters, Hero *hero, Inventory *inventory)
 {
     clear_screen();
     printf("     Which spell would you like to use?\n\n");
     for (int i = 0; i < inventory->spellCount; i++)
     {
-        printf("     %d. %s (%d damage, %d mana)\n", i + 1, inventory->spells[i]->name, inventory->spells[i]->value, inventory->spells[i]->mana);
+        printf("     %d. %s (%d bonus, %d mana)\n", i + 1, inventory->spells[i]->name, inventory->spells[i]->value, inventory->spells[i]->mana);
     }
     printf("\n     0. Exit\n");
 
@@ -122,6 +122,9 @@ void use_spell(Monsters *monsters, Monster *monster, Hero *hero, Inventory *inve
         }
     }
 
+    if (input == '0')
+        return;
+
     if (hero->actualMana < inventory->spells[input - '1']->mana)
     {
         clear_screen();
@@ -132,24 +135,67 @@ void use_spell(Monsters *monsters, Monster *monster, Hero *hero, Inventory *inve
 
     hero->actualMana -= inventory->spells[input - '1']->mana;
     hero->nbTurns--;
-    monster->actualLife -= inventory->spells[input - '1']->value;
 
-    // Find the index of the monster in the monsters list
-    int monsterIndex = 0;
-    for (int i = 0; i < monsters->numMonsters; i++)
+    if (strcmp(inventory->spells[input - '1']->name, "Health") == 0)
     {
-        if (strcmp(monsters->monsters[i]->name, monster->name) == 0)
+        hero->actualLife += inventory->spells[input - '1']->value;
+        if (hero->actualLife > hero->life)
+            hero->actualLife = hero->life;
+    }
+    else if (strcmp(inventory->spells[input - '1']->name, "Blizzard") == 0)
+    {
+        for (int i = 0; i < monsters->numMonsters; i++)
         {
-            monsterIndex = i;
-            break;
+            monsters->monsters[i]->actualLife -= inventory->spells[input - '1']->value;
+        }
+
+        // Remove the monsters from the monsters list if they're dead
+        for (int i = 0; i < monsters->numMonsters; i++)
+        {
+            if (monsters->monsters[i]->actualLife <= 0)
+                remove_monster_from_monsters(monsters, i);
         }
     }
+    else if (strcmp(inventory->spells[input - '1']->name, "Meteor") == 0)
+    {
+        clear_screen();
+        printf("     Which monster would you like to attack?\n\n");
+        for (int i = 0; i < monsters->numMonsters; i++)
+        {
+            printf("     %d. %s (%d/%d)\n", i + 1, monsters->monsters[i]->name, monsters->monsters[i]->actualLife, monsters->monsters[i]->life);
+        }
+        printf("\n     0. Exit\n");
 
-    if (monster->actualLife < 0)
-        remove_monster_from_monsters(monsters, monsterIndex);
+        // Ask the user to choose an action
+        char input2;
+        while (1)
+        {
+            input2 = listen_user_input();
+            if (input2 >= '1' && input2 <= ('0' + monsters->numMonsters) || input2 == '0')
+            {
+                break;
+            }
+        }
 
-    clear_screen();
-    printf("     You used %s!\n", inventory->spells[input - '1']->name);
-    printf("     It dealt %d damage to the monster!\n", inventory->spells[input - '1']->value);
-    wait_for_enter();
+        if (input2 == '0')
+            return;
+
+        Monster *monster = monsters->monsters[input2 - '1'];
+
+        monster->actualLife -= inventory->spells[input - '1']->value;
+
+        // Remove the monster from the monsters list if it's dead
+        int monsterIndex = 0;
+        for (int i = 0; i < monsters->numMonsters; i++)
+        {
+            if (strcmp(monsters->monsters[i]->name, monster->name) == 0)
+            {
+                monsterIndex = i;
+                break;
+            }
+        }
+
+        if (monster->actualLife <= 0)
+            remove_monster_from_monsters(monsters, monsterIndex);
+    }
 }

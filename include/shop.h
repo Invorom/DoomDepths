@@ -32,11 +32,11 @@ void display_shop_spells(Inventory *inventory, Hero *hero);
 void display_shop_potions(Inventory *inventory, Hero *hero);
 
 /**
- * @brief Get the health potion object
+ * @brief Get the healing potion object
  *
  * @return Potion*
  */
-Potion *get_health_potion();
+Potion *get_healing_potion();
 
 /**
  * @brief Get the mana potion object
