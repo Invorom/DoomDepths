@@ -15,6 +15,18 @@ void add_spell_to_inventory(Inventory *inventory, Spell *spell, Hero *hero)
     inventory->spellCount++;
     hero->gold -= spell->cost;
 
+    clear_screen();
+    printf("     You bought a %s spell!\n", spell->name);
+    if (strcmp(spell->name, "Health") == 0)
+    {
+        printf("     It gives %d health and costs %d mana!\n", spell->value, spell->mana);
+    }
+    else
+    {
+        printf("     It gives %d damage and costs %d mana!\n", spell->value, spell->mana);
+    }
+    wait_for_enter();
+
     // Upgrade the cost of the spell
     inventory->spells[inventory->spellCount - 1]->cost *= 2;
 }
@@ -121,8 +133,16 @@ void use_spell(Monsters *monsters, Hero *hero, Inventory *inventory)
     printf("     Which spell would you like to use?\n\n");
     for (int i = 0; i < inventory->spellCount; i++)
     {
-        printf("     %d. %s (%d bonus, %d mana)\n", i + 1, inventory->spells[i]->name, inventory->spells[i]->value, inventory->spells[i]->mana);
-        printf("        %s\n\n", inventory->spells[i]->description);
+        if (strcmp(inventory->spells[i]->name, "Health") == 0)
+        {
+            printf("     %d. %s (%d health, %d mana)\n", i + 1, inventory->spells[i]->name, inventory->spells[i]->value, inventory->spells[i]->mana);
+            printf("        %s\n\n", inventory->spells[i]->description);
+        }
+        else
+        {
+            printf("     %d. %s (%d damage, %d mana)\n", i + 1, inventory->spells[i]->name, inventory->spells[i]->value, inventory->spells[i]->mana);
+            printf("        %s\n\n", inventory->spells[i]->description);
+        }
     }
     printf("\n     0. Exit\n");
 
