@@ -36,10 +36,11 @@ void upgrade_spell(Inventory *inventory, Spell *spell, Hero *hero)
         {
             clear_screen();
             printf("     You upgraded your %s spell!\n", spell->name);
-            printf("     It now deals %d damage and costs %d mana.\n", spell->value, spell->mana);
             inventory->spells[i]->value += spell->value * 0.5;
+            inventory->spells[i]->mana += spell->mana * 0.1;
             hero->gold -= inventory->spells[i]->cost;
             inventory->spells[i]->cost *= 2;
+            printf("     It now deals %d damage and costs %d mana.\n", spell->value, spell->mana);
             wait_for_enter();
             return;
         }
