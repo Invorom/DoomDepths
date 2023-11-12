@@ -13,29 +13,34 @@ int main(int argc, char **argv)
     
     int menuChoice = main_menu();
 
-    if (menuChoice == 1 || menuChoice == 2) {
-        Hero *hero = initialize_hero();
-        Inventory *inventory = initialize_inventory();
+    Hero *hero = NULL;
+    Inventory *inventory = NULL;
 
-        if (menuChoice == 2) { 
-            load_game_state(hero, inventory, context, "savefile.json");
+    if (menuChoice == 1) {
+        // Initialisation pour un nouveau jeu
+        hero = initialize_hero();
+        inventory = initialize_inventory();
+        map_loading();
+        map_initialization(context);
+    } else if (menuChoice == 2) {
+        hero = malloc(sizeof(Hero)); 
+        inventory = malloc(sizeof(Inventory)); 
+        load_game_state(hero, inventory, context, "savefile.json");
+    }
 
-        } else { 
-            map_loading();
-            map_initialization(context);
-        }
-
+    if (hero && inventory) {
         if (event_loop(context, hero, inventory) == 0) {
             free_hero(hero);
             free_inventory(inventory);
             free_context(context);
             return EXIT_SUCCESS;
         }
-    } else {
-        free_context(context);
-        return EXIT_SUCCESS;
+
+        // Libération des ressources en cas d'échec de event_loop
+        free_hero(hero);
+        free_inventory(inventory);
     }
 
     free_context(context);
-    return 0;
+    return EXIT_SUCCESS;
 }

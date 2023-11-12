@@ -144,10 +144,6 @@ int main_menu()
         return 1;
 
     case '2':
-    if (file != NULL) {
-        fclose(file);
-        break;
-    }
     clear_screen();
     return 2;
     case '3':

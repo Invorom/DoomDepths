@@ -28,13 +28,13 @@
 	},
 	"hero":	{
 		"life":	100,
-		"actualLife":	88,
+		"actualLife":	100,
 		"mana":	100,
 		"actualMana":	100,
-		"gold":	30,
-		"xp":	36,
+		"gold":	20,
+		"xp":	24,
 		"level":	1,
-		"nbTurns":	2,
+		"nbTurns":	0,
 		"attackMin":	10,
 		"attackMax":	20,
 		"attackBonus":	0,
@@ -43,8 +43,8 @@
 		"donjonLevel":	1
 	},
 	"context":	{
-		"pos_x":	32,
-		"pos_y":	28,
+		"pos_x":	55,
+		"pos_y":	2,
 		"killedMonsters":	1,
 		"openedChests":	0
 	}
