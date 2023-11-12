@@ -142,7 +142,7 @@ void battle_loop(Hero *hero, Monsters *monsters, Inventory *inventory, Context *
                 clear_screen();
                 if (!isBoss)
                     display_all_monsters(monsters, hero);
-                else
+                else if (monsters->numMonsters > 0)
                     display_hero_and_boss(hero, monsters->monsters[0]);
             }
             break;
