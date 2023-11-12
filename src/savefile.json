@@ -1,0 +1,51 @@
+{
+	"inventory":	{
+		"armors":	[{
+				"value":	0,
+				"name":	"Naked",
+				"description":	"You are naked"
+			}],
+		"weapons":	[{
+				"value":	0,
+				"name":	"Fists",
+				"description":	"Your fists"
+			}],
+		"potions":	[{
+				"value":	1,
+				"name":	"Health",
+				"description":	"A potion to heal you (+20% life)"
+			}, {
+				"value":	1,
+				"name":	"Health",
+				"description":	"A potion to heal you (+20% life)"
+			}, {
+				"value":	1,
+				"name":	"Health",
+				"description":	"A potion to heal you (+20% life)"
+			}],
+		"equipedWeapon":	"Fists",
+		"equipedArmor":	"Naked"
+	},
+	"hero":	{
+		"life":	100,
+		"actualLife":	88,
+		"mana":	100,
+		"actualMana":	100,
+		"gold":	30,
+		"xp":	36,
+		"level":	1,
+		"nbTurns":	2,
+		"attackMin":	10,
+		"attackMax":	20,
+		"attackBonus":	0,
+		"defense":	10,
+		"defenseBonus":	0,
+		"donjonLevel":	1
+	},
+	"context":	{
+		"pos_x":	32,
+		"pos_y":	28,
+		"killedMonsters":	1,
+		"openedChests":	0
+	}
+}
