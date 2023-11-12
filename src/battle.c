@@ -355,11 +355,11 @@ void battle_win(Hero *hero, Monsters *monsters, Context *context, Inventory *inv
         hero->level++;
         hero->xp = 0;
         // Add 10% to the hero's stats
-        hero->life += hero->life / 10;
-        hero->mana += hero->mana / 10;
-        hero->attackMin += hero->attackMin / 10;
-        hero->attackMax += hero->attackMax / 10;
-        hero->defense += hero->defense / 10;
+        hero->life += hero->life / 15;
+        hero->mana += hero->mana / 15;
+        hero->attackMin += hero->attackMin / 20;
+        hero->attackMax += hero->attackMax / 20;
+        hero->defense += hero->defense / 20;
         printf("     You are now level %d!\n", hero->level);
     }
     wait_for_enter();
@@ -378,6 +378,24 @@ void battle_win(Hero *hero, Monsters *monsters, Context *context, Inventory *inv
     // Remove the monster from the map
     context->map[context->pos_x][context->pos_y] = PATH;
     context->killedMonsters++;
+
+    // Update the file map
+    FILE *f = fopen("../save/map.map", "w");
+    if (f == NULL)
+    {
+        printf("     Error opening file!\n");
+        exit(EXIT_FAILURE);
+    }
+    for (int y = 0; y < ROWS; y++)
+    {
+        for (int x = 0; x < COLUMNS; x++)
+        {
+            fputc(context->map[x][y], f);
+        }
+        fputc('\n', f);
+    }
+    fprintf(f, "%d %d", context->pos_x, context->pos_y);
+    fclose(f);
 
     if (isBoss)
     {

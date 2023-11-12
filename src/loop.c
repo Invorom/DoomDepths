@@ -62,6 +62,25 @@ int process_user_input(char userInput, Context *context, Hero *hero, Inventory *
             // Remove the chest from the map
             context->map[context->pos_x][context->pos_y] = PATH;
             context->openedChests++;
+
+            // Update the file map
+            FILE *f = fopen("../save/map.map", "w");
+            if (f == NULL)
+            {
+                printf("     Error opening file!\n");
+                exit(EXIT_FAILURE);
+            }
+            for (int y = 0; y < ROWS; y++)
+            {
+                for (int x = 0; x < COLUMNS; x++)
+                {
+                    fputc(context->map[x][y], f);
+                }
+                fputc('\n', f);
+            }
+            fprintf(f, "%d %d", context->pos_x, context->pos_y);
+            fclose(f);
+
             system("/bin/stty raw");
             break;
         }
@@ -119,6 +138,25 @@ int process_user_input(char userInput, Context *context, Hero *hero, Inventory *
             // Remove the chest from the map
             context->map[context->pos_x][context->pos_y] = PATH;
             context->openedChests++;
+
+            // Update the file map
+            FILE *f = fopen("../save/map.map", "w");
+            if (f == NULL)
+            {
+                printf("     Error opening file!\n");
+                exit(EXIT_FAILURE);
+            }
+            for (int y = 0; y < ROWS; y++)
+            {
+                for (int x = 0; x < COLUMNS; x++)
+                {
+                    fputc(context->map[x][y], f);
+                }
+                fputc('\n', f);
+            }
+            fprintf(f, "%d %d", context->pos_x, context->pos_y);
+            fclose(f);
+
             system("/bin/stty raw");
             break;
         }
@@ -176,6 +214,25 @@ int process_user_input(char userInput, Context *context, Hero *hero, Inventory *
             // Remove the chest from the map
             context->map[context->pos_x][context->pos_y] = PATH;
             context->openedChests++;
+
+            // Update the file map
+            FILE *f = fopen("../save/map.map", "w");
+            if (f == NULL)
+            {
+                printf("     Error opening file!\n");
+                exit(EXIT_FAILURE);
+            }
+            for (int y = 0; y < ROWS; y++)
+            {
+                for (int x = 0; x < COLUMNS; x++)
+                {
+                    fputc(context->map[x][y], f);
+                }
+                fputc('\n', f);
+            }
+            fprintf(f, "%d %d", context->pos_x, context->pos_y);
+            fclose(f);
+
             system("/bin/stty raw");
             break;
         }
@@ -233,6 +290,25 @@ int process_user_input(char userInput, Context *context, Hero *hero, Inventory *
             // Remove the chest from the map
             context->map[context->pos_x][context->pos_y] = PATH;
             context->openedChests++;
+
+            // Update the file map
+            FILE *f = fopen("../save/map.map", "w");
+            if (f == NULL)
+            {
+                printf("     Error opening file!\n");
+                exit(EXIT_FAILURE);
+            }
+            for (int y = 0; y < ROWS; y++)
+            {
+                for (int x = 0; x < COLUMNS; x++)
+                {
+                    fputc(context->map[x][y], f);
+                }
+                fputc('\n', f);
+            }
+            fprintf(f, "%d %d", context->pos_x, context->pos_y);
+            fclose(f);
+
             system("/bin/stty raw");
             break;
         }
