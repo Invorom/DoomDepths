@@ -123,11 +123,11 @@ void display_shop_potions(Inventory *inventory, Hero *hero)
     int input = -1;
 
     clear_screen();
-    printf("Which potion would you like to buy?\n\n");
-    printf("1. Health Potion (20%% health) - 10 gold\n");
-    printf("2. Mana Potion (20%% mana) - 10 gold\n");
-    printf("3. Attack Potion (20 attack) - 10 gold\n");
-    printf("\n0. Exit\n");
+    printf("     Which potion would you like to buy?\n\n");
+    printf("     1. Health Potion (20%% health) - 50 gold\n");
+    printf("     2. Mana Potion (20%% mana) - 50 gold\n");
+    printf("     3. Attack Potion (20 attack) - 50 gold\n");
+    printf("\n     0. Exit\n");
 
     // Ask the user to choose an action
     while (input != '1' && input != '2' && input != '3' && input != '0')
